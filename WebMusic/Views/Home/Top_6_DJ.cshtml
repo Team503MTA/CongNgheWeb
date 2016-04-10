@@ -1,0 +1,79 @@
+﻿
+
+
+@using WebMusic.Models;
+@model List<TOP_6_DJ>
+
+
+<div class="top-6-dj">
+    <p class="top-6-dj-title">Top 6 DJ</p>
+    <div class="top-6-dj-content">
+        <div class="top-6-dj-slider">
+
+            @{
+                var count = 0;
+                while (count < Model.Count)
+                {
+
+                    <div stt="0" class="top-6-dj-child">
+                        <ul>
+                            <li>
+                                <div class="string-in-img">
+                                    <img src="@Model.ElementAt(count).IMG" alt="">
+                                    <div class="string-in-img-control">
+                                        <span>Follow</span>
+                                        <button class="string-in-img-fb">
+                                            <i class="fa fa-facebook"></i>
+                                        </button>
+                                        <button class="string-in-img-tw"><i class="fa fa-twitter"></i></button>
+                                    </div>
+                                    <div class="string-in-img-name">
+                                        <a href="#" id="string-name-right">@Model.ElementAt(count).NAME_ARTIST</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="string-in-img">
+                                    <img src="@Model.ElementAt(count+1).IMG" alt="">
+                                    <div class="string-in-img-control">
+                                        <span>Follow</span>
+                                        <button class="string-in-img-fb">
+                                            <i class="fa fa-facebook"></i>
+                                        </button>
+                                        <button class="string-in-img-tw"><i class="fa fa-twitter"></i></button>
+                                    </div>
+                                    <div class="string-in-img-name">
+                                        <a href="#" id="string-name-right">@Model.ElementAt(count + 1).NAME_ARTIST</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="string-in-img">
+                                    <img src="@Model.ElementAt(count+2).IMG" alt="">
+                                    <div class="string-in-img-control">
+                                        <span>Follow</span>
+                                        <button class="string-in-img-fb">
+                                            <i class="fa fa-facebook"></i>
+                                        </button>
+                                        <button class="string-in-img-tw"><i class="fa fa-twitter"></i></button>
+                                    </div>
+                                    <div class="string-in-img-name">
+                                        <a href="#" id="string-name-right">@Model.ElementAt(count + 2).NAME_ARTIST</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    count += 3;
+
+                }
+            }
+
+            <div class="top-6-dj-control">
+                <div stt="0" class="top-6-dj-button-active top-6-dj-button"></div>
+                <div stt="1" class="top-6-dj-button"></div>
+            </div>
+        </div>
+    </div>
+</div>

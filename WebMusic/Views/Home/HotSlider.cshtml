@@ -1,0 +1,31 @@
+﻿
+@using WebMusic.Models;
+@model  List<WebMusic.Models.HOME_HOT_NEW>
+
+
+
+<div class="hot-slider">
+
+    @{
+        var count = 0;
+        foreach (var item in Model)
+        {
+            <div stt="@count" class="hot-slider-img">
+                <a href="#"><img src="@item.LINK_IMG" alt="D"></a>
+            </div>
+            count++;
+        }
+    }
+
+    <div class="hot-slider-control">
+        <div stt="0" class="hot-slider-button-active hot-slider-button"></div>
+        <div stt="1" class="hot-slider-button"></div>
+        <div stt="2" class="hot-slider-button"></div>
+        <div stt="3" class="hot-slider-button"></div>
+        <div stt="4" class="hot-slider-button"></div>
+        <div stt="5" class="hot-slider-button"></div>
+        <div stt="6" class="hot-slider-button"></div>
+        <div stt="7" class="hot-slider-button"></div>
+        <div stt="8" class="hot-slider-button"></div>
+    </div>
+</div>

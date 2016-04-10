@@ -1,0 +1,292 @@
+﻿@using WebMusic.Models;
+@model List<NEW_TRACK>
+
+
+
+<div class="new-tracks">
+    <p class="new-tracks-title">New Tracks</p>
+
+    @{
+
+        var count = 0;
+        string activeDefine;
+
+
+        for (var i = 0; i < 7; i++)
+        {
+            if (i == 0)
+            {
+                activeDefine = "new-track-div-active";
+            }
+            else
+            {
+                activeDefine = "";
+            }
+
+            <div stt="@i" class="new-track-div @activeDefine">
+                <ul class="new-track-div-ul">
+                    <li>
+                        <div class="new-track-child">
+                            <div class="new-track-child-top">
+                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <div class="new-track-child-top-control">
+
+                                    <button sttID ="@Model.ElementAt(count).ID" class="new-track-child-play"><i class="fa fa-play"></i></button>
+                                    <button class="new-track-child-buy">$@Model.ElementAt(count).COST</button>
+                                    <button class="new-track-child-share"><i class="fa fa-facebook"></i>Share</button>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="new-track-child-bottom">
+                                <p class="new-track-detail"><a class="new-track-detail-1" href="@Url.Action("Index","Track",new {@id = Model.ElementAt(count).ID})" title="@Model.ElementAt(count).NAME">@Model.ElementAt(count).NAME</a></p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][0])
+                                    {
+                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][1])
+                                    {
+                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+
+                    <li>
+                        <div class="new-track-child">
+                            <div class="new-track-child-top">
+                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <div class="new-track-child-top-control">
+                                    <button class="new-track-child-play"><i class="fa fa-play"></i></button>
+                                    <button class="new-track-child-buy">$@Model.ElementAt(count).COST</button>
+                                    <button class="new-track-child-share"><i class="fa fa-facebook"></i>Share</button>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="new-track-child-bottom">
+                                <p class="new-track-detail"><a class="new-track-detail-1" href="#" title="@Model.ElementAt(count).NAME">@Model.ElementAt(count).NAME</a></p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][0])
+                                    {
+                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][1])
+                                    {
+                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+
+                    <li>
+                        <div class="new-track-child">
+                            <div class="new-track-child-top">
+                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <div class="new-track-child-top-control">
+                                    <button class="new-track-child-play"><i class="fa fa-play"></i></button>
+                                    <button class="new-track-child-buy">$@Model.ElementAt(count).COST</button>
+                                    <button class="new-track-child-share"><i class="fa fa-facebook"></i>Share</button>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="new-track-child-bottom">
+                                <p class="new-track-detail"><a class="new-track-detail-1" href="#" title="@Model.ElementAt(count).NAME">@Model.ElementAt(count).NAME</a></p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][0])
+                                    {
+                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][1])
+                                    {
+                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+
+                    <li>
+                        <div class="new-track-child">
+                            <div class="new-track-child-top">
+                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <div class="new-track-child-top-control">
+                                    <button class="new-track-child-play"><i class="fa fa-play"></i></button>
+                                    <button class="new-track-child-buy">$@Model.ElementAt(count).COST</button>
+                                    <button class="new-track-child-share"><i class="fa fa-facebook"></i>Share</button>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="new-track-child-bottom">
+                                <p class="new-track-detail"><a class="new-track-detail-1" href="#" title="@Model.ElementAt(count).NAME">@Model.ElementAt(count).NAME</a></p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][0])
+                                    {
+                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][1])
+                                    {
+                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+                </ul>
+
+                <ul class="new-track-div-ul">
+                    <li>
+                        <div class="new-track-child">
+                            <div class="new-track-child-top">
+                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <div class="new-track-child-top-control">
+                                    <button class="new-track-child-play"><i class="fa fa-play"></i></button>
+                                    <button class="new-track-child-buy">$@Model.ElementAt(count).COST</button>
+                                    <button class="new-track-child-share"><i class="fa fa-facebook"></i>Share</button>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="new-track-child-bottom">
+                                <p class="new-track-detail"><a class="new-track-detail-1" href="#" title="@Model.ElementAt(count).NAME">@Model.ElementAt(count).NAME</a></p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][0])
+                                    {
+                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][1])
+                                    {
+                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+
+                    <li>
+                        <div class="new-track-child">
+                            <div class="new-track-child-top">
+                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <div class="new-track-child-top-control">
+                                    <button class="new-track-child-play"><i class="fa fa-play"></i></button>
+                                    <button class="new-track-child-buy">$@Model.ElementAt(count).COST</button>
+                                    <button class="new-track-child-share"><i class="fa fa-facebook"></i>Share</button>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="new-track-child-bottom">
+                                <p class="new-track-detail"><a class="new-track-detail-1" href="#" title="@Model.ElementAt(count).NAME">@Model.ElementAt(count).NAME</a></p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][0])
+                                    {
+                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][1])
+                                    {
+                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+
+                    <li>
+                        <div class="new-track-child">
+                            <div class="new-track-child-top">
+                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <div class="new-track-child-top-control">
+                                    <button class="new-track-child-play"><i class="fa fa-play"></i></button>
+                                    <button class="new-track-child-buy">$@Model.ElementAt(count).COST</button>
+                                    <button class="new-track-child-share"><i class="fa fa-facebook"></i>Share</button>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="new-track-child-bottom">
+                                <p class="new-track-detail"><a class="new-track-detail-1" href="#" title="@Model.ElementAt(count).NAME">@Model.ElementAt(count).NAME</a></p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][0])
+                                    {
+                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][1])
+                                    {
+                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+
+                    <li>
+                        <div class="new-track-child">
+                            <div class="new-track-child-top">
+                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <div class="new-track-child-top-control">
+                                    @using (Html.BeginForm("TagMusic", "PlayOfPart", new { @id = @Model.ElementAt(count).ID }))
+                                    {
+                                        <button class="new-track-child-play"><i class="fa fa-play"></i></button>
+                                    }
+                                    <button class="new-track-child-buy">$@Model.ElementAt(count).COST</button>
+                                    <button class="new-track-child-share"><i class="fa fa-facebook"></i>Share</button>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="new-track-child-bottom">
+                                <p class="new-track-detail"><a class="new-track-detail-1" href="#" title="@Model.ElementAt(count).NAME">@Model.ElementAt(count).NAME</a></p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][0])
+                                    {
+                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                                <p class="new-track-detail">
+                                    @foreach (var item in ViewBag.NewTrackInfo[count][1])
+                                    {
+                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+                </ul>
+            </div>
+
+                        }
+
+
+    }
+
+    <div class="new-tracks-pages">
+        <ul>
+            <li stt="0" class="new-tracks-pages-li new-tracks-pages-li-active"></li>
+            <li stt="1" class="new-tracks-pages-li"></li>
+            <li stt="2" class="new-tracks-pages-li"></li>
+            <li stt="3" class="new-tracks-pages-li"></li>
+            <li stt="4" class="new-tracks-pages-li"></li>
+            <li stt="5" class="new-tracks-pages-li"></li>
+            <li stt="6" class="new-tracks-pages-li"></li>
+        </ul>
+    </div>
+</div>
