@@ -35,5 +35,6 @@ namespace WebMusic.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REMIX_ARTIST> REMIX_ARTIST { get; set; }
         public virtual TRACK TRACK { get; set; }
+        public virtual STATISTIC_REMIX STATISTIC_REMIX { get; set; }
     }
 }

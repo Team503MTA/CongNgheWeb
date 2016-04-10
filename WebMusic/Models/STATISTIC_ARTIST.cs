@@ -15,11 +15,12 @@ namespace WebMusic.Models
     public partial class STATISTIC_ARTIST
     {
         public int ID_ARTIST { get; set; }
-        public Nullable<int> CLI_PER_MON { get; set; }
-        public Nullable<int> CLI_ALL { get; set; }
-        public Nullable<int> BUY_PER_MON { get; set; }
+        public Nullable<int> CLICK_MONTH { get; set; }
+        public Nullable<int> CLICK_ALL { get; set; }
+        public Nullable<int> BUY_MONTH { get; set; }
         public Nullable<int> BUY_ALL { get; set; }
         public Nullable<int> POINT_MONTH { get; set; }
+        public Nullable<int> POINT_ALL { get; set; }
     
         public virtual ARTIST ARTIST { get; set; }
     }

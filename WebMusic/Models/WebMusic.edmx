@@ -16,8 +16,9 @@
           <Property Name="DESCRIP" Type="nvarchar" MaxLength="4000" />
           <Property Name="TW" Type="nvarchar" MaxLength="100" />
           <Property Name="FB" Type="nvarchar" MaxLength="100" />
-          <Property Name="ID_NOW_LABEL" Type="smallint" />
+          <Property Name="ID_LABEL" Type="smallint" />
           <Property Name="IMG" Type="nvarchar" MaxLength="150" />
+          <Property Name="NAME_LABEL" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="FORMULA_HOT">
           <Key>
@@ -43,6 +44,8 @@
           </Key>
           <Property Name="ID_ARTIST" Type="int" Nullable="false" />
           <Property Name="ID_GENRE" Type="smallint" Nullable="false" />
+          <Property Name="POINT" Type="tinyint" />
+          <Property Name="NAME_GENRE" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="GENRE_LABEL">
           <Key>
@@ -149,22 +152,36 @@
             <PropertyRef Name="ID_ARTIST" />
           </Key>
           <Property Name="ID_ARTIST" Type="int" Nullable="false" />
-          <Property Name="CLI_PER_MON" Type="int" />
-          <Property Name="CLI_ALL" Type="int" />
-          <Property Name="BUY_PER_MON" Type="int" />
+          <Property Name="CLICK_MONTH" Type="int" />
+          <Property Name="CLICK_ALL" Type="int" />
+          <Property Name="BUY_MONTH" Type="int" />
           <Property Name="BUY_ALL" Type="int" />
           <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POINT_ALL" Type="int" />
+        </EntityType>
+        <EntityType Name="STATISTIC_REMIX">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CLICK_ALL" Type="int" />
+          <Property Name="CLICK_MONTH" Type="int" />
+          <Property Name="BUY_ALL" Type="int" />
+          <Property Name="BUY_MONTH" Type="int" />
+          <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POINT_ALL" Type="int" />
         </EntityType>
         <EntityType Name="STATISTIC_TRACK">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="ALL_CLICK" Type="int" />
+          <Property Name="CLICK_ALL" Type="int" />
           <Property Name="CLICK_MONTH" Type="int" />
-          <Property Name="ALL_BUY" Type="int" />
+          <Property Name="BUY_ALL" Type="int" />
           <Property Name="BUY_MONTH" Type="int" />
           <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POINT_ALL" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -200,6 +217,8 @@
           <Property Name="DESCRIPT" Type="nvarchar" MaxLength="4000" />
           <Property Name="LENGTH" Type="nvarchar" MaxLength="10" />
           <Property Name="GENRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POINT_ALL" Type="int" />
         </EntityType>
         <EntityType Name="TRACK_ARTIST">
           <Key>
@@ -259,7 +278,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ARTIST">
-              <PropertyRef Name="ID_NOW_LABEL" />
+              <PropertyRef Name="ID_LABEL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -429,6 +448,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_STATISTIC_REMIX_REMIX">
+          <End Role="REMIX" Type="Self.REMIX" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="STATISTIC_REMIX" Type="Self.STATISTIC_REMIX" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="REMIX">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STATISTIC_REMIX">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_STATISTIC_TRACK_TRACK">
           <End Role="TRACK" Type="Self.TRACK" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -543,6 +576,7 @@
           <EntitySet Name="SALE" EntityType="Self.SALE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SHOW" EntityType="Self.SHOW" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STATISTIC_ARTIST" EntityType="Self.STATISTIC_ARTIST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STATISTIC_REMIX" EntityType="Self.STATISTIC_REMIX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STATISTIC_TRACK" EntityType="Self.STATISTIC_TRACK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TOP_6_DJ" EntityType="Self.TOP_6_DJ" Schema="dbo" store:Type="Tables" />
@@ -604,6 +638,10 @@
             <End Role="ARTIST" EntitySet="ARTIST" />
             <End Role="STATISTIC_ARTIST" EntitySet="STATISTIC_ARTIST" />
           </AssociationSet>
+          <AssociationSet Name="FK_STATISTIC_REMIX_REMIX" Association="Self.FK_STATISTIC_REMIX_REMIX">
+            <End Role="REMIX" EntitySet="REMIX" />
+            <End Role="STATISTIC_REMIX" EntitySet="STATISTIC_REMIX" />
+          </AssociationSet>
           <AssociationSet Name="FK_STATISTIC_TRACK_TRACK" Association="Self.FK_STATISTIC_TRACK_TRACK">
             <End Role="TRACK" EntitySet="TRACK" />
             <End Role="STATISTIC_TRACK" EntitySet="STATISTIC_TRACK" />
@@ -649,14 +687,15 @@
           <Property Name="DESCRIP" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="TW" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="FB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ID_NOW_LABEL" Type="Int16" />
+          <Property Name="ID_LABEL" Type="Int16" />
           <Property Name="IMG" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_LABEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LABEL" Relationship="Self.FK_ARTIST_LABEL" FromRole="ARTIST" ToRole="LABEL" />
+          <NavigationProperty Name="GENRE_ARTIST" Relationship="Self.FK_GENRE_ARTIST_ARTIST" FromRole="ARTIST" ToRole="GENRE_ARTIST" />
           <NavigationProperty Name="REMIX_ARTIST" Relationship="Self.FK_REMIX_ARTIST_ARTIST" FromRole="ARTIST" ToRole="REMIX_ARTIST" />
           <NavigationProperty Name="SHOWs" Relationship="Self.FK_SHOW_ARTIST" FromRole="ARTIST" ToRole="SHOW" />
           <NavigationProperty Name="STATISTIC_ARTIST" Relationship="Self.FK_STATISTIC_ARTIST_ARTIST" FromRole="ARTIST" ToRole="STATISTIC_ARTIST" />
           <NavigationProperty Name="TRACK_ARTIST" Relationship="Self.FK_TRACK_ARTIST_ARTIST" FromRole="ARTIST" ToRole="TRACK_ARTIST" />
-          <NavigationProperty Name="GENREs" Relationship="Self.GENRE_ARTIST" FromRole="ARTIST" ToRole="GENRE" />
         </EntityType>
         <EntityType Name="FORMULA_HOT">
           <Key>
@@ -674,8 +713,20 @@
           <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DESCRIP" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="TEMPO" Type="Byte" />
-          <NavigationProperty Name="ARTISTs" Relationship="Self.GENRE_ARTIST" FromRole="GENRE" ToRole="ARTIST" />
+          <NavigationProperty Name="GENRE_ARTIST" Relationship="Self.FK_GENRE_ARTIST_GENRE" FromRole="GENRE" ToRole="GENRE_ARTIST" />
           <NavigationProperty Name="LABELs" Relationship="Self.GENRE_LABEL" FromRole="GENRE" ToRole="LABEL" />
+        </EntityType>
+        <EntityType Name="GENRE_ARTIST">
+          <Key>
+            <PropertyRef Name="ID_ARTIST" />
+            <PropertyRef Name="ID_GENRE" />
+          </Key>
+          <Property Name="ID_ARTIST" Type="Int32" Nullable="false" />
+          <Property Name="ID_GENRE" Type="Int16" Nullable="false" />
+          <Property Name="POINT" Type="Byte" />
+          <Property Name="NAME_GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ARTIST" Relationship="Self.FK_GENRE_ARTIST_ARTIST" FromRole="GENRE_ARTIST" ToRole="ARTIST" />
+          <NavigationProperty Name="GENRE" Relationship="Self.FK_GENRE_ARTIST_GENRE" FromRole="GENRE_ARTIST" ToRole="GENRE" />
         </EntityType>
         <EntityType Name="HISTORY_USER">
           <Key>
@@ -746,6 +797,7 @@
           <Property Name="GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="REMIX_ARTIST" Relationship="Self.FK_REMIX_ARTIST_REMIX1" FromRole="REMIX" ToRole="REMIX_ARTIST" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_REMIX_TRACK" FromRole="REMIX" ToRole="TRACK" />
+          <NavigationProperty Name="STATISTIC_REMIX" Relationship="Self.FK_STATISTIC_REMIX_REMIX" FromRole="REMIX" ToRole="STATISTIC_REMIX" />
         </EntityType>
         <EntityType Name="REMIX_ARTIST">
           <Key>
@@ -784,23 +836,38 @@
             <PropertyRef Name="ID_ARTIST" />
           </Key>
           <Property Name="ID_ARTIST" Type="Int32" Nullable="false" />
-          <Property Name="CLI_PER_MON" Type="Int32" />
-          <Property Name="CLI_ALL" Type="Int32" />
-          <Property Name="BUY_PER_MON" Type="Int32" />
+          <Property Name="CLICK_MONTH" Type="Int32" />
+          <Property Name="CLICK_ALL" Type="Int32" />
+          <Property Name="BUY_MONTH" Type="Int32" />
           <Property Name="BUY_ALL" Type="Int32" />
           <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POINT_ALL" Type="Int32" />
           <NavigationProperty Name="ARTIST" Relationship="Self.FK_STATISTIC_ARTIST_ARTIST" FromRole="STATISTIC_ARTIST" ToRole="ARTIST" />
+        </EntityType>
+        <EntityType Name="STATISTIC_REMIX">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CLICK_ALL" Type="Int32" />
+          <Property Name="CLICK_MONTH" Type="Int32" />
+          <Property Name="BUY_ALL" Type="Int32" />
+          <Property Name="BUY_MONTH" Type="Int32" />
+          <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POINT_ALL" Type="Int32" />
+          <NavigationProperty Name="REMIX" Relationship="Self.FK_STATISTIC_REMIX_REMIX" FromRole="STATISTIC_REMIX" ToRole="REMIX" />
         </EntityType>
         <EntityType Name="STATISTIC_TRACK">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="ALL_CLICK" Type="Int32" />
+          <Property Name="CLICK_ALL" Type="Int32" />
           <Property Name="CLICK_MONTH" Type="Int32" />
-          <Property Name="ALL_BUY" Type="Int32" />
+          <Property Name="BUY_ALL" Type="Int32" />
           <Property Name="BUY_MONTH" Type="Int32" />
           <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POINT_ALL" Type="Int32" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_STATISTIC_TRACK_TRACK" FromRole="STATISTIC_TRACK" ToRole="TRACK" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -837,6 +904,8 @@
           <Property Name="DESCRIPT" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="LENGTH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POINT_ALL" Type="Int32" />
           <NavigationProperty Name="HISTORY_USER" Relationship="Self.FK_HISTORY_USER_TRACK" FromRole="TRACK" ToRole="HISTORY_USER" />
           <NavigationProperty Name="NEW_TRACK" Relationship="Self.FK_NEW_TRACK_TRACK" FromRole="TRACK" ToRole="NEW_TRACK" />
           <NavigationProperty Name="REMIXes" Relationship="Self.FK_REMIX_TRACK" FromRole="TRACK" ToRole="REMIX" />
@@ -892,7 +961,21 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ARTIST">
-              <PropertyRef Name="ID_NOW_LABEL" />
+              <PropertyRef Name="ID_LABEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GENRE_ARTIST_ARTIST">
+          <End Role="ARTIST" Type="Self.ARTIST" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GENRE_ARTIST" Type="Self.GENRE_ARTIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTIST">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GENRE_ARTIST">
+              <PropertyRef Name="ID_ARTIST" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -949,6 +1032,20 @@
             </Principal>
             <Dependent Role="TRACK_ARTIST">
               <PropertyRef Name="ID_ARTIST" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GENRE_ARTIST_GENRE">
+          <End Role="GENRE" Type="Self.GENRE" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GENRE_ARTIST" Type="Self.GENRE_ARTIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GENRE_ARTIST">
+              <PropertyRef Name="ID_GENRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1020,6 +1117,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_STATISTIC_REMIX_REMIX">
+          <End Role="REMIX" Type="Self.REMIX" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="STATISTIC_REMIX" Type="Self.STATISTIC_REMIX" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="REMIX">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STATISTIC_REMIX">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_STATISTIC_TRACK_TRACK">
           <End Role="TRACK" Type="Self.TRACK" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1048,10 +1159,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="GENRE_ARTIST">
-          <End Role="ARTIST" Type="Self.ARTIST" Multiplicity="*" />
-          <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
-        </Association>
         <Association Name="GENRE_LABEL">
           <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
           <End Role="LABEL" Type="Self.LABEL" Multiplicity="*" />
@@ -1068,6 +1175,7 @@
           <EntitySet Name="ARTISTs" EntityType="Self.ARTIST" />
           <EntitySet Name="FORMULA_HOT" EntityType="Self.FORMULA_HOT" />
           <EntitySet Name="GENREs" EntityType="Self.GENRE" />
+          <EntitySet Name="GENRE_ARTIST" EntityType="Self.GENRE_ARTIST" />
           <EntitySet Name="HISTORY_USER" EntityType="Self.HISTORY_USER" />
           <EntitySet Name="HOME_HOT_NEW" EntityType="Self.HOME_HOT_NEW" />
           <EntitySet Name="Home_NewTrack" EntityType="Self.Home_NewTrack" />
@@ -1078,6 +1186,7 @@
           <EntitySet Name="SALEs" EntityType="Self.SALE" />
           <EntitySet Name="SHOWs" EntityType="Self.SHOW" />
           <EntitySet Name="STATISTIC_ARTIST" EntityType="Self.STATISTIC_ARTIST" />
+          <EntitySet Name="STATISTIC_REMIX" EntityType="Self.STATISTIC_REMIX" />
           <EntitySet Name="STATISTIC_TRACK" EntityType="Self.STATISTIC_TRACK" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TOP_6_DJ" EntityType="Self.TOP_6_DJ" />
@@ -1088,6 +1197,10 @@
           <AssociationSet Name="FK_ARTIST_LABEL" Association="Self.FK_ARTIST_LABEL">
             <End Role="LABEL" EntitySet="LABELs" />
             <End Role="ARTIST" EntitySet="ARTISTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GENRE_ARTIST_ARTIST" Association="Self.FK_GENRE_ARTIST_ARTIST">
+            <End Role="ARTIST" EntitySet="ARTISTs" />
+            <End Role="GENRE_ARTIST" EntitySet="GENRE_ARTIST" />
           </AssociationSet>
           <AssociationSet Name="FK_REMIX_ARTIST_ARTIST" Association="Self.FK_REMIX_ARTIST_ARTIST">
             <End Role="ARTIST" EntitySet="ARTISTs" />
@@ -1104,6 +1217,10 @@
           <AssociationSet Name="FK_TRACK_ARTIST_ARTIST" Association="Self.FK_TRACK_ARTIST_ARTIST">
             <End Role="ARTIST" EntitySet="ARTISTs" />
             <End Role="TRACK_ARTIST" EntitySet="TRACK_ARTIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GENRE_ARTIST_GENRE" Association="Self.FK_GENRE_ARTIST_GENRE">
+            <End Role="GENRE" EntitySet="GENREs" />
+            <End Role="GENRE_ARTIST" EntitySet="GENRE_ARTIST" />
           </AssociationSet>
           <AssociationSet Name="FK_HISTORY_USER_TRACK" Association="Self.FK_HISTORY_USER_TRACK">
             <End Role="TRACK" EntitySet="TRACKs" />
@@ -1125,6 +1242,10 @@
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="REMIX" EntitySet="REMIXes" />
           </AssociationSet>
+          <AssociationSet Name="FK_STATISTIC_REMIX_REMIX" Association="Self.FK_STATISTIC_REMIX_REMIX">
+            <End Role="REMIX" EntitySet="REMIXes" />
+            <End Role="STATISTIC_REMIX" EntitySet="STATISTIC_REMIX" />
+          </AssociationSet>
           <AssociationSet Name="FK_STATISTIC_TRACK_TRACK" Association="Self.FK_STATISTIC_TRACK_TRACK">
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="STATISTIC_TRACK" EntitySet="STATISTIC_TRACK" />
@@ -1132,10 +1253,6 @@
           <AssociationSet Name="FK_TRACK_ARTIST_TRACK" Association="Self.FK_TRACK_ARTIST_TRACK">
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="TRACK_ARTIST" EntitySet="TRACK_ARTIST" />
-          </AssociationSet>
-          <AssociationSet Name="GENRE_ARTIST" Association="Self.GENRE_ARTIST">
-            <End Role="ARTIST" EntitySet="ARTISTs" />
-            <End Role="GENRE" EntitySet="GENREs" />
           </AssociationSet>
           <AssociationSet Name="GENRE_LABEL" Association="Self.GENRE_LABEL">
             <End Role="GENRE" EntitySet="GENREs" />
@@ -1166,8 +1283,9 @@
                 <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
                 <ScalarProperty Name="TW" ColumnName="TW" />
                 <ScalarProperty Name="FB" ColumnName="FB" />
-                <ScalarProperty Name="ID_NOW_LABEL" ColumnName="ID_NOW_LABEL" />
+                <ScalarProperty Name="ID_LABEL" ColumnName="ID_LABEL" />
                 <ScalarProperty Name="IMG" ColumnName="IMG" />
+                <ScalarProperty Name="NAME_LABEL" ColumnName="NAME_LABEL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1186,6 +1304,16 @@
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
                 <ScalarProperty Name="TEMPO" ColumnName="TEMPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENRE_ARTIST">
+            <EntityTypeMapping TypeName="MusicModel.GENRE_ARTIST">
+              <MappingFragment StoreEntitySet="GENRE_ARTIST">
+                <ScalarProperty Name="ID_ARTIST" ColumnName="ID_ARTIST" />
+                <ScalarProperty Name="ID_GENRE" ColumnName="ID_GENRE" />
+                <ScalarProperty Name="POINT" ColumnName="POINT" />
+                <ScalarProperty Name="NAME_GENRE" ColumnName="NAME_GENRE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1292,11 +1420,25 @@
             <EntityTypeMapping TypeName="MusicModel.STATISTIC_ARTIST">
               <MappingFragment StoreEntitySet="STATISTIC_ARTIST">
                 <ScalarProperty Name="ID_ARTIST" ColumnName="ID_ARTIST" />
-                <ScalarProperty Name="CLI_PER_MON" ColumnName="CLI_PER_MON" />
-                <ScalarProperty Name="CLI_ALL" ColumnName="CLI_ALL" />
-                <ScalarProperty Name="BUY_PER_MON" ColumnName="BUY_PER_MON" />
+                <ScalarProperty Name="CLICK_MONTH" ColumnName="CLICK_MONTH" />
+                <ScalarProperty Name="CLICK_ALL" ColumnName="CLICK_ALL" />
+                <ScalarProperty Name="BUY_MONTH" ColumnName="BUY_MONTH" />
                 <ScalarProperty Name="BUY_ALL" ColumnName="BUY_ALL" />
                 <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATISTIC_REMIX">
+            <EntityTypeMapping TypeName="MusicModel.STATISTIC_REMIX">
+              <MappingFragment StoreEntitySet="STATISTIC_REMIX">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CLICK_ALL" ColumnName="CLICK_ALL" />
+                <ScalarProperty Name="CLICK_MONTH" ColumnName="CLICK_MONTH" />
+                <ScalarProperty Name="BUY_ALL" ColumnName="BUY_ALL" />
+                <ScalarProperty Name="BUY_MONTH" ColumnName="BUY_MONTH" />
+                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1304,11 +1446,12 @@
             <EntityTypeMapping TypeName="MusicModel.STATISTIC_TRACK">
               <MappingFragment StoreEntitySet="STATISTIC_TRACK">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ALL_CLICK" ColumnName="ALL_CLICK" />
+                <ScalarProperty Name="CLICK_ALL" ColumnName="CLICK_ALL" />
                 <ScalarProperty Name="CLICK_MONTH" ColumnName="CLICK_MONTH" />
-                <ScalarProperty Name="ALL_BUY" ColumnName="ALL_BUY" />
+                <ScalarProperty Name="BUY_ALL" ColumnName="BUY_ALL" />
                 <ScalarProperty Name="BUY_MONTH" ColumnName="BUY_MONTH" />
                 <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1347,6 +1490,8 @@
                 <ScalarProperty Name="DESCRIPT" ColumnName="DESCRIPT" />
                 <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
                 <ScalarProperty Name="GENRE" ColumnName="GENRE" />
+                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1384,14 +1529,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="GENRE_ARTIST" TypeName="MusicModel.GENRE_ARTIST" StoreEntitySet="GENRE_ARTIST">
-            <EndProperty Name="ARTIST">
-              <ScalarProperty Name="ID" ColumnName="ID_ARTIST" />
-            </EndProperty>
-            <EndProperty Name="GENRE">
-              <ScalarProperty Name="ID" ColumnName="ID_GENRE" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="GENRE_LABEL" TypeName="MusicModel.GENRE_LABEL" StoreEntitySet="GENRE_LABEL">
             <EndProperty Name="GENRE">
               <ScalarProperty Name="ID" ColumnName="ID_GENRE" />

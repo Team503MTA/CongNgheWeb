@@ -12,7 +12,7 @@ namespace WebMusic.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class STATISTIC_TRACK
+    public partial class STATISTIC_REMIX
     {
         public int ID { get; set; }
         public Nullable<int> CLICK_ALL { get; set; }
@@ -22,6 +22,6 @@ namespace WebMusic.Models
         public Nullable<int> POINT_MONTH { get; set; }
         public Nullable<int> POINT_ALL { get; set; }
     
-        public virtual TRACK TRACK { get; set; }
+        public virtual REMIX REMIX { get; set; }
     }
 }
