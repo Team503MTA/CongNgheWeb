@@ -48,7 +48,7 @@ namespace WebMusic.Controllers
 
         public PartialViewResult Hot_Remix(int id)
         {
-            return PartialView();
+            return PartialView(11);
         }
     }
 }
