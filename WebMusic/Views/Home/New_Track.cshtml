@@ -42,13 +42,13 @@
                                 <p class="new-track-detail">
                                     @foreach (var item in ViewBag.NewTrackInfo[count][0])
                                     {
-                                        <a class="new-track-detail-2" href="#" title=". @item ">. @item </a>
+                                        <a class="new-track-detail-2" href="@Url.Action("Index","Artist",new {@artistName = item})" title="@item">@item, </a>
                                     }
                                 </p>
                                 <p class="new-track-detail">
                                     @foreach (var item in ViewBag.NewTrackInfo[count][1])
                                     {
-                                        <a class="new-track-detail-3" href="#" title=". @item ">. @item </a>
+                                        <a class="new-track-detail-3" href="#" title="@item">@item, </a>
                                     }
                                 </p>
                             </div>

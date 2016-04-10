@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
@@ -184,6 +185,9 @@
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GENRE.cs">
+      <DependentUpon>WebMusic.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GENRE_ARTIST.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HISTORY_USER.cs">
@@ -216,6 +220,9 @@
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\STATISTIC_ARTIST.cs">
+      <DependentUpon>WebMusic.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\STATISTIC_REMIX.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\STATISTIC_TRACK.cs">
@@ -258,9 +265,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\MainLayout_CSS\Artist.css" />
     <Content Include="Content\MainLayout_CSS\fonts\AUBREY1__.svg" />
     <Content Include="Content\MainLayout_CSS\fonts\Player One.svg" />
     <Content Include="Content\MainLayout_CSS\fonts\Snake Jacket12.svg" />
@@ -310,6 +315,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MainLayout_JS\main-detail-artist.js" />
     <Content Include="Scripts\MainLayout_JS\main-detail-track.js" />
     <Content Include="Scripts\MainLayout_JS\main-index.js" />
     <Content Include="Scripts\MainLayout_JS\main-layout.js" />
@@ -358,6 +364,9 @@
     <Content Include="Views\Track\Track_Total.cshtml" />
     <Content Include="Views\Track\More_Track_Artist.cshtml" />
     <Content Include="Views\Track\More_Track_Label.cshtml" />
+    <Content Include="Views\Artist\Index.cshtml" />
+    <Content Include="Views\Artist\Detail_Artist.cshtml" />
+    <Content Include="Views\Artist\Total_Track_Artist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
