@@ -12,16 +12,14 @@ namespace WebMusic.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class STATISTIC_TRACK
+    public partial class GENRE_ARTIST
     {
-        public int ID { get; set; }
-        public Nullable<int> CLICK_ALL { get; set; }
-        public Nullable<int> CLICK_MONTH { get; set; }
-        public Nullable<int> BUY_ALL { get; set; }
-        public Nullable<int> BUY_MONTH { get; set; }
-        public Nullable<int> POINT_MONTH { get; set; }
-        public Nullable<int> POINT_ALL { get; set; }
+        public int ID_ARTIST { get; set; }
+        public short ID_GENRE { get; set; }
+        public Nullable<byte> POINT { get; set; }
+        public string NAME_GENRE { get; set; }
     
-        public virtual TRACK TRACK { get; set; }
+        public virtual ARTIST ARTIST { get; set; }
+        public virtual GENRE GENRE { get; set; }
     }
 }

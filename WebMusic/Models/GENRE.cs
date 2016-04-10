@@ -17,7 +17,7 @@ namespace WebMusic.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GENRE()
         {
-            this.ARTISTs = new HashSet<ARTIST>();
+            this.GENRE_ARTIST = new HashSet<GENRE_ARTIST>();
             this.LABELs = new HashSet<LABEL>();
         }
     
@@ -27,7 +27,7 @@ namespace WebMusic.Models
         public Nullable<byte> TEMPO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ARTIST> ARTISTs { get; set; }
+        public virtual ICollection<GENRE_ARTIST> GENRE_ARTIST { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LABEL> LABELs { get; set; }
     }
