@@ -367,6 +367,8 @@
     <Content Include="Views\Artist\Index.cshtml" />
     <Content Include="Views\Artist\Detail_Artist.cshtml" />
     <Content Include="Views\Artist\Total_Track_Artist.cshtml" />
+    <Content Include="Views\Artist\Hot_Remix.cshtml" />
+    <Content Include="Views\Artist\Hot_Track_Label.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

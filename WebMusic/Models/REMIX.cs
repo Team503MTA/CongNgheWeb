@@ -31,6 +31,8 @@ namespace WebMusic.Models
         public Nullable<int> ID_TRACK { get; set; }
         public string LENGTH { get; set; }
         public string GENRE { get; set; }
+        public Nullable<int> POINT_MONTH { get; set; }
+        public Nullable<int> POINT_ALL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REMIX_ARTIST> REMIX_ARTIST { get; set; }

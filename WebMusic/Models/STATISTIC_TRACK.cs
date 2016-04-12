@@ -19,8 +19,6 @@ namespace WebMusic.Models
         public Nullable<int> CLICK_MONTH { get; set; }
         public Nullable<int> BUY_ALL { get; set; }
         public Nullable<int> BUY_MONTH { get; set; }
-        public Nullable<int> POINT_MONTH { get; set; }
-        public Nullable<int> POINT_ALL { get; set; }
     
         public virtual TRACK TRACK { get; set; }
     }

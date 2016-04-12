@@ -18,7 +18,6 @@ namespace WebMusic.Models
         public int ID_ARTIST { get; set; }
         public string NAME_ARTIST { get; set; }
         public string NAME_LABEL { get; set; }
-        public Nullable<double> COST { get; set; }
     
         public virtual ARTIST ARTIST { get; set; }
         public virtual REMIX REMIX { get; set; }

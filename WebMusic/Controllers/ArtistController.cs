@@ -48,7 +48,42 @@ namespace WebMusic.Controllers
 
         public PartialViewResult Hot_Remix(int id)
         {
-            return PartialView(1);
+            List<int> idRemix = db.REMIX_ARTIST.Where(p => p.ID_ARTIST == id).Distinct().Select(p => p.ID_REMIX).ToList();
+            List<REMIX> listRemix = db.REMIXes.Where(p => idRemix.Contains(p.ID)).OrderByDescending(p=>p.POINT_ALL).Take(10).ToList();
+            List<List<List<string>>> Detail = new List<List<List<string>>>();
+
+            foreach(var item in listRemix)
+            {
+                List<List<string>> temp = new List<List<string>>();
+                temp.Add(db.REMIX_ARTIST.Where(p => p.ID_REMIX == item.ID).Select(p => p.NAME_ARTIST).ToList());
+                temp.Add(db.REMIX_ARTIST.Where(p => p.ID_REMIX == item.ID).Select(p => p.NAME_LABEL).ToList());
+                Detail.Add(temp);
+            }
+
+            ViewBag.Detail = Detail;
+            return PartialView(listRemix);
         }
+
+        public PartialViewResult Hot_Track_Label(int id)
+        {
+
+            string nameLabel = db.TRACK_ARTIST.Where(p => p.ID_ARTIST == id).Select(p => p.NAME_LABEL).FirstOrDefault();
+            List<int> idTrack = db.TRACK_ARTIST.Where(p => p.NAME_LABEL == nameLabel).OrderByDescending(p => p.POINT_ALL).Take(15).Distinct().Select(p => p.ID_TRACK).ToList();
+            List<TRACK> listTrack = db.TRACKs.Where(p => idTrack.Contains(p.ID)).ToList();
+            List<List<List<string>>> Info = new List<List<List<string>>>();
+
+            foreach(var item in listTrack)
+            {
+                List<List<string>> temp = new List<List<string>>();
+                temp.Add(db.TRACK_ARTIST.Where(p => p.ID_TRACK == item.ID).Select(p => p.NAME_ARTIST).ToList());
+                temp.Add(db.TRACK_ARTIST.Where(p => p.ID_TRACK == item.ID).Distinct().Select(p => p.NAME_LABEL).ToList());
+                Info.Add(temp);
+            }
+
+            ViewBag.Info = Info;
+
+            return PartialView(listTrack);
+        }
+
     }
 }

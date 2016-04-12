@@ -20,6 +20,7 @@ namespace WebMusic.Models
         public string NAME_LABEL { get; set; }
         public Nullable<double> COST { get; set; }
         public string NAME_TRACK { get; set; }
+        public Nullable<int> POINT_ALL { get; set; }
     
         public virtual ARTIST ARTIST { get; set; }
         public virtual TRACK TRACK { get; set; }

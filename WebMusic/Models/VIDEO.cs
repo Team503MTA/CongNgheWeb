@@ -22,7 +22,7 @@ namespace WebMusic.Models
     
         public int ID { get; set; }
         public string NAME { get; set; }
-        public string DESCRIP { get; set; }
+        public string DESCRIPT { get; set; }
         public Nullable<System.DateTime> TIME { get; set; }
         public string LINK { get; set; }
     

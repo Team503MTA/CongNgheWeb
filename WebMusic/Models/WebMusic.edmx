@@ -117,6 +117,8 @@
           <Property Name="ID_TRACK" Type="int" />
           <Property Name="LENGTH" Type="nvarchar" MaxLength="10" />
           <Property Name="GENRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POINT_ALL" Type="int" />
         </EntityType>
         <EntityType Name="REMIX_ARTIST">
           <Key>
@@ -127,7 +129,6 @@
           <Property Name="ID_ARTIST" Type="int" Nullable="false" />
           <Property Name="NAME_ARTIST" Type="nvarchar" MaxLength="100" />
           <Property Name="NAME_LABEL" Type="nvarchar" MaxLength="100" />
-          <Property Name="COST" Type="float" />
         </EntityType>
         <EntityType Name="SALE">
           <Key>
@@ -156,8 +157,6 @@
           <Property Name="CLICK_ALL" Type="int" />
           <Property Name="BUY_MONTH" Type="int" />
           <Property Name="BUY_ALL" Type="int" />
-          <Property Name="POINT_MONTH" Type="int" />
-          <Property Name="POINT_ALL" Type="int" />
         </EntityType>
         <EntityType Name="STATISTIC_REMIX">
           <Key>
@@ -180,8 +179,6 @@
           <Property Name="CLICK_MONTH" Type="int" />
           <Property Name="BUY_ALL" Type="int" />
           <Property Name="BUY_MONTH" Type="int" />
-          <Property Name="POINT_MONTH" Type="int" />
-          <Property Name="POINT_ALL" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -231,6 +228,7 @@
           <Property Name="NAME_LABEL" Type="nvarchar" MaxLength="100" />
           <Property Name="COST" Type="float" />
           <Property Name="NAME_TRACK" Type="nvarchar" MaxLength="100" />
+          <Property Name="POINT_ALL" Type="int" />
         </EntityType>
         <EntityType Name="USER">
           <Key>
@@ -264,7 +262,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NAME" Type="nvarchar" MaxLength="150" />
-          <Property Name="DESCRIP" Type="nvarchar" MaxLength="200" />
+          <Property Name="DESCRIPT" Type="nvarchar" MaxLength="200" />
           <Property Name="TIME" Type="date" />
           <Property Name="LINK" Type="nvarchar" MaxLength="150" />
         </EntityType>
@@ -795,6 +793,8 @@
           <Property Name="ID_TRACK" Type="Int32" />
           <Property Name="LENGTH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POINT_ALL" Type="Int32" />
           <NavigationProperty Name="REMIX_ARTIST" Relationship="Self.FK_REMIX_ARTIST_REMIX1" FromRole="REMIX" ToRole="REMIX_ARTIST" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_REMIX_TRACK" FromRole="REMIX" ToRole="TRACK" />
           <NavigationProperty Name="STATISTIC_REMIX" Relationship="Self.FK_STATISTIC_REMIX_REMIX" FromRole="REMIX" ToRole="STATISTIC_REMIX" />
@@ -808,7 +808,6 @@
           <Property Name="ID_ARTIST" Type="Int32" Nullable="false" />
           <Property Name="NAME_ARTIST" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="NAME_LABEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="COST" Type="Double" />
           <NavigationProperty Name="ARTIST" Relationship="Self.FK_REMIX_ARTIST_ARTIST" FromRole="REMIX_ARTIST" ToRole="ARTIST" />
           <NavigationProperty Name="REMIX" Relationship="Self.FK_REMIX_ARTIST_REMIX1" FromRole="REMIX_ARTIST" ToRole="REMIX" />
         </EntityType>
@@ -840,8 +839,6 @@
           <Property Name="CLICK_ALL" Type="Int32" />
           <Property Name="BUY_MONTH" Type="Int32" />
           <Property Name="BUY_ALL" Type="Int32" />
-          <Property Name="POINT_MONTH" Type="Int32" />
-          <Property Name="POINT_ALL" Type="Int32" />
           <NavigationProperty Name="ARTIST" Relationship="Self.FK_STATISTIC_ARTIST_ARTIST" FromRole="STATISTIC_ARTIST" ToRole="ARTIST" />
         </EntityType>
         <EntityType Name="STATISTIC_REMIX">
@@ -866,8 +863,6 @@
           <Property Name="CLICK_MONTH" Type="Int32" />
           <Property Name="BUY_ALL" Type="Int32" />
           <Property Name="BUY_MONTH" Type="Int32" />
-          <Property Name="POINT_MONTH" Type="Int32" />
-          <Property Name="POINT_ALL" Type="Int32" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_STATISTIC_TRACK_TRACK" FromRole="STATISTIC_TRACK" ToRole="TRACK" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -924,6 +919,7 @@
           <Property Name="NAME_LABEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="COST" Type="Double" />
           <Property Name="NAME_TRACK" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POINT_ALL" Type="Int32" />
           <NavigationProperty Name="ARTIST" Relationship="Self.FK_TRACK_ARTIST_ARTIST" FromRole="TRACK_ARTIST" ToRole="ARTIST" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_TRACK_ARTIST_TRACK" FromRole="TRACK_ARTIST" ToRole="TRACK" />
         </EntityType>
@@ -946,7 +942,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DESCRIP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPT" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="TIME" Type="DateTime" Precision="0" />
           <Property Name="LINK" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="USERs" Relationship="Self.USER_VIDEOLIST" FromRole="VIDEO" ToRole="USER" />
@@ -1382,6 +1378,8 @@
                 <ScalarProperty Name="ID_TRACK" ColumnName="ID_TRACK" />
                 <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
                 <ScalarProperty Name="GENRE" ColumnName="GENRE" />
+                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1392,7 +1390,6 @@
                 <ScalarProperty Name="ID_ARTIST" ColumnName="ID_ARTIST" />
                 <ScalarProperty Name="NAME_ARTIST" ColumnName="NAME_ARTIST" />
                 <ScalarProperty Name="NAME_LABEL" ColumnName="NAME_LABEL" />
-                <ScalarProperty Name="COST" ColumnName="COST" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1424,8 +1421,6 @@
                 <ScalarProperty Name="CLICK_ALL" ColumnName="CLICK_ALL" />
                 <ScalarProperty Name="BUY_MONTH" ColumnName="BUY_MONTH" />
                 <ScalarProperty Name="BUY_ALL" ColumnName="BUY_ALL" />
-                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
-                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1450,8 +1445,6 @@
                 <ScalarProperty Name="CLICK_MONTH" ColumnName="CLICK_MONTH" />
                 <ScalarProperty Name="BUY_ALL" ColumnName="BUY_ALL" />
                 <ScalarProperty Name="BUY_MONTH" ColumnName="BUY_MONTH" />
-                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
-                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1504,6 +1497,7 @@
                 <ScalarProperty Name="NAME_LABEL" ColumnName="NAME_LABEL" />
                 <ScalarProperty Name="COST" ColumnName="COST" />
                 <ScalarProperty Name="NAME_TRACK" ColumnName="NAME_TRACK" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1523,7 +1517,7 @@
               <MappingFragment StoreEntitySet="VIDEO">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="DESCRIPT" ColumnName="DESCRIPT" />
                 <ScalarProperty Name="TIME" ColumnName="TIME" />
                 <ScalarProperty Name="LINK" ColumnName="LINK" />
               </MappingFragment>
