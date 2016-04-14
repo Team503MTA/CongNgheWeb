@@ -4,13 +4,12 @@
     List<List<List<string>>> listInfo = ViewBag.listInfo;
 
     int quantity = listTrack.Count;
-    if (quantity == 0)
-    {
-    }else if (quantity%5 == 0)
+ 
+    if (quantity % 5 == 0 && quantity > 0)
     {
         quantity /= 5;
     }
-    else
+    else if(quantity > 0 && quantity % 5 != 0 )
     {
         quantity /= 5;
         quantity++;
@@ -19,7 +18,7 @@
     double tempWidth = quantity - 1;
     tempWidth *= 0.5;
     tempWidth = 100 - tempWidth;
-    tempWidth = tempWidth/quantity;
+    tempWidth = tempWidth / quantity;
     string widthButton = tempWidth + "%";
 }
 
@@ -41,6 +40,7 @@
             @{
                 var number = listTrack.Count;
                 var count = 0;
+                var check = 0;
                 for (int i = 0; i < quantity; i++)
                 {
                     <div stt="@i" class="slider-detail-song-artist-img">
@@ -82,13 +82,18 @@
                                 count = count + 1;
                                 if (count == number - 1)
                                 {
+                                    check = 1;
                                     break;
                                 }
                             }
-                            
 
                         </ul>
+
                     </div>
+                    if (check == 1)
+                    {
+                        break;
+                    }
                 }
             }
 
