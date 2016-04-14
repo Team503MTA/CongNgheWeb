@@ -19,6 +19,8 @@
           <Property Name="ID_LABEL" Type="smallint" />
           <Property Name="IMG" Type="nvarchar" MaxLength="150" />
           <Property Name="NAME_LABEL" Type="nvarchar" MaxLength="100" />
+          <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POINT_ALL" Type="int" />
         </EntityType>
         <EntityType Name="FORMULA_HOT">
           <Key>
@@ -46,6 +48,7 @@
           <Property Name="ID_GENRE" Type="smallint" Nullable="false" />
           <Property Name="POINT" Type="tinyint" />
           <Property Name="NAME_GENRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="NAME_LABEL" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="GENRE_LABEL">
           <Key>
@@ -54,6 +57,8 @@
           </Key>
           <Property Name="ID_LABEL" Type="smallint" Nullable="false" />
           <Property Name="ID_GENRE" Type="smallint" Nullable="false" />
+          <Property Name="NAME_GENRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="POINT" Type="int" />
         </EntityType>
         <EntityType Name="HISTORY_USER">
           <Key>
@@ -129,6 +134,9 @@
           <Property Name="ID_ARTIST" Type="int" Nullable="false" />
           <Property Name="NAME_ARTIST" Type="nvarchar" MaxLength="100" />
           <Property Name="NAME_LABEL" Type="nvarchar" MaxLength="100" />
+          <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POINT_ALL" Type="int" />
+          <Property Name="GENRE" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SALE">
           <Key>
@@ -229,6 +237,8 @@
           <Property Name="COST" Type="float" />
           <Property Name="NAME_TRACK" Type="nvarchar" MaxLength="100" />
           <Property Name="POINT_ALL" Type="int" />
+          <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="GENRE" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="USER">
           <Key>
@@ -688,6 +698,8 @@
           <Property Name="ID_LABEL" Type="Int16" />
           <Property Name="IMG" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="NAME_LABEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POINT_ALL" Type="Int32" />
           <NavigationProperty Name="LABEL" Relationship="Self.FK_ARTIST_LABEL" FromRole="ARTIST" ToRole="LABEL" />
           <NavigationProperty Name="GENRE_ARTIST" Relationship="Self.FK_GENRE_ARTIST_ARTIST" FromRole="ARTIST" ToRole="GENRE_ARTIST" />
           <NavigationProperty Name="REMIX_ARTIST" Relationship="Self.FK_REMIX_ARTIST_ARTIST" FromRole="ARTIST" ToRole="REMIX_ARTIST" />
@@ -712,7 +724,7 @@
           <Property Name="DESCRIP" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="TEMPO" Type="Byte" />
           <NavigationProperty Name="GENRE_ARTIST" Relationship="Self.FK_GENRE_ARTIST_GENRE" FromRole="GENRE" ToRole="GENRE_ARTIST" />
-          <NavigationProperty Name="LABELs" Relationship="Self.GENRE_LABEL" FromRole="GENRE" ToRole="LABEL" />
+          <NavigationProperty Name="GENRE_LABEL" Relationship="Self.FK_GENRE_LABEL_GENRE" FromRole="GENRE" ToRole="GENRE_LABEL" />
         </EntityType>
         <EntityType Name="GENRE_ARTIST">
           <Key>
@@ -723,8 +735,21 @@
           <Property Name="ID_GENRE" Type="Int16" Nullable="false" />
           <Property Name="POINT" Type="Byte" />
           <Property Name="NAME_GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_LABEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ARTIST" Relationship="Self.FK_GENRE_ARTIST_ARTIST" FromRole="GENRE_ARTIST" ToRole="ARTIST" />
           <NavigationProperty Name="GENRE" Relationship="Self.FK_GENRE_ARTIST_GENRE" FromRole="GENRE_ARTIST" ToRole="GENRE" />
+        </EntityType>
+        <EntityType Name="GENRE_LABEL">
+          <Key>
+            <PropertyRef Name="ID_LABEL" />
+            <PropertyRef Name="ID_GENRE" />
+          </Key>
+          <Property Name="ID_LABEL" Type="Int16" Nullable="false" />
+          <Property Name="ID_GENRE" Type="Int16" Nullable="false" />
+          <Property Name="NAME_GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="POINT" Type="Int32" />
+          <NavigationProperty Name="GENRE" Relationship="Self.FK_GENRE_LABEL_GENRE" FromRole="GENRE_LABEL" ToRole="GENRE" />
+          <NavigationProperty Name="LABEL" Relationship="Self.FK_GENRE_LABEL_LABEL" FromRole="GENRE_LABEL" ToRole="LABEL" />
         </EntityType>
         <EntityType Name="HISTORY_USER">
           <Key>
@@ -764,7 +789,7 @@
           <Property Name="LINK" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="LINK_IMG" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ARTISTs" Relationship="Self.FK_ARTIST_LABEL" FromRole="LABEL" ToRole="ARTIST" />
-          <NavigationProperty Name="GENREs" Relationship="Self.GENRE_LABEL" FromRole="LABEL" ToRole="GENRE" />
+          <NavigationProperty Name="GENRE_LABEL" Relationship="Self.FK_GENRE_LABEL_LABEL" FromRole="LABEL" ToRole="GENRE_LABEL" />
         </EntityType>
         <EntityType Name="NEW_TRACK">
           <Key>
@@ -808,6 +833,9 @@
           <Property Name="ID_ARTIST" Type="Int32" Nullable="false" />
           <Property Name="NAME_ARTIST" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="NAME_LABEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POINT_ALL" Type="Int32" />
+          <Property Name="GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ARTIST" Relationship="Self.FK_REMIX_ARTIST_ARTIST" FromRole="REMIX_ARTIST" ToRole="ARTIST" />
           <NavigationProperty Name="REMIX" Relationship="Self.FK_REMIX_ARTIST_REMIX1" FromRole="REMIX_ARTIST" ToRole="REMIX" />
         </EntityType>
@@ -920,6 +948,8 @@
           <Property Name="COST" Type="Double" />
           <Property Name="NAME_TRACK" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="POINT_ALL" Type="Int32" />
+          <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ARTIST" Relationship="Self.FK_TRACK_ARTIST_ARTIST" FromRole="TRACK_ARTIST" ToRole="ARTIST" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_TRACK_ARTIST_TRACK" FromRole="TRACK_ARTIST" ToRole="TRACK" />
         </EntityType>
@@ -1045,6 +1075,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GENRE_LABEL_GENRE">
+          <End Role="GENRE" Type="Self.GENRE" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GENRE_LABEL" Type="Self.GENRE_LABEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GENRE_LABEL">
+              <PropertyRef Name="ID_GENRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GENRE_LABEL_LABEL">
+          <End Role="LABEL" Type="Self.LABEL" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GENRE_LABEL" Type="Self.GENRE_LABEL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LABEL">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GENRE_LABEL">
+              <PropertyRef Name="ID_LABEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HISTORY_USER_TRACK">
           <End Role="TRACK" Type="Self.TRACK" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1155,10 +1213,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="GENRE_LABEL">
-          <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
-          <End Role="LABEL" Type="Self.LABEL" Multiplicity="*" />
-        </Association>
         <Association Name="USER_TRACKLIST">
           <End Role="TRACK" Type="Self.TRACK" Multiplicity="*" />
           <End Role="USER" Type="Self.USER" Multiplicity="*" />
@@ -1172,6 +1226,7 @@
           <EntitySet Name="FORMULA_HOT" EntityType="Self.FORMULA_HOT" />
           <EntitySet Name="GENREs" EntityType="Self.GENRE" />
           <EntitySet Name="GENRE_ARTIST" EntityType="Self.GENRE_ARTIST" />
+          <EntitySet Name="GENRE_LABEL" EntityType="Self.GENRE_LABEL" />
           <EntitySet Name="HISTORY_USER" EntityType="Self.HISTORY_USER" />
           <EntitySet Name="HOME_HOT_NEW" EntityType="Self.HOME_HOT_NEW" />
           <EntitySet Name="Home_NewTrack" EntityType="Self.Home_NewTrack" />
@@ -1218,6 +1273,14 @@
             <End Role="GENRE" EntitySet="GENREs" />
             <End Role="GENRE_ARTIST" EntitySet="GENRE_ARTIST" />
           </AssociationSet>
+          <AssociationSet Name="FK_GENRE_LABEL_GENRE" Association="Self.FK_GENRE_LABEL_GENRE">
+            <End Role="GENRE" EntitySet="GENREs" />
+            <End Role="GENRE_LABEL" EntitySet="GENRE_LABEL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GENRE_LABEL_LABEL" Association="Self.FK_GENRE_LABEL_LABEL">
+            <End Role="LABEL" EntitySet="LABELs" />
+            <End Role="GENRE_LABEL" EntitySet="GENRE_LABEL" />
+          </AssociationSet>
           <AssociationSet Name="FK_HISTORY_USER_TRACK" Association="Self.FK_HISTORY_USER_TRACK">
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="HISTORY_USER" EntitySet="HISTORY_USER" />
@@ -1250,10 +1313,6 @@
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="TRACK_ARTIST" EntitySet="TRACK_ARTIST" />
           </AssociationSet>
-          <AssociationSet Name="GENRE_LABEL" Association="Self.GENRE_LABEL">
-            <End Role="GENRE" EntitySet="GENREs" />
-            <End Role="LABEL" EntitySet="LABELs" />
-          </AssociationSet>
           <AssociationSet Name="USER_TRACKLIST" Association="Self.USER_TRACKLIST">
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="USER" EntitySet="USERs" />
@@ -1282,6 +1341,8 @@
                 <ScalarProperty Name="ID_LABEL" ColumnName="ID_LABEL" />
                 <ScalarProperty Name="IMG" ColumnName="IMG" />
                 <ScalarProperty Name="NAME_LABEL" ColumnName="NAME_LABEL" />
+                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1310,6 +1371,17 @@
                 <ScalarProperty Name="ID_GENRE" ColumnName="ID_GENRE" />
                 <ScalarProperty Name="POINT" ColumnName="POINT" />
                 <ScalarProperty Name="NAME_GENRE" ColumnName="NAME_GENRE" />
+                <ScalarProperty Name="NAME_LABEL" ColumnName="NAME_LABEL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENRE_LABEL">
+            <EntityTypeMapping TypeName="MusicModel.GENRE_LABEL">
+              <MappingFragment StoreEntitySet="GENRE_LABEL">
+                <ScalarProperty Name="ID_LABEL" ColumnName="ID_LABEL" />
+                <ScalarProperty Name="ID_GENRE" ColumnName="ID_GENRE" />
+                <ScalarProperty Name="NAME_GENRE" ColumnName="NAME_GENRE" />
+                <ScalarProperty Name="POINT" ColumnName="POINT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1390,6 +1462,9 @@
                 <ScalarProperty Name="ID_ARTIST" ColumnName="ID_ARTIST" />
                 <ScalarProperty Name="NAME_ARTIST" ColumnName="NAME_ARTIST" />
                 <ScalarProperty Name="NAME_LABEL" ColumnName="NAME_LABEL" />
+                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
+                <ScalarProperty Name="GENRE" ColumnName="GENRE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1498,6 +1573,8 @@
                 <ScalarProperty Name="COST" ColumnName="COST" />
                 <ScalarProperty Name="NAME_TRACK" ColumnName="NAME_TRACK" />
                 <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
+                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="GENRE" ColumnName="GENRE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1523,14 +1600,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="GENRE_LABEL" TypeName="MusicModel.GENRE_LABEL" StoreEntitySet="GENRE_LABEL">
-            <EndProperty Name="GENRE">
-              <ScalarProperty Name="ID" ColumnName="ID_GENRE" />
-            </EndProperty>
-            <EndProperty Name="LABEL">
-              <ScalarProperty Name="ID" ColumnName="ID_LABEL" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="USER_TRACKLIST" TypeName="MusicModel.USER_TRACKLIST" StoreEntitySet="USER_TRACKLIST">
             <EndProperty Name="TRACK">
               <ScalarProperty Name="ID" ColumnName="ID_TRACK" />

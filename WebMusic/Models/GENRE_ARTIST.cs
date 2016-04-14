@@ -18,6 +18,7 @@ namespace WebMusic.Models
         public short ID_GENRE { get; set; }
         public Nullable<byte> POINT { get; set; }
         public string NAME_GENRE { get; set; }
+        public string NAME_LABEL { get; set; }
     
         public virtual ARTIST ARTIST { get; set; }
         public virtual GENRE GENRE { get; set; }

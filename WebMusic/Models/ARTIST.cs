@@ -33,6 +33,8 @@ namespace WebMusic.Models
         public Nullable<short> ID_LABEL { get; set; }
         public string IMG { get; set; }
         public string NAME_LABEL { get; set; }
+        public Nullable<int> POINT_MONTH { get; set; }
+        public Nullable<int> POINT_ALL { get; set; }
     
         public virtual LABEL LABEL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

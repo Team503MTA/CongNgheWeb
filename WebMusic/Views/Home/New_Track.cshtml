@@ -48,7 +48,7 @@
                                 <p class="new-track-detail">
                                     @foreach (var item in ViewBag.NewTrackInfo[count][1])
                                     {
-                                        <a class="new-track-detail-3" href="#" title="@item">@item, </a>
+                                        <a class="new-track-detail-3" href="@Url.Action("Index","Label",new {@name = item})" title="@item">@item, </a>
                                     }
                                 </p>
                             </div>

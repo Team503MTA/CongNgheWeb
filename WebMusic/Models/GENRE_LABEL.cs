@@ -12,17 +12,14 @@ namespace WebMusic.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class REMIX_ARTIST
+    public partial class GENRE_LABEL
     {
-        public int ID_REMIX { get; set; }
-        public int ID_ARTIST { get; set; }
-        public string NAME_ARTIST { get; set; }
-        public string NAME_LABEL { get; set; }
-        public Nullable<int> POINT_MONTH { get; set; }
-        public Nullable<int> POINT_ALL { get; set; }
-        public string GENRE { get; set; }
+        public short ID_LABEL { get; set; }
+        public short ID_GENRE { get; set; }
+        public string NAME_GENRE { get; set; }
+        public Nullable<int> POINT { get; set; }
     
-        public virtual ARTIST ARTIST { get; set; }
-        public virtual REMIX REMIX { get; set; }
+        public virtual GENRE GENRE { get; set; }
+        public virtual LABEL LABEL { get; set; }
     }
 }

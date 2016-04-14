@@ -18,7 +18,7 @@ namespace WebMusic.Models
         public GENRE()
         {
             this.GENRE_ARTIST = new HashSet<GENRE_ARTIST>();
-            this.LABELs = new HashSet<LABEL>();
+            this.GENRE_LABEL = new HashSet<GENRE_LABEL>();
         }
     
         public short ID { get; set; }
@@ -29,6 +29,6 @@ namespace WebMusic.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GENRE_ARTIST> GENRE_ARTIST { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LABEL> LABELs { get; set; }
+        public virtual ICollection<GENRE_LABEL> GENRE_LABEL { get; set; }
     }
 }

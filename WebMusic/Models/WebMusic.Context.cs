@@ -29,6 +29,7 @@ namespace WebMusic.Models
         public virtual DbSet<FORMULA_HOT> FORMULA_HOT { get; set; }
         public virtual DbSet<GENRE> GENREs { get; set; }
         public virtual DbSet<GENRE_ARTIST> GENRE_ARTIST { get; set; }
+        public virtual DbSet<GENRE_LABEL> GENRE_LABEL { get; set; }
         public virtual DbSet<HISTORY_USER> HISTORY_USER { get; set; }
         public virtual DbSet<HOME_HOT_NEW> HOME_HOT_NEW { get; set; }
         public virtual DbSet<Home_NewTrack> Home_NewTrack { get; set; }

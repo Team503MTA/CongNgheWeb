@@ -21,6 +21,8 @@ namespace WebMusic.Models
         public Nullable<double> COST { get; set; }
         public string NAME_TRACK { get; set; }
         public Nullable<int> POINT_ALL { get; set; }
+        public Nullable<int> POINT_MONTH { get; set; }
+        public string GENRE { get; set; }
     
         public virtual ARTIST ARTIST { get; set; }
         public virtual TRACK TRACK { get; set; }

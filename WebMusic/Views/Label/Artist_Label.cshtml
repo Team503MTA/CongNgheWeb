@@ -1,0 +1,100 @@
+﻿
+@using WebMusic.Models
+@model List<List<string>>
+
+@{
+    int count = Model.Count;
+    int loop = 0;
+    if (count > 0)
+    {
+        loop = count / 4;
+        if (count % 4 != 0)
+        {
+            loop++;
+        }
+    }
+
+    double widthButton = 100;
+    if (loop > 1)
+    {
+        widthButton = loop * 0.5;
+        widthButton -= 0.5;
+        widthButton = 100 - widthButton;
+        widthButton /= loop;
+    }
+
+    var rightWidth = widthButton + "%";
+
+}
+
+
+
+
+<div class="detail-label-artist">
+    <p class="detail-label-artist-title">Artist of this label</p>
+
+    @for (int i = 0; i < loop; i++)
+    {
+
+        if (i != 0)
+        {
+
+            <div stt="0" class="detail-label-artist-info detail-label-artist-info-active">
+                <ul>
+                    <li>
+                        <div class="detail-label-artist-child">
+                            <img src="./img/hot-remix/hydraulic.jpg" alt="">
+                            <div class="detail-label-artist-child-control">
+                                <span>Follow</span>
+                                <button class="detail-label-artist-child-fb">
+                                    <i class="fa fa-facebook"></i>
+                                </button>
+                                <button class="detail-label-artist-child-tw"><i class="fa fa-twitter"></i></button>
+                            </div>
+                            <div class="detail-label-artist-child-name">
+                                <a href="#">Aviciis</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        }
+        else
+        {
+
+            <div stt="0" class="detail-label-artist-info detail-label-artist-info-active">
+                <ul>
+                    <li>
+                        <div class="detail-label-artist-child">
+                            <img src="./img/hot-remix/hydraulic.jpg" alt="">
+                            <div class="detail-label-artist-child-control">
+                                <span>Follow</span>
+                                <button class="detail-label-artist-child-fb">
+                                    <i class="fa fa-facebook"></i>
+                                </button>
+                                <button class="detail-label-artist-child-tw"><i class="fa fa-twitter"></i></button>
+                            </div>
+                            <div class="detail-label-artist-child-name">
+                                <a href="#">Aviciis</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        }
+
+    }
+
+    
+
+    <div class="detail-label-artist-pages">
+        <ul>
+            <li stt="0" class="detail-label-artist-pages-li detail-label-artist-pages-li-active"></li>
+            <li stt="1" class="detail-label-artist-pages-li"></li>
+            <li stt="2" class="detail-label-artist-pages-li"></li>
+            <li stt="3" class="detail-label-artist-pages-li"></li>
+        </ul>
+    </div>
+</div>

@@ -191,6 +191,9 @@
     <Compile Include="Models\GENRE_ARTIST.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GENRE_LABEL.cs">
+      <DependentUpon>WebMusic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HISTORY_USER.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
@@ -270,6 +273,7 @@
     <Content Include="Content\MainLayout_CSS\fonts\AUBREY1__.svg" />
     <Content Include="Content\MainLayout_CSS\fonts\Player One.svg" />
     <Content Include="Content\MainLayout_CSS\fonts\Snake Jacket12.svg" />
+    <Content Include="Content\MainLayout_CSS\Label.css" />
     <Content Include="Content\MainLayout_CSS\style-index.css" />
     <Content Include="Content\MainLayout_CSS\style-layout.css" />
     <Content Include="Content\MainLayout_CSS\Track.css" />
@@ -316,6 +320,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MainLayout_JS\Label.js" />
     <Content Include="Scripts\MainLayout_JS\main-detail-artist.js" />
     <Content Include="Scripts\MainLayout_JS\main-detail-track.js" />
     <Content Include="Scripts\MainLayout_JS\main-index.js" />
@@ -371,6 +376,8 @@
     <Content Include="Views\Artist\Hot_Remix.cshtml" />
     <Content Include="Views\Artist\Hot_Track_Label.cshtml" />
     <Content Include="Views\Label\Index.cshtml" />
+    <Content Include="Views\Label\Detail.cshtml" />
+    <Content Include="Views\Label\Artist_Label.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
