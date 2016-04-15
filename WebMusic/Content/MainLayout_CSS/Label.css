@@ -118,10 +118,6 @@ a.detail-label-location {
     width: 100%;
 }
 
-.detail-label-artist-info:first-child{
-    display: inline-block;
-}
-
 .detail-label-artist-info ul{
     padding: 0;
     display: inline-block;

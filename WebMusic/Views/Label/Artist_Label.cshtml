@@ -4,7 +4,7 @@
 
 @{
     int count = 0;
-    char isTest = '0';
+    char isTest = '1';
     int loop = 0;
     if (Model.Count > 0)
     {
@@ -127,34 +127,41 @@
                         }
                         else
                         {
-                            while (1 == 1)
-                            {
-                                <li>
-                                    <div class="detail-label-artist-child">
-                                        <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
-                                        <div class="detail-label-artist-child-control">
-                                            <span>Follow</span>
-                                            <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                            <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </div>
-                                        <div class="detail-label-artist-child-name">
-                                            <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                    count = count + 1;
-                                    if (count == Model.Count)
+                            <div stt="@i" class="detail-label-artist-info">
+                                <ul>
+                                    @while (1 == 1)
                                     {
-                                        isTest = '0';
-                                        break;
+                                        <li>
+                                            <div class="detail-label-artist-child">
+                                                <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
+                                                <div class="detail-label-artist-child-control">
+                                                    <span>Follow</span>
+                                                    <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
+                                                        <i class="fa fa-facebook"></i>
+                                                    </a>
+                                                    <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="detail-label-artist-child-name">
+                                                    <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        count = count + 1;
+                                        if (count == Model.Count)
+                                        {
+                                            isTest = '0';
+                                            break;
+                                        }
                                     }
-                                }
+                                </ul>
+                            </div>
+                            }
 
-
+                            if (isTest == '0')
+                            {
+                                break;
                             }
 
                         }
