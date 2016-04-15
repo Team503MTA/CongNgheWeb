@@ -118,7 +118,7 @@ a.detail-label-location {
     width: 100%;
 }
 
-.detail-label-artist-info-active{
+.detail-label-artist-info:first-child{
     display: inline-block;
 }
 

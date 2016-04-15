@@ -3,12 +3,13 @@
 @model List<List<string>>
 
 @{
-    int count = Model.Count;
+    int count = 0;
+    char isTest = '0';
     int loop = 0;
-    if (count > 0)
+    if (Model.Count > 0)
     {
-        loop = count / 4;
-        if (count % 4 != 0)
+        loop = Model.Count / 4;
+        if (Model.Count % 4 != 0)
         {
             loop++;
         }
@@ -28,6 +29,12 @@
 }
 
 
+<style>
+    .detail-artist-remix-slider-button{
+        width: @rightWidth;
+    }
+</style>
+
 
 
 <div class="detail-label-artist">
@@ -36,58 +43,123 @@
     @for (int i = 0; i < loop; i++)
     {
 
-        if (i != 0)
+        if (i != loop - 1)
         {
-
-            <div stt="0" class="detail-label-artist-info detail-label-artist-info-active">
+            <div stt="@i" class="detail-label-artist-info">
                 <ul>
                     <li>
                         <div class="detail-label-artist-child">
-                            <img src="./img/hot-remix/hydraulic.jpg" alt="">
+                            <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
                             <div class="detail-label-artist-child-control">
                                 <span>Follow</span>
-                                <button class="detail-label-artist-child-fb">
+                                <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
                                     <i class="fa fa-facebook"></i>
-                                </button>
-                                <button class="detail-label-artist-child-tw"><i class="fa fa-twitter"></i></button>
+                                </a>
+                                <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
                             </div>
                             <div class="detail-label-artist-child-name">
-                                <a href="#">Aviciis</a>
+                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
                             </div>
                         </div>
                     </li>
-                </ul>
-            </div>
+                    @{ count = count + 1; }
 
-        }
-        else
-        {
-
-            <div stt="0" class="detail-label-artist-info detail-label-artist-info-active">
-                <ul>
                     <li>
                         <div class="detail-label-artist-child">
-                            <img src="./img/hot-remix/hydraulic.jpg" alt="">
+                            <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
                             <div class="detail-label-artist-child-control">
                                 <span>Follow</span>
-                                <button class="detail-label-artist-child-fb">
+                                <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
                                     <i class="fa fa-facebook"></i>
-                                </button>
-                                <button class="detail-label-artist-child-tw"><i class="fa fa-twitter"></i></button>
+                                </a>
+                                <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
                             </div>
                             <div class="detail-label-artist-child-name">
-                                <a href="#">Aviciis</a>
+                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
                             </div>
                         </div>
                     </li>
+                    @{ count = count + 1; }
+
+                    <li>
+                        <div class="detail-label-artist-child">
+                            <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
+                            <div class="detail-label-artist-child-control">
+                                <span>Follow</span>
+                                <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </div>
+                            <div class="detail-label-artist-child-name">
+                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+
+                    <li>
+                        <div class="detail-label-artist-child">
+                            <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
+                            <div class="detail-label-artist-child-control">
+                                <span>Follow</span>
+                                <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </div>
+                            <div class="detail-label-artist-child-name">
+                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
                 </ul>
             </div>
+                        }
+                        else
+                        {
+                            while (1 == 1)
+                            {
+                                <li>
+                                    <div class="detail-label-artist-child">
+                                        <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
+                                        <div class="detail-label-artist-child-control">
+                                            <span>Follow</span>
+                                            <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                            <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </div>
+                                        <div class="detail-label-artist-child-name">
+                                            <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                    count = count + 1;
+                                    if (count == Model.Count)
+                                    {
+                                        isTest = '0';
+                                        break;
+                                    }
+                                }
 
-        }
 
-    }
+                            }
 
-    
+                        }
+
+
 
     <div class="detail-label-artist-pages">
         <ul>
