@@ -141,13 +141,6 @@ a.detail-label-location {
 /* end more this from artist */
 
 /* Detail-label-artist-info */
-body {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    font-family: cursive;
-    display: inline-block;
-}
 
 .detail-label-artist-child{
     display: inline-block;

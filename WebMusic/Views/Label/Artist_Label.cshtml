@@ -49,18 +49,18 @@
                 <ul>
                     <li>
                         <div class="detail-label-artist-child">
-                            <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
+                            <img src="@Url.Content(Model[count][2])" alt="">
                             <div class="detail-label-artist-child-control">
                                 <span>Follow</span>
-                                <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
+                                <a href="@Model[count][3]" class="detail-label-artist-child-fb">
                                     <i class="fa fa-facebook"></i>
                                 </a>
-                                <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                <a href="@Model[count][4]" class="detail-label-artist-child-tw">
                                     <i class="fa fa-twitter"></i>
                                 </a>
                             </div>
                             <div class="detail-label-artist-child-name">
-                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
+                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model[count][1]})">@Model[count][1]</a>
                             </div>
                         </div>
                     </li>
@@ -68,18 +68,38 @@
 
                     <li>
                         <div class="detail-label-artist-child">
-                            <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
+                            <img src="@Url.Content(Model[count][2])" alt="">
                             <div class="detail-label-artist-child-control">
                                 <span>Follow</span>
-                                <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
+                                <a href="@Model[count][3]" class="detail-label-artist-child-fb">
                                     <i class="fa fa-facebook"></i>
                                 </a>
-                                <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                <a href="@Model[count][4]" class="detail-label-artist-child-tw">
                                     <i class="fa fa-twitter"></i>
                                 </a>
                             </div>
                             <div class="detail-label-artist-child-name">
-                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
+                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model[count][1]})">@Model[count][1]</a>
+                            </div>
+                        </div>
+                    </li>
+                    @{ count = count + 1; }
+
+
+                    <li>
+                        <div class="detail-label-artist-child">
+                            <img src="@Url.Content(Model[count][2])" alt="">
+                            <div class="detail-label-artist-child-control">
+                                <span>Follow</span>
+                                <a href="@Model[count][3]" class="detail-label-artist-child-fb">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="@Model[count][4]" class="detail-label-artist-child-tw">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </div>
+                            <div class="detail-label-artist-child-name">
+                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model[count][1]})">@Model[count][1]</a>
                             </div>
                         </div>
                     </li>
@@ -87,41 +107,24 @@
 
                     <li>
                         <div class="detail-label-artist-child">
-                            <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
+                            <img src="@Url.Content(Model[count][2])" alt="">
                             <div class="detail-label-artist-child-control">
                                 <span>Follow</span>
-                                <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
+                                <a href="@Model[count][3]" class="detail-label-artist-child-fb">
                                     <i class="fa fa-facebook"></i>
                                 </a>
-                                <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                <a href="@Model[count][4]" class="detail-label-artist-child-tw">
                                     <i class="fa fa-twitter"></i>
                                 </a>
                             </div>
                             <div class="detail-label-artist-child-name">
-                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
+                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model[count][1]})">@Model[count][1]</a>
                             </div>
                         </div>
                     </li>
                     @{ count = count + 1; }
 
-                    <li>
-                        <div class="detail-label-artist-child">
-                            <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
-                            <div class="detail-label-artist-child-control">
-                                <span>Follow</span>
-                                <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                                <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </div>
-                            <div class="detail-label-artist-child-name">
-                                <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
-                            </div>
-                        </div>
-                    </li>
-                    @{ count = count + 1; }
+
                 </ul>
             </div>
                         }
@@ -133,28 +136,28 @@
                                     {
                                         <li>
                                             <div class="detail-label-artist-child">
-                                                <img src="@Url.Content(Model.ElementAt(i).ElementAt(2))" alt="">
+                                                <img src="@Url.Content(Model[count][2])" alt="">
                                                 <div class="detail-label-artist-child-control">
                                                     <span>Follow</span>
-                                                    <a href="@Model.ElementAt(i).ElementAt(3)" class="detail-label-artist-child-fb">
+                                                    <a href="@Model[count][3]" class="detail-label-artist-child-fb">
                                                         <i class="fa fa-facebook"></i>
                                                     </a>
-                                                    <a href="@Model.ElementAt(i).ElementAt(4)" class="detail-label-artist-child-tw">
+                                                    <a href="@Model[count][4]" class="detail-label-artist-child-tw">
                                                         <i class="fa fa-twitter"></i>
                                                     </a>
                                                 </div>
                                                 <div class="detail-label-artist-child-name">
-                                                    <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model.ElementAt(i).ElementAt(1)})">@Model.ElementAt(i).ElementAt(1)</a>
+                                                    <a href="@Url.Action("Index", "Artist", new {@nameArtist = Model[count][1]})">@Model[count][1]</a>
                                                 </div>
                                             </div>
                                         </li>
-                                        count = count + 1;
-                                        if (count == Model.Count)
-                                        {
-                                            isTest = '0';
-                                            break;
-                                        }
-                                    }
+                                                count = count + 1;
+                                                if (count == Model.Count)
+                                                {
+                                                    isTest = '0';
+                                                    break;
+                                                }
+                                            }
                                 </ul>
                             </div>
                             }

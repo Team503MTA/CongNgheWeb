@@ -21,13 +21,13 @@ $(document).ready(function () {
     $(".detail-label-more").click(function () {
         Display_More_String();
         $(this).hide();
-        $(".detail-label-descrip-content-less").show();
+        $(".detail-label-less").show();
     });
 
     $(".detail-label-less").click(function () {
         Display_Short_String();
         $(this).hide();
-        $(".detail-label-descrip-content-more").show();
+        $(".detail-label-more").show();
     });
 
 });
@@ -35,11 +35,8 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-    alert("Df");
-
     $(".detail-label-artist-info").each(function () {
-        if ($(this).attr("stt") === 0) {
-            alert(stt);
+        if ($(this).attr("stt") === "0") {
             $(this).css("display", "inline-block");
         }
     });
