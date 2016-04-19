@@ -1,0 +1,43 @@
+﻿
+@using WebMusic.Models;
+
+<h2>@ViewBag.Thongbao</h2>
+
+@using (Html.BeginForm())
+{
+    @*<span>Tài khoản</span><br />
+    @Html.TextBox("txtTaikhoan");
+    <br />
+    <span>Mật khẩu</span><br />
+    <input name="txtMatkhau" type="text" />
+    <br />
+    <input type="submit" id="btnSubmit" name="btnSubmit"/>*@
+
+    <div id="login-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="login-title">
+                        <h1>Login</h1>
+                    </div>
+                    <form>
+                        <input type="text" name="userEmail" placeholder="Email" class="form-element" id="email-form">
+                        <input type="password" name="userPassword" placeholder="Password" class="form-element" id="password-form">
+                        <div class="remember-user">
+                            <input type="checkbox" id="remember-me" value="Forget password">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+
+                        <div class="login-form-button-group">
+                            <input type="submit" id="button-me-login" class="button-me" value="Login">
+                            <input type="button" id="button-me-cancel" class="button-me" value="Cancel">
+                        </div>
+
+                        <p id="fogotten-password"><a href="#">Fogotten Password</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

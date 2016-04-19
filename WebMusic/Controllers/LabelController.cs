@@ -31,11 +31,28 @@ namespace WebMusic.Controllers
         {
 
             return PartialView(
-                db.ARTISTs.Where(p => p.ID_LABEL == id)
-                    .OrderByDescending(p => p.POINT_ALL)
-                    .Select(p => new List<string>() { p.ID.ToString(), p.NAME, p.IMG, p.FB, p.TW })
-                    .ToList()
+                db.ARTISTs.Where(p=>p.ID_LABEL==id).OrderByDescending(p=>p.POINT_ALL).ToList()
             );
+        }
+
+        public PartialViewResult Track_Label(Int16 id)
+        {
+            string temp = db.LABELs.Where(p => p.ID == id).Select(p => p.NAME).FirstOrDefault();
+            List<int> tempInt = db.TRACK_ARTIST.Where(p => p.NAME_LABEL == temp).OrderByDescending(p => p.POINT_ALL).Select(p=>p.ID_TRACK).Take(10).ToList();
+            tempInt = tempInt.Distinct().ToList();
+
+            List<TRACK> tracks = new List<TRACK>();
+            List<List<List<string>>> Info = new List<List<List<string>>>();
+
+            foreach (int item in tempInt)
+            {
+                tracks.Add(db.TRACKs.Where(p=>p.ID==item).FirstOrDefault());
+                Info.Add(new List<List<string>>() {db.TRACK_ARTIST.Where(p=>p.ID_TRACK==item).Select(p=>p.NAME_ARTIST).ToList() , db.TRACK_ARTIST.Where(p => p.ID_TRACK == item).Select(p => p.NAME_LABEL).ToList() });
+            }
+
+            ViewBag.Info = Info;
+
+            return PartialView(tracks);
         }
     }
 }

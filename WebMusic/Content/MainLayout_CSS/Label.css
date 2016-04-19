@@ -7,6 +7,7 @@
     width: 100%;
     padding-top: 30px;
     padding-bottom: 30px;
+    background: #101010;
 }
 
 .detail-label-wrap {
@@ -304,7 +305,6 @@ a.detail-label-location {
 
 .detail-label-artist-pages-li{
     display: inline-block;
-    width: 24.625%;
     margin-right: 0.5%;
     height: 100%;
     background: #666;
@@ -358,12 +358,12 @@ a.detail-label-location {
     padding: 0;
     margin: 0;
     border:0;
-    list-style-type: 0;
+    list-style-type: none;
 }
 
 .detail-label-track-slide li{
     display: inline-block;
-    width: 24.625%;
+    width: 19.6%;
     margin-right: 0.5%;
     float: left;
 }
@@ -558,7 +558,6 @@ a.detail-label-location {
     height: 5px;
     display: inline-block;
     float: left;
-    width: 24.625%;
     background: #aaa;
     margin-right: 0.5%;
     cursor: pointer;

@@ -9,7 +9,7 @@
     <link href="~/Content/bootstrap-3.3.6-dist/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-3.3.6-dist/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/Content/MainLayout_CSS/style-layout.css" rel="stylesheet"/>
+    <link href="~/Content/MainLayout_CSS/style-layout.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 </head>
 
@@ -51,70 +51,9 @@
         </nav>
     </header>
 
-    <div id="login-form">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-4">
-                    <div class="login-title">
-                        <h1>Login</h1>
-                    </div>
-                    <form>
-                        <input type="email" placeholder="Email" class="form-element" id="email-form">
-                        <input type="password" placeholder="Password" class="form-element" id="password-form">
-                        <div class="remember-user">
-                            <input type="checkbox" id="remember-me" value="Forget password">
-                            <label for="remember-me">Remember me</label>
-                        </div>
+    @Html.Action("Login", "User")
 
-                        <div class="login-form-button-group">
-                            <input type="button" id="button-me-login" class="button-me" value="Login">
-                            <input type="button" id="button-me-cancel" class="button-me" value="Cancel">
-                        </div>
-
-                        <p id="fogotten-password"><a href="#">Fogotten Password</a></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="register-form">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-4">
-                    <h1>Register</h1>
-                    <div id="register-form-name">
-                        <input type="text" id="register-firstname" placeholder="First Name*">
-                        <input type="text" id="register-lastname" placeholder="Last Name*">
-                    </div>
-                    <div id="register-form-email">
-                        <input type="email" id="register-email" placeholder="Email*">
-                        <i class="glyphicon glyphicon-ok"></i>
-                        <i class="glyphicon glyphicon-warning-sign"></i>
-                    </div>
-                    <div id="register-form-password">
-                        <input type="password" id="register-password" placeholder="Password*">
-                        <i class="glyphicon glyphicon-ok"></i>
-                        <i class="glyphicon glyphicon-warning-sign"></i>
-                    </div>
-                    <div id="register-form-confirm-password">
-                        <input type="password" id="register-confirm-password" placeholder="Confirm Password*">
-                        <i class="glyphicon glyphicon-ok"></i>
-                        <i class="glyphicon glyphicon-warning-sign"></i>
-                    </div>
-                    <div id="register-form-terms">
-                        <input type="checkbox" id="register">
-                        <span>You agree on our </span>
-                        <a href="#">terms and condition</a>
-                    </div>
-                    <div id="register-form-button">
-                        <button id="register-form-button-register">Register</button>
-                        <button id="register-form-button-cancel">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Action("Register", "User")
 
     <div class="extra"></div>
 
@@ -138,9 +77,12 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="pull-right">
-                        <button type="button"><i class="glyphicon glyphicon-shopping-cart"></i></button>
-                        <div class="cart-info">vuhoangha</div>
+                    <div class="pull-right" id="userForm">
+                        <button type="button" id="cartButton">
+                            <i class="glyphicon glyphicon-shopping-cart"></i>
+                            <span id="TotalDebt">$65</span>
+                        </button>
+                        <div class="cart-info" id="cartUserName">vuhoangha</div>
                     </div>
                 </div>
             </div>
@@ -273,66 +215,66 @@
 
     @*<div class="tag-playmusic" id="tagMusic">
 
-        <audio id="myTune" controls>
-            <source src="@Model.LINK" type="audio/mpeg" />
-        </audio>
+            <audio id="myTune" controls>
+                <source src="@Model.LINK" type="audio/mpeg" />
+            </audio>
 
-        <div class="playmusic-info">
-            <div class="imgPlayMusic">
-                <img src="@Model.LINK_IMG" alt="">
-            </div>
-            <div class="textPlayMusic">
-                <div class="playmusic-name">
-                    <a href="#">@Model.NAME</a>
+            <div class="playmusic-info">
+                <div class="imgPlayMusic">
+                    <img src="@Model.LINK_IMG" alt="">
                 </div>
-                <div class="playmusic-artist">
-                    @foreach (var itemArtist in ViewBag.Artist)
-                    {
-                        <a href="#"> @itemArtist </a>
-                    }
+                <div class="textPlayMusic">
+                    <div class="playmusic-name">
+                        <a href="#">@Model.NAME</a>
+                    </div>
+                    <div class="playmusic-artist">
+                        @foreach (var itemArtist in ViewBag.Artist)
+                        {
+                            <a href="#"> @itemArtist </a>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="playmusic-time">
-            <label id="playmusic-start"></label>
-            <progress id="playmusic-process" value="0" max="100"></progress>
-            <label id="playmusic-end"></label>
-        </div>
+            <div class="playmusic-time">
+                <label id="playmusic-start"></label>
+                <progress id="playmusic-process" value="0" max="100"></progress>
+                <label id="playmusic-end"></label>
+            </div>
 
-        <div class="playmusic-button">
+            <div class="playmusic-button">
 
-            <button id="playmusic-prev">
-                <i class="glyphicon glyphicon-backward"></i>
-            </button>
-
-            <button id="playButton">
-                <i class="glyphicon glyphicon-play"></i>
-                <i class="glyphicon glyphicon-pause"></i>
-            </button>
-
-            <button id="playmusic-next">
-                <i class="glyphicon glyphicon-forward"></i>
-            </button>
-
-            <button id="loopButton">
-                <i class="glyphicon glyphicon-repeat"></i>
-            </button>
-
-            <div id="volume">
-                <button id="volumeButton">
-                    <i class="glyphicon glyphicon-volume-down"></i>
-                    <i class="glyphicon glyphicon-volume-up"></i>
-                    <i class="glyphicon glyphicon-volume-off"></i>
+                <button id="playmusic-prev">
+                    <i class="glyphicon glyphicon-backward"></i>
                 </button>
-                <progress id="volumeProBar" value="100" max="100"></progress>
+
+                <button id="playButton">
+                    <i class="glyphicon glyphicon-play"></i>
+                    <i class="glyphicon glyphicon-pause"></i>
+                </button>
+
+                <button id="playmusic-next">
+                    <i class="glyphicon glyphicon-forward"></i>
+                </button>
+
+                <button id="loopButton">
+                    <i class="glyphicon glyphicon-repeat"></i>
+                </button>
+
+                <div id="volume">
+                    <button id="volumeButton">
+                        <i class="glyphicon glyphicon-volume-down"></i>
+                        <i class="glyphicon glyphicon-volume-up"></i>
+                        <i class="glyphicon glyphicon-volume-off"></i>
+                    </button>
+                    <progress id="volumeProBar" value="100" max="100"></progress>
+                </div>
+
             </div>
 
-        </div>
+        </div>*@
 
-    </div>*@
 
-    
     <script src="~/Scripts/MainLayout_JS/main-layout.js"></script>
 </body>
 

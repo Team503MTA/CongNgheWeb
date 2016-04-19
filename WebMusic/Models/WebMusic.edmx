@@ -245,10 +245,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="USERNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="FIRSTNAME" Type="nvarchar" MaxLength="100" />
           <Property Name="PASSWORD" Type="nvarchar" MaxLength="100" />
           <Property Name="EMAIL" Type="nvarchar" MaxLength="100" />
           <Property Name="LEVEL_" Type="tinyint" />
+          <Property Name="LASTNAME" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="USER_TRACKLIST">
           <Key>
@@ -958,10 +959,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PASSWORD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LEVEL_" Type="Byte" />
+          <Property Name="LASTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HISTORY_USER" Relationship="Self.FK_HISTORY_USER_USER" FromRole="USER" ToRole="HISTORY_USER" />
           <NavigationProperty Name="TRACKs" Relationship="Self.USER_TRACKLIST" FromRole="USER" ToRole="TRACK" />
           <NavigationProperty Name="VIDEOs" Relationship="Self.USER_VIDEOLIST" FromRole="USER" ToRole="VIDEO" />
@@ -1582,10 +1584,11 @@
             <EntityTypeMapping TypeName="MusicModel.USER">
               <MappingFragment StoreEntitySet="USER">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="LEVEL_" ColumnName="LEVEL_" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
