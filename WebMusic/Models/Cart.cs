@@ -15,10 +15,22 @@ namespace WebMusic.Models
 
         public int type { get; set; }
 
-        public Cart(int _id ,int _type)
+        public string name { get; set; }
+
+        public double cost { get; set; }
+
+        public List<string> artist { get; set; }
+
+        public List<string> label { get; set; }
+
+        public Cart(int _id ,int _type , string _name , double _cost , List<string> _artist , List<string> _label  )
         {
             id = _id;
             type = _type;
+            name = _name;
+            cost = _cost;
+            artist = _artist;
+            label = _label;
         }
 
     }

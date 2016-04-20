@@ -48,12 +48,13 @@ namespace WebMusic.Controllers
         [HttpPost]
         public PartialViewResult Login(FormCollection f)
         {
-            string sTaikhoan = f["userEmail"].ToString();
-            string sMatkhau = f.Get("userPassword").ToString();
-            USER user = db.USERs.SingleOrDefault(x => x.EMAIL == sTaikhoan && x.PASSWORD == sMatkhau);
+            string username = f["userEmail"].ToString();
+            string pass = f.Get("userPassword").ToString();
+            USER user = db.USERs.SingleOrDefault(x => x.EMAIL == username && x.PASSWORD == pass);
             if (user != null)
             {
                 ViewBag.login = "success";
+                ViewBag.username = user.FIRSTNAME + " " + user.LASTNAME;
                 Session["User"] = user;
             }
             else
