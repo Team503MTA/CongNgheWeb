@@ -29,6 +29,20 @@
           <Property Name="NUMBER" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="PASSWORD" Type="nvarchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="CHART">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="DATE_RELEASE" Type="date" />
+          <Property Name="DESCRIP" Type="nvarchar" MaxLength="500" />
+          <Property Name="NAME_GENRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="LINK_IMG" Type="nchar" MaxLength="50" />
+          <Property Name="COST" Type="float" />
+          <Property Name="ID_GENRE" Type="smallint" />
+          <Property Name="TYPE" Type="tinyint" />
+        </EntityType>
         <EntityType Name="FORMULA_HOT">
           <Key>
             <PropertyRef Name="CLICK" />
@@ -163,6 +177,21 @@
           <Property Name="LOCATION" Type="nvarchar" MaxLength="150" />
           <Property Name="TIME" Type="date" />
         </EntityType>
+        <EntityType Name="SOUNDS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="LABEL_ID" Type="smallint" />
+          <Property Name="RELEASE_DATE" Type="date" />
+          <Property Name="DATA_SIZE" Type="nchar" MaxLength="100" />
+          <Property Name="DESCRIP" Type="nvarchar" MaxLength="4000" />
+          <Property Name="COST" Type="float" />
+          <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POINT_ALL" Type="int" />
+          <Property Name="LINK_IMG" Type="nchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="STATISTIC_ARTIST">
           <Key>
             <PropertyRef Name="ID_ARTIST" />
@@ -194,6 +223,46 @@
           <Property Name="CLICK_MONTH" Type="int" />
           <Property Name="BUY_ALL" Type="int" />
           <Property Name="BUY_MONTH" Type="int" />
+        </EntityType>
+        <EntityType Name="STEM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="TEMPO" Type="tinyint" />
+          <Property Name="KEY_" Type="nchar" MaxLength="20" />
+          <Property Name="COST" Type="float" />
+          <Property Name="LINK" Type="nchar" MaxLength="50" />
+          <Property Name="LINK_IMG" Type="nchar" MaxLength="50" />
+          <Property Name="DESCRIP" Type="nvarchar" MaxLength="500" />
+          <Property Name="LENGTH" Type="nchar" MaxLength="20" />
+          <Property Name="POINT_MONTH" Type="int" />
+          <Property Name="POIN_ALL" Type="int" />
+          <Property Name="STEMS_ID" Type="int" />
+          <Property Name="GENRE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="STEM_ARTIST">
+          <Key>
+            <PropertyRef Name="STEM_ID" />
+            <PropertyRef Name="ARTIST_ID" />
+          </Key>
+          <Property Name="STEM_ID" Type="int" Nullable="false" />
+          <Property Name="ARTIST_ID" Type="int" Nullable="false" />
+          <Property Name="ARTIST_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="NAME_LABEL" Type="nvarchar" MaxLength="50" />
+          <Property Name="NAME_STEM" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="STEMS">
+          <Key>
+            <PropertyRef Name="STEMS_ID" />
+          </Key>
+          <Property Name="STEMS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="DATE_RELEASE" Type="date" />
+          <Property Name="COST" Type="float" />
+          <Property Name="CATALOG" Type="nvarchar" MaxLength="50" />
+          <Property Name="IMG" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -295,6 +364,18 @@
             </Principal>
             <Dependent Role="ARTIST">
               <PropertyRef Name="ID_LABEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHART_GENRE">
+          <End Role="GENRE" Type="Self.GENRE" Multiplicity="0..1" />
+          <End Role="CHART" Type="Self.CHART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHART">
+              <PropertyRef Name="ID_GENRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -450,6 +531,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SOUNDS_LABEL">
+          <End Role="LABEL" Type="Self.LABEL" Multiplicity="0..1" />
+          <End Role="SOUNDS" Type="Self.SOUNDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LABEL">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SOUNDS">
+              <PropertyRef Name="LABEL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_STATISTIC_ARTIST_ARTIST">
           <End Role="ARTIST" Type="Self.ARTIST" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -489,6 +582,42 @@
             </Principal>
             <Dependent Role="STATISTIC_TRACK">
               <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STEM_ARTIST_ARTIST">
+          <End Role="ARTIST" Type="Self.ARTIST" Multiplicity="1" />
+          <End Role="STEM_ARTIST" Type="Self.STEM_ARTIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTIST">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STEM_ARTIST">
+              <PropertyRef Name="ARTIST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STEM_ARTIST_STEM">
+          <End Role="STEM" Type="Self.STEM" Multiplicity="1" />
+          <End Role="STEM_ARTIST" Type="Self.STEM_ARTIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STEM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STEM_ARTIST">
+              <PropertyRef Name="STEM_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STEM_ARTIST_STEM1">
+          <End Role="STEM" Type="Self.STEM" Multiplicity="1" />
+          <End Role="STEM_ARTIST" Type="Self.STEM_ARTIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STEM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STEM_ARTIST">
+              <PropertyRef Name="STEM_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -579,6 +708,7 @@
         <EntityContainer Name="MusicModelStoreContainer">
           <EntitySet Name="ARTIST" EntityType="Self.ARTIST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CARD" EntityType="Self.CARD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHART" EntityType="Self.CHART" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMULA_HOT" EntityType="Self.FORMULA_HOT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRE" EntityType="Self.GENRE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRE_ARTIST" EntityType="Self.GENRE_ARTIST" Schema="dbo" store:Type="Tables" />
@@ -592,9 +722,13 @@
           <EntitySet Name="REMIX_ARTIST" EntityType="Self.REMIX_ARTIST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SALE" EntityType="Self.SALE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SHOW" EntityType="Self.SHOW" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOUNDS" EntityType="Self.SOUNDS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STATISTIC_ARTIST" EntityType="Self.STATISTIC_ARTIST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STATISTIC_REMIX" EntityType="Self.STATISTIC_REMIX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STATISTIC_TRACK" EntityType="Self.STATISTIC_TRACK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STEM" EntityType="Self.STEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STEM_ARTIST" EntityType="Self.STEM_ARTIST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STEMS" EntityType="Self.STEMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TOP_6_DJ" EntityType="Self.TOP_6_DJ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TRACK" EntityType="Self.TRACK" Schema="dbo" store:Type="Tables" />
@@ -606,6 +740,10 @@
           <AssociationSet Name="FK_ARTIST_LABEL" Association="Self.FK_ARTIST_LABEL">
             <End Role="LABEL" EntitySet="LABEL" />
             <End Role="ARTIST" EntitySet="ARTIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHART_GENRE" Association="Self.FK_CHART_GENRE">
+            <End Role="GENRE" EntitySet="GENRE" />
+            <End Role="CHART" EntitySet="CHART" />
           </AssociationSet>
           <AssociationSet Name="FK_GENRE_ARTIST_ARTIST" Association="Self.FK_GENRE_ARTIST_ARTIST">
             <End Role="ARTIST" EntitySet="ARTIST" />
@@ -651,6 +789,10 @@
             <End Role="ARTIST" EntitySet="ARTIST" />
             <End Role="SHOW" EntitySet="SHOW" />
           </AssociationSet>
+          <AssociationSet Name="FK_SOUNDS_LABEL" Association="Self.FK_SOUNDS_LABEL">
+            <End Role="LABEL" EntitySet="LABEL" />
+            <End Role="SOUNDS" EntitySet="SOUNDS" />
+          </AssociationSet>
           <AssociationSet Name="FK_STATISTIC_ARTIST_ARTIST" Association="Self.FK_STATISTIC_ARTIST_ARTIST">
             <End Role="ARTIST" EntitySet="ARTIST" />
             <End Role="STATISTIC_ARTIST" EntitySet="STATISTIC_ARTIST" />
@@ -662,6 +804,18 @@
           <AssociationSet Name="FK_STATISTIC_TRACK_TRACK" Association="Self.FK_STATISTIC_TRACK_TRACK">
             <End Role="TRACK" EntitySet="TRACK" />
             <End Role="STATISTIC_TRACK" EntitySet="STATISTIC_TRACK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STEM_ARTIST_ARTIST" Association="Self.FK_STEM_ARTIST_ARTIST">
+            <End Role="ARTIST" EntitySet="ARTIST" />
+            <End Role="STEM_ARTIST" EntitySet="STEM_ARTIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STEM_ARTIST_STEM" Association="Self.FK_STEM_ARTIST_STEM">
+            <End Role="STEM" EntitySet="STEM" />
+            <End Role="STEM_ARTIST" EntitySet="STEM_ARTIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STEM_ARTIST_STEM1" Association="Self.FK_STEM_ARTIST_STEM1">
+            <End Role="STEM" EntitySet="STEM" />
+            <End Role="STEM_ARTIST" EntitySet="STEM_ARTIST" />
           </AssociationSet>
           <AssociationSet Name="FK_TRACK_ARTIST_ARTIST" Association="Self.FK_TRACK_ARTIST_ARTIST">
             <End Role="ARTIST" EntitySet="ARTIST" />
@@ -714,6 +868,7 @@
           <NavigationProperty Name="REMIX_ARTIST" Relationship="Self.FK_REMIX_ARTIST_ARTIST" FromRole="ARTIST" ToRole="REMIX_ARTIST" />
           <NavigationProperty Name="SHOWs" Relationship="Self.FK_SHOW_ARTIST" FromRole="ARTIST" ToRole="SHOW" />
           <NavigationProperty Name="STATISTIC_ARTIST" Relationship="Self.FK_STATISTIC_ARTIST_ARTIST" FromRole="ARTIST" ToRole="STATISTIC_ARTIST" />
+          <NavigationProperty Name="STEM_ARTIST" Relationship="Self.FK_STEM_ARTIST_ARTIST" FromRole="ARTIST" ToRole="STEM_ARTIST" />
           <NavigationProperty Name="TRACK_ARTIST" Relationship="Self.FK_TRACK_ARTIST_ARTIST" FromRole="ARTIST" ToRole="TRACK_ARTIST" />
         </EntityType>
         <EntityType Name="CARD">
@@ -722,6 +877,21 @@
           </Key>
           <Property Name="NUMBER" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CHART">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATE_RELEASE" Type="DateTime" Precision="0" />
+          <Property Name="DESCRIP" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_IMG" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="COST" Type="Double" />
+          <Property Name="ID_GENRE" Type="Int16" />
+          <Property Name="TYPE" Type="Byte" />
+          <NavigationProperty Name="GENRE" Relationship="Self.FK_CHART_GENRE" FromRole="CHART" ToRole="GENRE" />
         </EntityType>
         <EntityType Name="FORMULA_HOT">
           <Key>
@@ -739,6 +909,7 @@
           <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DESCRIP" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="TEMPO" Type="Byte" />
+          <NavigationProperty Name="CHARTs" Relationship="Self.FK_CHART_GENRE" FromRole="GENRE" ToRole="CHART" />
           <NavigationProperty Name="GENRE_ARTIST" Relationship="Self.FK_GENRE_ARTIST_GENRE" FromRole="GENRE" ToRole="GENRE_ARTIST" />
           <NavigationProperty Name="GENRE_LABEL" Relationship="Self.FK_GENRE_LABEL_GENRE" FromRole="GENRE" ToRole="GENRE_LABEL" />
         </EntityType>
@@ -806,6 +977,7 @@
           <Property Name="LINK_IMG" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ARTISTs" Relationship="Self.FK_ARTIST_LABEL" FromRole="LABEL" ToRole="ARTIST" />
           <NavigationProperty Name="GENRE_LABEL" Relationship="Self.FK_GENRE_LABEL_LABEL" FromRole="LABEL" ToRole="GENRE_LABEL" />
+          <NavigationProperty Name="SOUNDS" Relationship="Self.FK_SOUNDS_LABEL" FromRole="LABEL" ToRole="SOUNDS" />
         </EntityType>
         <EntityType Name="NEW_TRACK">
           <Key>
@@ -874,6 +1046,22 @@
           <Property Name="TIME" Type="DateTime" Precision="0" />
           <NavigationProperty Name="ARTIST" Relationship="Self.FK_SHOW_ARTIST" FromRole="SHOW" ToRole="ARTIST" />
         </EntityType>
+        <EntityType Name="SOUND">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LABEL_ID" Type="Int16" />
+          <Property Name="RELEASE_DATE" Type="DateTime" Precision="0" />
+          <Property Name="DATA_SIZE" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="DESCRIP" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="COST" Type="Double" />
+          <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POINT_ALL" Type="Int32" />
+          <Property Name="LINK_IMG" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="LABEL" Relationship="Self.FK_SOUNDS_LABEL" FromRole="SOUNDS" ToRole="LABEL" />
+        </EntityType>
         <EntityType Name="STATISTIC_ARTIST">
           <Key>
             <PropertyRef Name="ID_ARTIST" />
@@ -908,6 +1096,51 @@
           <Property Name="BUY_ALL" Type="Int32" />
           <Property Name="BUY_MONTH" Type="Int32" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_STATISTIC_TRACK_TRACK" FromRole="STATISTIC_TRACK" ToRole="TRACK" />
+        </EntityType>
+        <EntityType Name="STEM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TEMPO" Type="Byte" />
+          <Property Name="KEY_" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="COST" Type="Double" />
+          <Property Name="LINK" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="LINK_IMG" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="DESCRIP" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LENGTH" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="POINT_MONTH" Type="Int32" />
+          <Property Name="POIN_ALL" Type="Int32" />
+          <Property Name="STEMS_ID" Type="Int32" />
+          <Property Name="GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="STEM_ARTIST" Relationship="Self.FK_STEM_ARTIST_STEM" FromRole="STEM" ToRole="STEM_ARTIST" />
+          <NavigationProperty Name="STEM_ARTIST1" Relationship="Self.FK_STEM_ARTIST_STEM1" FromRole="STEM" ToRole="STEM_ARTIST" />
+        </EntityType>
+        <EntityType Name="STEM_ARTIST">
+          <Key>
+            <PropertyRef Name="STEM_ID" />
+            <PropertyRef Name="ARTIST_ID" />
+          </Key>
+          <Property Name="STEM_ID" Type="Int32" Nullable="false" />
+          <Property Name="ARTIST_ID" Type="Int32" Nullable="false" />
+          <Property Name="ARTIST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_LABEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_STEM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ARTIST" Relationship="Self.FK_STEM_ARTIST_ARTIST" FromRole="STEM_ARTIST" ToRole="ARTIST" />
+          <NavigationProperty Name="STEM" Relationship="Self.FK_STEM_ARTIST_STEM" FromRole="STEM_ARTIST" ToRole="STEM" />
+          <NavigationProperty Name="STEM1" Relationship="Self.FK_STEM_ARTIST_STEM1" FromRole="STEM_ARTIST" ToRole="STEM" />
+        </EntityType>
+        <EntityType Name="STEM1">
+          <Key>
+            <PropertyRef Name="STEMS_ID" />
+          </Key>
+          <Property Name="STEMS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATE_RELEASE" Type="DateTime" Precision="0" />
+          <Property Name="COST" Type="Double" />
+          <Property Name="CATALOG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IMG" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1064,6 +1297,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_STEM_ARTIST_ARTIST">
+          <End Role="ARTIST" Type="Self.ARTIST" Multiplicity="1" />
+          <End Role="STEM_ARTIST" Type="Self.STEM_ARTIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTIST">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STEM_ARTIST">
+              <PropertyRef Name="ARTIST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TRACK_ARTIST_ARTIST">
           <End Role="ARTIST" Type="Self.ARTIST" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1075,6 +1320,18 @@
             </Principal>
             <Dependent Role="TRACK_ARTIST">
               <PropertyRef Name="ID_ARTIST" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHART_GENRE">
+          <End Role="GENRE" Type="Self.GENRE" Multiplicity="0..1" />
+          <End Role="CHART" Type="Self.CHART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHART">
+              <PropertyRef Name="ID_GENRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1148,6 +1405,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SOUNDS_LABEL">
+          <End Role="LABEL" Type="Self.LABEL" Multiplicity="0..1" />
+          <End Role="SOUNDS" Type="Self.SOUND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LABEL">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SOUNDS">
+              <PropertyRef Name="LABEL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NEW_TRACK_TRACK">
           <End Role="TRACK" Type="Self.TRACK" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1216,6 +1485,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_STEM_ARTIST_STEM">
+          <End Role="STEM" Type="Self.STEM" Multiplicity="1" />
+          <End Role="STEM_ARTIST" Type="Self.STEM_ARTIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STEM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STEM_ARTIST">
+              <PropertyRef Name="STEM_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STEM_ARTIST_STEM1">
+          <End Role="STEM" Type="Self.STEM" Multiplicity="1" />
+          <End Role="STEM_ARTIST" Type="Self.STEM_ARTIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STEM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STEM_ARTIST">
+              <PropertyRef Name="STEM_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TRACK_ARTIST_TRACK">
           <End Role="TRACK" Type="Self.TRACK" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1241,6 +1534,7 @@
         <EntityContainer Name="MusicEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ARTISTs" EntityType="Self.ARTIST" />
           <EntitySet Name="CARDs" EntityType="Self.CARD" />
+          <EntitySet Name="CHARTs" EntityType="Self.CHART" />
           <EntitySet Name="FORMULA_HOT" EntityType="Self.FORMULA_HOT" />
           <EntitySet Name="GENREs" EntityType="Self.GENRE" />
           <EntitySet Name="GENRE_ARTIST" EntityType="Self.GENRE_ARTIST" />
@@ -1254,9 +1548,13 @@
           <EntitySet Name="REMIX_ARTIST" EntityType="Self.REMIX_ARTIST" />
           <EntitySet Name="SALEs" EntityType="Self.SALE" />
           <EntitySet Name="SHOWs" EntityType="Self.SHOW" />
+          <EntitySet Name="SOUNDS" EntityType="Self.SOUND" />
           <EntitySet Name="STATISTIC_ARTIST" EntityType="Self.STATISTIC_ARTIST" />
           <EntitySet Name="STATISTIC_REMIX" EntityType="Self.STATISTIC_REMIX" />
           <EntitySet Name="STATISTIC_TRACK" EntityType="Self.STATISTIC_TRACK" />
+          <EntitySet Name="STEMs" EntityType="Self.STEM" />
+          <EntitySet Name="STEM_ARTIST" EntityType="Self.STEM_ARTIST" />
+          <EntitySet Name="STEMS1" EntityType="Self.STEM1" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TOP_6_DJ" EntityType="Self.TOP_6_DJ" />
           <EntitySet Name="TRACKs" EntityType="Self.TRACK" />
@@ -1283,9 +1581,17 @@
             <End Role="ARTIST" EntitySet="ARTISTs" />
             <End Role="STATISTIC_ARTIST" EntitySet="STATISTIC_ARTIST" />
           </AssociationSet>
+          <AssociationSet Name="FK_STEM_ARTIST_ARTIST" Association="Self.FK_STEM_ARTIST_ARTIST">
+            <End Role="ARTIST" EntitySet="ARTISTs" />
+            <End Role="STEM_ARTIST" EntitySet="STEM_ARTIST" />
+          </AssociationSet>
           <AssociationSet Name="FK_TRACK_ARTIST_ARTIST" Association="Self.FK_TRACK_ARTIST_ARTIST">
             <End Role="ARTIST" EntitySet="ARTISTs" />
             <End Role="TRACK_ARTIST" EntitySet="TRACK_ARTIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHART_GENRE" Association="Self.FK_CHART_GENRE">
+            <End Role="GENRE" EntitySet="GENREs" />
+            <End Role="CHART" EntitySet="CHARTs" />
           </AssociationSet>
           <AssociationSet Name="FK_GENRE_ARTIST_GENRE" Association="Self.FK_GENRE_ARTIST_GENRE">
             <End Role="GENRE" EntitySet="GENREs" />
@@ -1307,6 +1613,10 @@
             <End Role="USER" EntitySet="USERs" />
             <End Role="HISTORY_USER" EntitySet="HISTORY_USER" />
           </AssociationSet>
+          <AssociationSet Name="FK_SOUNDS_LABEL" Association="Self.FK_SOUNDS_LABEL">
+            <End Role="LABEL" EntitySet="LABELs" />
+            <End Role="SOUNDS" EntitySet="SOUNDS" />
+          </AssociationSet>
           <AssociationSet Name="FK_NEW_TRACK_TRACK" Association="Self.FK_NEW_TRACK_TRACK">
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="NEW_TRACK" EntitySet="NEW_TRACK" />
@@ -1326,6 +1636,14 @@
           <AssociationSet Name="FK_STATISTIC_TRACK_TRACK" Association="Self.FK_STATISTIC_TRACK_TRACK">
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="STATISTIC_TRACK" EntitySet="STATISTIC_TRACK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STEM_ARTIST_STEM" Association="Self.FK_STEM_ARTIST_STEM">
+            <End Role="STEM" EntitySet="STEMs" />
+            <End Role="STEM_ARTIST" EntitySet="STEM_ARTIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STEM_ARTIST_STEM1" Association="Self.FK_STEM_ARTIST_STEM1">
+            <End Role="STEM" EntitySet="STEMs" />
+            <End Role="STEM_ARTIST" EntitySet="STEM_ARTIST" />
           </AssociationSet>
           <AssociationSet Name="FK_TRACK_ARTIST_TRACK" Association="Self.FK_TRACK_ARTIST_TRACK">
             <End Role="TRACK" EntitySet="TRACKs" />
@@ -1369,6 +1687,21 @@
               <MappingFragment StoreEntitySet="CARD">
                 <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHARTs">
+            <EntityTypeMapping TypeName="MusicModel.CHART">
+              <MappingFragment StoreEntitySet="CHART">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DATE_RELEASE" ColumnName="DATE_RELEASE" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="NAME_GENRE" ColumnName="NAME_GENRE" />
+                <ScalarProperty Name="LINK_IMG" ColumnName="LINK_IMG" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="ID_GENRE" ColumnName="ID_GENRE" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1514,6 +1847,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SOUNDS">
+            <EntityTypeMapping TypeName="MusicModel.SOUND">
+              <MappingFragment StoreEntitySet="SOUNDS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="LABEL_ID" ColumnName="LABEL_ID" />
+                <ScalarProperty Name="RELEASE_DATE" ColumnName="RELEASE_DATE" />
+                <ScalarProperty Name="DATA_SIZE" ColumnName="DATA_SIZE" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
+                <ScalarProperty Name="LINK_IMG" ColumnName="LINK_IMG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="STATISTIC_ARTIST">
             <EntityTypeMapping TypeName="MusicModel.STATISTIC_ARTIST">
               <MappingFragment StoreEntitySet="STATISTIC_ARTIST">
@@ -1546,6 +1895,48 @@
                 <ScalarProperty Name="CLICK_MONTH" ColumnName="CLICK_MONTH" />
                 <ScalarProperty Name="BUY_ALL" ColumnName="BUY_ALL" />
                 <ScalarProperty Name="BUY_MONTH" ColumnName="BUY_MONTH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STEMs">
+            <EntityTypeMapping TypeName="MusicModel.STEM">
+              <MappingFragment StoreEntitySet="STEM">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="TEMPO" ColumnName="TEMPO" />
+                <ScalarProperty Name="KEY_" ColumnName="KEY_" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="LINK_IMG" ColumnName="LINK_IMG" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
+                <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
+                <ScalarProperty Name="POIN_ALL" ColumnName="POIN_ALL" />
+                <ScalarProperty Name="STEMS_ID" ColumnName="STEMS_ID" />
+                <ScalarProperty Name="GENRE" ColumnName="GENRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STEM_ARTIST">
+            <EntityTypeMapping TypeName="MusicModel.STEM_ARTIST">
+              <MappingFragment StoreEntitySet="STEM_ARTIST">
+                <ScalarProperty Name="STEM_ID" ColumnName="STEM_ID" />
+                <ScalarProperty Name="ARTIST_ID" ColumnName="ARTIST_ID" />
+                <ScalarProperty Name="ARTIST_NAME" ColumnName="ARTIST_NAME" />
+                <ScalarProperty Name="NAME_LABEL" ColumnName="NAME_LABEL" />
+                <ScalarProperty Name="NAME_STEM" ColumnName="NAME_STEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STEMS1">
+            <EntityTypeMapping TypeName="MusicModel.STEM1">
+              <MappingFragment StoreEntitySet="STEMS">
+                <ScalarProperty Name="STEMS_ID" ColumnName="STEMS_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DATE_RELEASE" ColumnName="DATE_RELEASE" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="CATALOG" ColumnName="CATALOG" />
+                <ScalarProperty Name="IMG" ColumnName="IMG" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

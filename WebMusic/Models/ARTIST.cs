@@ -20,6 +20,7 @@ namespace WebMusic.Models
             this.GENRE_ARTIST = new HashSet<GENRE_ARTIST>();
             this.REMIX_ARTIST = new HashSet<REMIX_ARTIST>();
             this.SHOWs = new HashSet<SHOW>();
+            this.STEM_ARTIST = new HashSet<STEM_ARTIST>();
             this.TRACK_ARTIST = new HashSet<TRACK_ARTIST>();
         }
     
@@ -44,6 +45,8 @@ namespace WebMusic.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SHOW> SHOWs { get; set; }
         public virtual STATISTIC_ARTIST STATISTIC_ARTIST { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<STEM_ARTIST> STEM_ARTIST { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TRACK_ARTIST> TRACK_ARTIST { get; set; }
     }

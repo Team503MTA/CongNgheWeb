@@ -19,17 +19,17 @@ namespace MusicWeb.Controllers
 
         public PartialViewResult ChartsGenrePartial()
         {
-            return PartialView(_db.GENRE.ToList());
+            return PartialView(_db.GENREs.ToList());
         }
 
         public PartialViewResult NewChartsPartial()
         {
-            var c = _db.CHART.ToList();
+            var c = _db.CHARTs.ToList();
             List<string> img = new List<string>();
             foreach (var item in c)
             {
                 var i =
-                    _db.TRACK.Where(p => p.GENRE == item.NAME_GENRE)
+                    _db.TRACKs.Where(p => p.GENRE == item.NAME_GENRE)
                         .Take(1)
                         .OrderByDescending(p => p.POINT_ALL)
                         .Select(p => p.LINK_IMG)
@@ -42,11 +42,11 @@ namespace MusicWeb.Controllers
 
         public PartialViewResult SliderChartsPartial()
         {
-            var c = _db.CHART.Take(7).ToList();
+            var c = _db.CHARTs.Take(7).ToList();
             List<string> img = new List<string>();
             foreach (var item in c)
             {
-                var i = _db.TRACK.Where(p => p.GENRE == item.NAME_GENRE).Take(1).OrderByDescending(p => p.POINT_MONTH).Select(p => p.LINK_IMG).FirstOrDefault();
+                var i = _db.TRACKs.Where(p => p.GENRE == item.NAME_GENRE).Take(1).OrderByDescending(p => p.POINT_MONTH).Select(p => p.LINK_IMG).FirstOrDefault();
                 img.Add(i);
             }
             ViewBag.img = img;

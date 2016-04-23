@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
-using MusicWeb.Model;
+using WebMusic.Models;
 
 namespace MusicWeb.Controllers
 {
@@ -10,7 +10,7 @@ namespace MusicWeb.Controllers
     {
         //
         // GET: /ChartsDetail/
-        readonly MusicEntities _db = new MusicEntities();
+        MusicEntities db = new MusicEntities();
 
         [HttpGet]
         public ActionResult Index()
@@ -30,22 +30,22 @@ namespace MusicWeb.Controllers
 
         public PartialViewResult ChartsDetailPartial(int id)
         {
-            string g = _db.CHART.Where(p => p.ID == id).Select(p => p.NAME_GENRE).FirstOrDefault();
-            var i = _db.TRACK.Where(p => p.GENRE == g).OrderByDescending(p => p.POINT_MONTH).Select(p => p.LINK_IMG).FirstOrDefault();
+            string g = db.CHARTs.Where(p => p.ID == id).Select(p => p.NAME_GENRE).SingleOrDefault();
+            var i = db.TRACKs.Where(p => p.GENRE == g).OrderByDescending(p => p.POINT_MONTH).Select(p => p.LINK_IMG).FirstOrDefault();
             if (i == null)
             {
                 i = "blank_artist.png";
             }
             ViewBag.img = i;
-            return PartialView(_db.CHART.SingleOrDefault(p => p.ID == id));
+            return PartialView(db.CHARTs.Where(p=>p.ID==id).SingleOrDefault());
         }
 
         public PartialViewResult TracksDetailPartial(int id)
         {
             List<List<string>> lstart = new List<List<string>>();
             List<List<string>> lstlbl = new List<List<string>>();
-            string g = _db.CHART.Where(p => p.ID == id).Select(p => p.NAME_GENRE).FirstOrDefault();
-            var t = _db.TRACK.Where(p => p.GENRE == g).Take(3).OrderByDescending(p => p.POINT_MONTH).ToList();
+            string g = db.CHARTs.Where(p => p.ID == id).Select(p => p.NAME_GENRE).FirstOrDefault();
+            var t = db.TRACKs.Where(p => p.GENRE == g).Take(3).OrderByDescending(p => p.POINT_MONTH).ToList();
             ViewBag.quantum = t.Count;
             foreach (var i in t)
             {
@@ -53,8 +53,8 @@ namespace MusicWeb.Controllers
                 {
                     i.LINK_IMG = "blank_artist.png";
                 }
-                var tem = _db.TRACK_ARTIST.Where(p => p.ID_TRACK == i.ID).Select(p => p.NAME_ARTIST).ToList();
-                var temp = _db.TRACK_ARTIST.Where(p => p.ID_TRACK == i.ID).Select(p => p.NAME_LABEL).ToList();
+                var tem = db.TRACK_ARTIST.Where(p => p.ID_TRACK == i.ID).Select(p => p.NAME_ARTIST).ToList();
+                var temp = db.TRACK_ARTIST.Where(p => p.ID_TRACK == i.ID).Select(p => p.NAME_LABEL).ToList();
                 lstart.Add(tem);
                 lstlbl.Add(temp);
             }

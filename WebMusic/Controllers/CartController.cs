@@ -115,7 +115,7 @@ namespace WebMusic.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult CartBuy(Pay pay)
+        public JsonResult CartBuy(Pay pay)
         {
 
             USER tempUser = db.USERs.Where(p => p.EMAIL == pay.email && p.PASSWORD == pay.password).FirstOrDefault();
@@ -126,10 +126,11 @@ namespace WebMusic.Controllers
                 {
                     Session["Cart"] = null;
                     Session["TotalMoney"] = 0;
+                    return Json("1");
                 }
             }
 
-            return PartialView("CartDetail");
+            return Json("");
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MusicWeb.Model;
+using WebMusic.Models;
 
 namespace MusicWeb.Controllers
 {
@@ -30,13 +30,13 @@ namespace MusicWeb.Controllers
 
         public PartialViewResult NewStemsPartial()
         {
-            var sts = _db.STEMS.Select(p => p.STEMS_ID).ToList();
+            var sts = _db.STEMS1.Select(p => p.STEMS_ID).ToList();
             List<List<string>> lstart = new List<List<string>>();
             List<string> lbl = new List<string>();
             foreach (var item in sts)
             {
                 List<string> art = new List<string>();
-                var st = _db.STEM.Where(p => p.STEMS_ID == item).Select(p => p.ID).ToList();
+                var st = _db.STEMs.Where(p => p.STEMS_ID == item).Select(p => p.ID).ToList();
                 foreach (var it in st)
                 {
                     var a = _db.STEM_ARTIST.Where(p => p.STEM_ID == it).Select(p => p.ARTIST_NAME).FirstOrDefault();
@@ -50,12 +50,12 @@ namespace MusicWeb.Controllers
             }
             ViewBag.art = lstart;
             ViewBag.lbl = lbl;
-            return PartialView(_db.STEMS.ToList());
+            return PartialView(_db.STEMS1.ToList());
         }
 
         public PartialViewResult SliderStemsPartial()
         {
-            return PartialView(_db.GENRE.ToList());
+            return PartialView(_db.GENREs.ToList());
         }
 
     }

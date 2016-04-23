@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MusicWeb.Model;
+using WebMusic.Models;
 
 namespace MusicWeb.Controllers
 {
@@ -24,7 +24,7 @@ namespace MusicWeb.Controllers
             List<string> lbl = new List<string>();
             foreach (var item in fp)
             {
-                var label = _db.LABEL.Where(p => p.ID == item.LABEL_ID).Select(p => p.NAME).SingleOrDefault();
+                var label = _db.LABELs.Where(p => p.ID == item.LABEL_ID).Select(p => p.NAME).SingleOrDefault();
                 lbl.Add(label);
             }
             ViewBag.lbl = lbl;

@@ -27,6 +27,7 @@ namespace WebMusic.Models
     
         public virtual DbSet<ARTIST> ARTISTs { get; set; }
         public virtual DbSet<CARD> CARDs { get; set; }
+        public virtual DbSet<CHART> CHARTs { get; set; }
         public virtual DbSet<FORMULA_HOT> FORMULA_HOT { get; set; }
         public virtual DbSet<GENRE> GENREs { get; set; }
         public virtual DbSet<GENRE_ARTIST> GENRE_ARTIST { get; set; }
@@ -40,9 +41,13 @@ namespace WebMusic.Models
         public virtual DbSet<REMIX_ARTIST> REMIX_ARTIST { get; set; }
         public virtual DbSet<SALE> SALEs { get; set; }
         public virtual DbSet<SHOW> SHOWs { get; set; }
+        public virtual DbSet<SOUND> SOUNDS { get; set; }
         public virtual DbSet<STATISTIC_ARTIST> STATISTIC_ARTIST { get; set; }
         public virtual DbSet<STATISTIC_REMIX> STATISTIC_REMIX { get; set; }
         public virtual DbSet<STATISTIC_TRACK> STATISTIC_TRACK { get; set; }
+        public virtual DbSet<STEM> STEMs { get; set; }
+        public virtual DbSet<STEM_ARTIST> STEM_ARTIST { get; set; }
+        public virtual DbSet<STEM1> STEMS1 { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TOP_6_DJ> TOP_6_DJ { get; set; }
         public virtual DbSet<TRACK> TRACKs { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MusicWeb.Model;
+using WebMusic.Models;
 
 namespace MusicWeb.Controllers
 {
@@ -30,7 +30,7 @@ namespace MusicWeb.Controllers
 
         public PartialViewResult StemsDetailPartial(int id)
         {
-            var st = _db.STEM.Where(p => p.STEMS_ID == id).Select(p => p.ID).ToList();
+            var st = _db.STEMs.Where(p => p.STEMS_ID == id).Select(p => p.ID).ToList();
             List<string> art = new List<string>();
             List<string> lbl = new List<string>();
             foreach (var item in st)
@@ -44,7 +44,7 @@ namespace MusicWeb.Controllers
             }
             ViewBag.lbl = lbl;
             ViewBag.art = art;
-            return PartialView(_db.STEMS.SingleOrDefault(p => p.STEMS_ID == id));
+            return PartialView(_db.STEMS1.SingleOrDefault(p => p.STEMS_ID == id));
         }
 
         public PartialViewResult StemDetailPartial(int id)
@@ -52,7 +52,7 @@ namespace MusicWeb.Controllers
             List<STEM> tem = new List<STEM>();
             List<string> art = new List<string>();
             List<string> lbl = new List<string>();
-            tem = _db.STEM.Where(p => p.STEMS_ID == id).ToList();
+            tem = _db.STEMs.Where(p => p.STEMS_ID == id).ToList();
             foreach (var item in tem)
             {
                 var a = _db.STEM_ARTIST.Where(p => p.STEM_ID == item.ID).Select(p => p.ARTIST_NAME).FirstOrDefault();

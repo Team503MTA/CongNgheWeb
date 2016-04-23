@@ -1,11 +1,44 @@
 ﻿
+
+
+// #region CLICK CART
+
 $(document).ready(function () {
-    $("#Buy-now-1").click(function () {
-        alert("tayha");
+    $("#Buy-now").click(function () {
+        $("#content-wrap").show();
     });
+
+    $("#button-cart-pay").click(function () {
+
+        $.ajax({
+            url: '@Url.Action("CartBuy","Cart")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                email: $("#cart-pay-email").val(),
+                password: $("#cart-pay-password").val(),
+                cardNumber: $("#cart-pay-series").val(),
+                passwordCard: $("#cart-pay-pass").val()
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data !== '') {
+                    alert("success");
+                } else {
+                    alert("unsuccess");
+                }
+            }
+    });
+
+    });
+
 });
 
-//login
+// #endregion
+
+
+// #region LOGIN
+
 $(document).ready(function () {
     $("#login-button").click(function () {
         $("#login-form").show();
@@ -18,9 +51,11 @@ $(document).ready(function () {
     });
 });
 
-//end login
+// #endregion
 
-// short string
+
+// #region SHORT STRING
+
 $(document).ready(function () {
     var stringFull = $("#short-text-content").text();
 
@@ -51,10 +86,11 @@ $(document).ready(function () {
     });
 
 });
-// end short string
+
+// #endregion
 
 
-//register
+// #region REGISTER
 
 $(document).ready(function () {
     $("#register-button").click(function () {
@@ -67,10 +103,10 @@ $(document).ready(function () {
     });
 });
 
-//end register
+// #endregion
 
 
-// genres
+// #region GENRES
 
 $(document).ready(function () {
     var displaygenres = 0;
@@ -87,12 +123,10 @@ $(document).ready(function () {
     });
 });
 
-// end genres
+// #endregion
 
 
-
-
-//event tag play music
+// #region TAG PLAY MUSIC
 
 $(document).ready(function () {
     var playmusic = 0;
@@ -237,4 +271,9 @@ $(document).ready(function () {
     });
 
 });
+
+// #endregion
+
+
+
 

@@ -12,26 +12,32 @@ namespace WebMusic.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GENRE
+    public partial class STEM
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GENRE()
+        public STEM()
         {
-            this.CHARTs = new HashSet<CHART>();
-            this.GENRE_ARTIST = new HashSet<GENRE_ARTIST>();
-            this.GENRE_LABEL = new HashSet<GENRE_LABEL>();
+            this.STEM_ARTIST = new HashSet<STEM_ARTIST>();
+            this.STEM_ARTIST1 = new HashSet<STEM_ARTIST>();
         }
     
-        public short ID { get; set; }
+        public int ID { get; set; }
         public string NAME { get; set; }
-        public string DESCRIP { get; set; }
         public Nullable<byte> TEMPO { get; set; }
+        public string KEY_ { get; set; }
+        public Nullable<double> COST { get; set; }
+        public string LINK { get; set; }
+        public string LINK_IMG { get; set; }
+        public string DESCRIP { get; set; }
+        public string LENGTH { get; set; }
+        public Nullable<int> POINT_MONTH { get; set; }
+        public Nullable<int> POIN_ALL { get; set; }
+        public Nullable<int> STEMS_ID { get; set; }
+        public string GENRE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHART> CHARTs { get; set; }
+        public virtual ICollection<STEM_ARTIST> STEM_ARTIST { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GENRE_ARTIST> GENRE_ARTIST { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GENRE_LABEL> GENRE_LABEL { get; set; }
+        public virtual ICollection<STEM_ARTIST> STEM_ARTIST1 { get; set; }
     }
 }
