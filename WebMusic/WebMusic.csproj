@@ -173,9 +173,14 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ChartsController.cs" />
+    <Compile Include="Controllers\ChartsDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabelController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SoundsController.cs" />
+    <Compile Include="Controllers\StemsController.cs" />
+    <Compile Include="Controllers\StemsDetailController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -402,6 +407,31 @@
     <Content Include="Views\Admin\ThemMoi.cshtml" />
     <Content Include="Views\Admin\Sua.cshtml" />
     <Content Include="Views\Admin\Xoa.cshtml" />
+    <Content Include="Views\Layout\ChartStemLayout.cshtml" />
+    <Content Include="Views\Layout\SoundsLayout.cshtml" />
+    <Content Include="Views\Shared\Banner_Sounds.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\Footer_Sounds.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\Menu_Sounds.cshtml" />
+    <Content Include="Views\Shared\Navbar.cshtml" />
+    <Content Include="Views\Shared\Navbar_Sounds.cshtml" />
+    <Content Include="Views\Shared\PlayMusic.cshtml" />
+    <Content Include="Views\Charts\Index.cshtml" />
+    <Content Include="Views\Charts\ChartsGenrePartial.cshtml" />
+    <Content Include="Views\Charts\NewChartsPartial.cshtml" />
+    <Content Include="Views\Charts\SliderChartsPartial.cshtml" />
+    <Content Include="Views\ChartsDetail\Index.cshtml" />
+    <Content Include="Views\ChartsDetail\ChartsDetailPartial.cshtml" />
+    <Content Include="Views\ChartsDetail\TracksDetailPartial.cshtml" />
+    <Content Include="Views\Sounds\Index.cshtml" />
+    <Content Include="Views\Sounds\FeaturedPacksPartial.cshtml" />
+    <Content Include="Views\Stems\Index.cshtml" />
+    <Content Include="Views\Stems\NewStemsPartial.cshtml" />
+    <Content Include="Views\Stems\SliderStemsPartial.cshtml" />
+    <Content Include="Views\StemsDetail\Index.cshtml" />
+    <Content Include="Views\StemsDetail\StemsDetailPartial.cshtml" />
+    <Content Include="Views\StemsDetail\StemDetailPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
