@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -396,6 +397,11 @@
     <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Cart\CartDetail.cshtml" />
     <Content Include="Views\Cart\CartBuy.cshtml" />
+    <Content Include="Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\Admin\ThemMoi.cshtml" />
+    <Content Include="Views\Admin\Sua.cshtml" />
+    <Content Include="Views\Admin\Xoa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
