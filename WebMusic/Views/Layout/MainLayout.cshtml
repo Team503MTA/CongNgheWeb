@@ -6,11 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>@ViewBag.Title</title>
-    <link href="~/Content/bootstrap-3.3.6-dist/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-3.3.6-dist/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/MainLayout_CSS/style-layout.css" rel="stylesheet" />
+    <link href="~/Content/MainLayout_CSS/style-cart.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 
 <body>
@@ -39,7 +41,7 @@
                                 <li><a href="#contact">Video</a></li>
                                 <li><a href="#contact">News</a></li>
                             </ul>
-                            <ul class="nav navbar-nav login pull-right">
+                            <ul class="nav navbar-nav login pull-right" id="Login-Register-Control">
                                 <li><a href="#" id="login-button">Login</a></li>
                                 <li><a href="#" id="register-button">Register</a></li>
                             </ul>
@@ -77,7 +79,13 @@
                             </li>
                         </ul>
                     </div>
-                    @Html.Action("userCart", "Cart")
+                    <div class="pull-right">
+                        <button id="logoCartMenu">
+                            <i class="glyphicon glyphicon-shopping-cart" id="cartMenu" style="display: none;"></i>
+                            <span id="total_Debt_Menu"></span>
+                        </button>
+                        <a href="#" id="userName_Menu"></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -114,7 +122,42 @@
         </div>
     </div>
 
-    @RenderBody()
+    <div class="content" id="MainContent">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" id="content-child-wrap">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content1" style="display: none;" id="content1">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 id="detail-username">vu hoang ha</h1>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4 header">Name</div>
+                        <div class="col-sm-3 header">Artist</div>
+                        <div class="col-sm-3 header">Label</div>
+                        <div class="col-sm-1 header">Cost</div>
+                        <div class="col-sm-1 header">Delete</div>
+                    </div>
+                    <div id="content1-cartDetail">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1 col-sm-offset-10" id="TotalMoney"></div>
+                        <div class="col-sm-1" id="Buy-now-1" style="cursor: pointer;">
+                            Buy Now
+                        </div>
+                    </div>
+                </div>
+                @*@Html.Action("CartBuy", "Cart")*@
+            </div>
+        </div>
+    </div>
 
     <div id="footerPage">
         <div class="container">
@@ -207,69 +250,183 @@
         </div>
     </div>
 
-    @*<div class="tag-playmusic" id="tagMusic">
+    <div class="tag-playmusic">
+        <audio id="myTune" controls>
+            <source src="~/music/1.mp3">
+        </audio>
 
-            <audio id="myTune" controls>
-                <source src="@Model.LINK" type="audio/mpeg" />
-            </audio>
+        <div class="playmusic-info">
+            <div class="imgPlayMusic">
+                <img src="~/IMG/Track/Alesso/iwantseeyourwith.jpg" />
+            </div>
+            <div class="textPlayMusic">
+                <a href="#" class="playmusic-name">Clarity</a>
+                <a href="#" class="playmusic-artist">Hayley Williams ft Zedd</a>
+            </div>
+        </div>
+        <div class="playmusic-time">
+            <label id="playmusic-start"></label>
+            <progress id="playmusic-process" value="0" max="100"></progress>
+            <label id="playmusic-end"></label>
+        </div>
+        <div class="playmusic-button">
+            <button id="playmusic-prev">
+                <i class="glyphicon glyphicon-backward"></i>
+            </button>
+            <button id="playButton">
+                <i class="glyphicon glyphicon-play"></i>
+                <i class="glyphicon glyphicon-pause"></i>
+            </button>
+            <button id="playmusic-next">
+                <i class="glyphicon glyphicon-forward"></i>
+            </button>
+            <button id="loopButton">
+                <i class="glyphicon glyphicon-repeat"></i>
+            </button>
+            <div id="volume">
+                <button id="volumeButton">
+                    <i class="glyphicon glyphicon-volume-down"></i>
+                    <i class="glyphicon glyphicon-volume-up"></i>
+                    <i class="glyphicon glyphicon-volume-off"></i>
+                </button>
+                <progress id="volumeProBar" value="100" max="100"></progress>
+            </div>
+        </div>
+    </div>
 
-            <div class="playmusic-info">
-                <div class="imgPlayMusic">
-                    <img src="@Model.LINK_IMG" alt="">
-                </div>
-                <div class="textPlayMusic">
-                    <div class="playmusic-name">
-                        <a href="#">@Model.NAME</a>
-                    </div>
-                    <div class="playmusic-artist">
-                        @foreach (var itemArtist in ViewBag.Artist)
-                        {
-                            <a href="#"> @itemArtist </a>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#logoCartMenu").click(function () {
+                $.ajax({
+                    url: '@Url.Action("CartDetail", "Cart")',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data !== null) {
+                            $("#MainContent").hide();
+                            $("#content1").show();
+
+                            document.getElementById("content1-cartDetail").innerHTML = '';
+                            var stringData = '';
+                            $.each(data, function (i, item) {
+
+                                stringData = stringData + '<div class="row">';
+                                stringData = stringData + '<div class="col-sm-4 cart-row cart-name">';
+                                stringData = stringData + '<a href="#">' + item.name + '</a>';
+                                stringData = stringData + '</div>';
+                                stringData = stringData + '<div class="col-sm-3 cart-row cart-artist">';
+                                $.each(item.artist, function (j, tempArtist) {
+                                    stringData = stringData + '<a href ="#">' + tempArtist + '</a>';
+                                });
+                                stringData = stringData + '</div>';
+                                stringData = stringData + '<div class="col-sm-3 cart-row cart-label">';
+                                $.each(item.label, function (j, tempLabel) {
+                                    {
+                                        stringData = stringData + '<a href="#">' + tempLabel + '</a>';
+                                    }
+                                });
+                                stringData = stringData + '</div>';
+                                stringData = stringData + '<div class="col-sm-1 cart-row cart-cost">' + item.cost + '</div>';
+                                stringData = stringData + '<div class="col-sm-1 cart-row cart-delete">';
+                                stringData = stringData + '<a href="#">Delete</a>';
+                                stringData = stringData + '</div>';
+                                stringData = stringData + '</div>';
+
+                            });
+
+                            document.getElementById("content1-cartDetail").innerHTML = stringData;
+
+                        } else {
+                            alert("unsuccess");
                         }
-                    </div>
-                </div>
-            </div>
+                    }
+                });
+            });
 
-            <div class="playmusic-time">
-                <label id="playmusic-start"></label>
-                <progress id="playmusic-process" value="0" max="100"></progress>
-                <label id="playmusic-end"></label>
-            </div>
 
-            <div class="playmusic-button">
 
-                <button id="playmusic-prev">
-                    <i class="glyphicon glyphicon-backward"></i>
-                </button>
+            @*$("#button-cart-pay").click(function () {
+                $.ajax({
+                    url: '@Url.Action("CartDetail", "Cart")',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data !== null) {
+                            document.getElementById("content-child-wrap").innerHTML = '';
 
-                <button id="playButton">
-                    <i class="glyphicon glyphicon-play"></i>
-                    <i class="glyphicon glyphicon-pause"></i>
-                </button>
+                            var stringData = '';
+                            stringData = stringData + '<h1 id="detail-username">vu hoang ha</h1>';
+                            stringData = stringData + '<br />';
+                            stringData = stringData + '<div class="row">';
+                            stringData = stringData + '<div class="col-sm-4 header">Name</div>';
+                            stringData = stringData + '<div class="col-sm-3 header">Artist</div>';
+                            stringData = stringData + '<div class="col-sm-3 header">Label</div>';
+                            stringData = stringData + '<div class="col-sm-1 header">Cost</div>';
+                            stringData = stringData + '<div class="col-sm-1 header">Delete</div>';
+                            stringData = stringData + '</div>';
 
-                <button id="playmusic-next">
-                    <i class="glyphicon glyphicon-forward"></i>
-                </button>
+                            $.each(data, function (i, item) {
 
-                <button id="loopButton">
-                    <i class="glyphicon glyphicon-repeat"></i>
-                </button>
+                                stringData = stringData + '<div class="row">';
+                                stringData = stringData + '<div class="col-sm-4 cart-row cart-name">';
+                                stringData = stringData + '<a href="#">' + item.name + '</a>';
+                                stringData = stringData + '</div>';
+                                stringData = stringData + '<div class="col-sm-3 cart-row cart-artist">';
+                                $.each(item.artist, function (j, tempArtist) {
+                                    stringData = stringData + '<a href ="#">' + tempArtist + '</a>';
+                                });
+                                stringData = stringData + '</div>';
+                                stringData = stringData + '<div class="col-sm-3 cart-row cart-label">';
+                                $.each(item.label, function (j, tempLabel) {
+                                    {
+                                        stringData = stringData + '<a href="#">' + tempLabel + '</a>';
+                                    }
+                                });
+                                stringData = stringData + '</div>';
+                                stringData = stringData + '<div class="col-sm-1 cart-row cart-cost">' + item.cost + '</div>';
+                                stringData = stringData + '<div class="col-sm-1 cart-row cart-delete">';
+                                stringData = stringData + '<a href="#">Delete</a>';
+                                stringData = stringData + '</div>';
+                                stringData = stringData + '</div>';
 
-                <div id="volume">
-                    <button id="volumeButton">
-                        <i class="glyphicon glyphicon-volume-down"></i>
-                        <i class="glyphicon glyphicon-volume-up"></i>
-                        <i class="glyphicon glyphicon-volume-off"></i>
-                    </button>
-                    <progress id="volumeProBar" value="100" max="100"></progress>
-                </div>
+                            });
 
-            </div>
+                            stringData = stringData + '<div class="row">';
+                            stringData = stringData + '<div class="col-sm-1 col-sm-offset-10" id="TotalMoney">$54</div>';
+                            stringData = stringData + '<div class="col-sm-1" id="Buy-now" style="cursor: pointer;">Buy Now</div>';
+                            stringData = stringData + '</div>';
 
-        </div>*@
+                            stringData = stringData + '<div class="col-sm-12" id="content-wrap">';
+                            stringData = stringData + '<div class="col-sm-6 col-sm-offset-4" id="CommitBuy" style="display: none;">';
+                            stringData = stringData + '<input type="text" placeholder="Email" name="pay-cart-email" class="form-element" id="button-cart-pay-email" />';
+                            stringData = stringData + '<input type="password" placeholder="Password" name="pay-cart-password" class="form-element" id="cart-pay-password" />';
+                            stringData = stringData + '<input type="text" placeholder="Card Number" name="pay-card-number" class="form-element" id="cart-pay-series" />';
+                            stringData = stringData + '<input type="password" placeholder="Card Password" name="pay-card-password" class="form-element" id="cart-pay-card-pass" />';
+                            stringData = stringData + '<div class="login-form-button-group">';
+                            stringData = stringData + '<input type="submit" id="button-cart-pay" class="button-me" value="Pay">';
+                            stringData = stringData + '</div>';
+                            stringData = stringData + '</div>';
+                            stringData = stringData + '</div>';
 
+                            document.getElementById("content-child-wrap").innerHTML = stringData;
+
+                        } else {
+                            alert("unsuccess");
+                        }
+                    }
+                });
+            });*@
+        });
+
+    </script>
 
     <script src="~/Scripts/MainLayout_JS/main-layout.js"></script>
+
+
+
 </body>
+
+
 
 </html>

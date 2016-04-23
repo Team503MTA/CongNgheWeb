@@ -9,26 +9,20 @@
 <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-<div class="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="col-sm-8">
 
-                    @* slider *@
-                    @Html.Action("HotSlider", "Home")
+<div class="col-sm-8">
 
-                    @*Top 6 DJ*@
-                    @Html.Action("Top_6_DJ", "Home")
+    @* slider *@
+    @Html.Action("HotSlider", "Home")
 
-                    @*New Track*@
-                    @Html.Action("New_Track", "Home")
+    @*Top 6 DJ*@
+    @Html.Action("Top_6_DJ", "Home")
 
-                </div>
-            </div>
-        </div>
-    </div>
+    @*New Track*@
+    @Html.Action("New_Track", "Home")
+
 </div>
+
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/MainLayout_JS/main-index.js"></script>

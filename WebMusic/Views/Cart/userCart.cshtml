@@ -3,11 +3,11 @@
 
 @if (ViewBag.UserName != null)
 {
-    <div class="pull-right" id="muserForm">
-        <button type="button" id="cartButmton">
+    <div class="pull-right" id="userForm">
+        <a href="@Url.Action("CartDetail","Cart")" id="cartButton">
             <i class="glyphicon glyphicon-shopping-cart"></i>
             <span id="TotalDebt">$@ViewBag.TotalDebt</span>
-        </button>
+        </a>
         <div class="cart-info" id="cartUserName">@ViewBag.UserName</div>
     </div>
     <script type="text/javascript">

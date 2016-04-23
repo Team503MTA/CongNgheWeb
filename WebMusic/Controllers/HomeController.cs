@@ -17,9 +17,7 @@ namespace WebMusic.Controllers
 
         public PartialViewResult HotSlider()
         {
-
             return PartialView(db.HOME_HOT_NEW.ToList());
-
         }
 
         public PartialViewResult Top_6_DJ()

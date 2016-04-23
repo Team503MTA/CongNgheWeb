@@ -24,18 +24,29 @@ namespace WebMusic.Controllers
             return PartialView();
         }
 
-        [HttpPost]
-        public PartialViewResult Register(USER us)
-        {
+        //[HttpPost]
+        //public PartialViewResult Register(USER us)
+        //{
 
-            us.LEVEL_ = 1;
+        //    us.LEVEL_ = 1;
+
+        //    db.USERs.Add(us);
+        //    db.SaveChanges();
+
+        //    @ViewBag.register = "success";
+
+        //    return PartialView();
+        //}
+
+        [HttpPost]
+        public JsonResult Register(USER us)
+        {
 
             db.USERs.Add(us);
             db.SaveChanges();
 
-            @ViewBag.register = "success";
-
-            return PartialView();
+            //Đoạn mã thêm mới USER vào cơ sở dữ liệu
+            return Json("Thêm mới thành công");
         }
 
 
@@ -46,22 +57,15 @@ namespace WebMusic.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult Login(FormCollection f)
+        public JsonResult Login(UserLogin userTemp)
         {
-            string username = f["userEmail"].ToString();
-            string pass = f.Get("userPassword").ToString();
-            USER user = db.USERs.SingleOrDefault(x => x.EMAIL == username && x.PASSWORD == pass);
+            USER user = db.USERs.Where(x => x.EMAIL == userTemp.email && x.PASSWORD == userTemp.password).FirstOrDefault();
             if (user != null)
             {
-                ViewBag.login = "success";
-                ViewBag.username = user.FIRSTNAME + " " + user.LASTNAME;
                 Session["User"] = user;
+                return Json("vu hoang ha");  //dang nhap thanh cong
             }
-            else
-            {
-                ViewBag.login = "unsuccess";
-            }
-            return PartialView();
+            return Json("");  //dang nhap khong thanh cong
         }
     }
 }

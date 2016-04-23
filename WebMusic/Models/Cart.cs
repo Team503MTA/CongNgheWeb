@@ -33,5 +33,7 @@ namespace WebMusic.Models
             label = _label;
         }
 
+        public Cart() { }
+
     }
 }

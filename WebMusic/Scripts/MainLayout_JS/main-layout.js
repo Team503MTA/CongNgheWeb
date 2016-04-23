@@ -1,8 +1,11 @@
 ﻿
-
+$(document).ready(function () {
+    $("#Buy-now-1").click(function () {
+        alert("tayha");
+    });
+});
 
 //login
-
 $(document).ready(function () {
     $("#login-button").click(function () {
         $("#login-form").show();
@@ -19,30 +22,30 @@ $(document).ready(function () {
 
 // short string
 $(document).ready(function () {
-    var string_Full = $("#short-text-content").text();
+    var stringFull = $("#short-text-content").text();
 
-    function Display_Short_String() {
-        var len_String_Full = 0;
-        len_String_Full = $("#short-text-content").text().length;
-        if (len_String_Full > 20) {
+    function displayShortString() {
+        var lenStringFull = 0;
+        lenStringFull = $("#short-text-content").text().length;
+        if (lenStringFull > 20) {
             $("#short-text-content").text($("#short-text-content").text().substr(0, 250) + '...');
         }
     }
 
-    function Display_More_String() {
-        $("#short-text-content").text(string_Full);
+    function displayMoreString() {
+        $("#short-text-content").text(stringFull);
     }
 
-    Display_Short_String();
+    displayShortString();
 
     $(".short-text-content-more").click(function () {
-        Display_More_String();
+        displayMoreString();
         $(this).hide();
         $(".short-text-content-less").show();
     });
 
     $(".short-text-content-less").click(function () {
-        Display_Short_String();
+        displayShortString();
         $(this).hide();
         $(".short-text-content-more").show();
     });
@@ -72,7 +75,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     var displaygenres = 0;
     $("#genres-button").click(function () {
-        if (displaygenres == 0) {
+        if (displaygenres === 0) {
             $("#genres-detail").show();
             $(this).css("background", "#eee");
             displaygenres = 1;
@@ -95,7 +98,7 @@ $(document).ready(function () {
     var playmusic = 0;
     var audio = document.getElementById('myTune');
 
-    function ConvertTime(timeSecond) {
+    function convertTime(timeSecond) {
         var hour = 0;
         var minutes = 0;
         var second = 0;
@@ -111,7 +114,7 @@ $(document).ready(function () {
         } else {
             correctSecond = second;
         }
-        if (hour == 0) {
+        if (hour === 0) {
             stringTime = minutes + ":" + correctSecond;
         } else {
             stringTime = hour + ":" + minutes + ":" + correctSecond;
@@ -121,20 +124,20 @@ $(document).ready(function () {
 
     audio.addEventListener('loadedmetadata', function () {
         var lengaudio = parseInt(audio.duration);
-        var lengaudioText = ConvertTime(lengaudio);
+        var lengaudioText = convertTime(lengaudio);
         document.getElementById("playmusic-end").innerHTML = lengaudioText;
         document.getElementById("playmusic-start").innerHTML = "0:00";
     });
 
     //event end audio
     audio.onended = function () {
-        if (audio.loop == false) {
-            PauseMusic();
+        if (audio.loop === false) {
+            pauseMusic();
         }
     };
 
     //function play music
-    function PlayMusic() {
+    function playMusic() {
         audio.play();
         playmusic = 1;
         $("#playButton .glyphicon-play").hide();
@@ -142,7 +145,7 @@ $(document).ready(function () {
     }
 
     //function pause music
-    function PauseMusic() {
+    function pauseMusic() {
         audio.pause();
         playmusic = 0;
         $("#playButton .glyphicon-pause").hide();
@@ -151,9 +154,9 @@ $(document).ready(function () {
 
     //event click loop
     $("#loopButton").click(function () {
-        if (audio.loop == false) {
-            if (playmusic == 0) {
-                PlayMusic();
+        if (audio.loop === false) {
+            if (playmusic === 0) {
+                playMusic();
             }
             audio.loop = true;
             $("#loopButton").css("color", "#fff");
@@ -167,15 +170,15 @@ $(document).ready(function () {
     var intervalPlayMusic;
     //event click playmusic
     $("#playButton").click(function () {
-        if (playmusic == 0) {
-            PlayMusic();
+        if (playmusic === 0) {
+            playMusic();
             intervalPlayMusic = setInterval(function () {
-                document.getElementById("playmusic-start").innerHTML = ConvertTime(parseInt(audio.currentTime));
-                currentValuePlayMusic = (audio.currentTime / audio.duration) * 100;
+                document.getElementById("playmusic-start").innerHTML = convertTime(parseInt(audio.currentTime));
+                var currentValuePlayMusic = (audio.currentTime / audio.duration) * 100;
                 document.getElementById("playmusic-process").value = currentValuePlayMusic;
             }, 100);
         } else {
-            PauseMusic();
+            pauseMusic();
             clearInterval(intervalPlayMusic);
         }
     });
@@ -184,20 +187,20 @@ $(document).ready(function () {
     var playmusicLenPer;
     $("#playmusic-process").click(function (ev) {
         playmusicLenPer = $("#playmusic-process").width() / 100;
-        var lenCurrent_playMusic = ev.clientX - $("#playmusic-process").offset().left;
-        var Playmusic_currentPer = lenCurrent_playMusic / playmusicLenPer;
+        var lenCurrentPlayMusic = ev.clientX - $("#playmusic-process").offset().left;
+        var playmusicCurrentPer = lenCurrentPlayMusic / playmusicLenPer;
 
-        document.getElementById("playmusic-process").value = Playmusic_currentPer;
-        document.getElementById("myTune").currentTime = (Playmusic_currentPer / 100) * audio.duration;
-        document.getElementById("playmusic-start").innerHTML = ConvertTime(audio.currentTime);
+        document.getElementById("playmusic-process").value = playmusicCurrentPer;
+        document.getElementById("myTune").currentTime = (playmusicCurrentPer / 100) * audio.duration;
+        document.getElementById("playmusic-start").innerHTML = convertTime(audio.currentTime);
     });
-    
+
     //volume in progress
     var volumeLenPer;
-    $("#volumeProBar").click(function (ev_volume) {
+    $("#volumeProBar").click(function (evVolume) {
         volumeLenPer = $("#volumeProBar").width() / 100;
-        var lenCurrent_volume = ev_volume.clientX - $("#volumeProBar").offset().left;
-        document.getElementById("volumeProBar").value = lenCurrent_volume / volumeLenPer;
+        var lenCurrentVolume = evVolume.clientX - $("#volumeProBar").offset().left;
+        document.getElementById("volumeProBar").value = lenCurrentVolume / volumeLenPer;
         document.getElementById("myTune").volume = document.getElementById("volumeProBar").value / 100;
         if (audio.volume < 0.5) {
             $("#volume .glyphicon-volume-down").show();
@@ -230,123 +233,8 @@ $(document).ready(function () {
                 $("#volume .glyphicon-volume-up").show();
             }
         }
-        
+
     });
 
 });
-
-
-
-
-
-
-
-//slider
-$(document).ready(function(){
-
-    var stt = 0;
-    var firstImg = $(".slider-img:first").attr("stt");
-    var endImg = $(".slider-img:last").attr("stt");
-    
-    $(".slider-img").each(function(){
-       if($(this).is(':visible')){
-           stt = $(this).attr("stt");
-       } 
-    });
-
-    function sliderNext(){
-        stt++;
-        if(stt > endImg){
-            stt = firstImg;
-        }
-        $(".slider-img").hide();
-        $(".slider-img").eq(stt).show();
-        $(".slider-button").removeClass("slider-button-active");
-        $(".slider-button").eq(stt).addClass("slider-button-active");
-    }
-    
-    function sliderPrev(){
-        stt--;
-        if(stt < firstImg){
-            stt = endImg;
-        }
-        $(".slider-img").hide();
-        $(".slider-img").eq(stt).show();
-        $(".slider-button").removeClass("slider-button-active");
-        $(".slider-button").eq(stt).addClass("slider-button-active");
-    }
-    
-    var interval_Slider = setInterval(function(){
-        sliderNext();
-    },3000);
-    
-    $(".slider-img").on("mouseover", function () {
-        clearInterval(interval_Slider);
-    });
-
-    $(".slider-img").on("mouseout", function () {
-        interval_Slider = setInterval(function () {
-            sliderNext();
-        }, 3000);
-    });
-
-    $(".slider-button").on("click", function () {
-
-        var sttSelect = $(this).attr("stt");
-        $(".slider-button").removeClass('slider-button-active');
-        $(".slider-button").eq(sttSelect).addClass('slider-button-active');
-        $(".slider-img").hide();
-        $(".slider-img").eq(sttSelect).show();
-        stt = sttSelect;
-    });
-    
-});
-//end slider
-
-
-
-//slider not auto
-$(document).ready(function () {
-    var stt = 0;
-    var firstImg = $(".slider-na-img:first").attr("stt");
-    var endImg = $(".slider-na-img:last").attr("stt");
-    $(".slider-na-img").each(function () {
-        if ($(this).is(':visible')) {
-            stt = $(this).attr("stt");
-        }
-    });
-
-    function sliderNext() {
-        stt++;
-        if (stt > endImg) {
-            stt = firstImg;
-        }
-        $(".slider-na-img").hide();
-        $(".slider-na-img").eq(stt).show();
-        $(".slider-na-button").removeClass("slider-na-button-active");
-        $(".slider-na-button").eq(stt).addClass("slider-na-button-active");
-    }
-
-    function sliderPrev() {
-        stt--;
-        if (stt < firstImg) {
-            stt = endImg;
-        }
-        $(".slider-na-img").hide();
-        $(".slider-na-img").eq(stt).show();
-        $(".slider-na-button").removeClass("slider-na-button-active");
-        $(".slider-na-button").eq(stt).addClass("slider-na-button-active");
-    }
-
-    $(".slider-na-button").on("click", function () {
-        var sttSelect = $(this).attr("stt");
-        $(".slider-na-button").removeClass('slider-na-button-active');
-        $(".slider-na-button").eq(sttSelect).addClass('slider-na-button-active');
-        $(".slider-na-img").hide();
-        $(".slider-na-img").eq(sttSelect).show();
-        stt = sttSelect;
-    });
-});
-// end slider-2 not auto
-
 

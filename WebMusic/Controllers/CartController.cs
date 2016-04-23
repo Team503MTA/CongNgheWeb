@@ -27,32 +27,51 @@ namespace WebMusic.Controllers
             return lstCart;
         }
 
-        public ActionResult Add(int id, int type, string strURL)
+        [HttpPost]
+        public string Add(PostTrackRemix product)
         {
-            var cost = 0.1;
-            if (type == 1)
-            {
-                cost = (double)db.TRACKs.Where(x => x.ID == id).Select(p=>p.COST).FirstOrDefault();
-            }
-            else if (type == 2)
-            {
-                cost = (double)db.REMIXes.Where(x => x.ID == id).Select(p => p.COST).FirstOrDefault();
-            }
-            //Get cart from sesson
+            
             List<Cart> lstGioHang = GetCart();
-            //check exist book in cart
-            Cart prod = lstGioHang.Find(x => (x.id == id) && (x.type == type));
-            if (prod == null)
+
+            Cart temp = lstGioHang.Find(x => (x.id == product.id) && (x.type == product.type));
+            if (temp == null)
             {
-                prod = new Cart(id, type);
-                lstGioHang.Add(prod);
+                temp = new Cart();
+                if (product.type == 1)
+                {
+                    TRACK tempTrack = db.TRACKs.Where(x => x.ID == product.id).FirstOrDefault();
+                    if (tempTrack != null)
+                    {
+                        temp.id = tempTrack.ID;
+                        temp.type = 1;
+                        temp.name = tempTrack.NAME;
+                        if (tempTrack.COST != null) temp.cost = (double)tempTrack.COST;
+                    }
+                    temp.artist = db.TRACK_ARTIST.Where(p => p.ID_TRACK == product.id).Select(p => p.NAME_ARTIST).ToList();
+                    temp.label = db.TRACK_ARTIST.Where(p => p.ID_TRACK == product.id).Select(p => p.NAME_LABEL).ToList();
+                }
+                else if (product.type == 2)
+                {
+                    REMIX tempTrack = db.REMIXes.Where(x => x.ID == product.id).FirstOrDefault();
+                    if (tempTrack != null)
+                    {
+                        temp.id = tempTrack.ID;
+                        temp.type = 2;
+                        temp.name = tempTrack.NAME;
+                        if (tempTrack.COST != null) temp.cost = (double)tempTrack.COST;
+                    }
+                    temp.artist = db.REMIX_ARTIST.Where(p => p.ID_REMIX == product.id).Select(p => p.NAME_ARTIST).ToList();
+                    temp.label = db.REMIX_ARTIST.Where(p => p.ID_REMIX == product.id).Select(p => p.NAME_LABEL).ToList();
+                }
+                lstGioHang.Add(temp);
                 Session["Cart"] = lstGioHang;
-                Session["TotalMoney"] = Convert.ToDouble(Session["TotalMoney"].ToString()) + cost; 
-                return Redirect(strURL);
+                Session["TotalMoney"] = Convert.ToDouble(Session["TotalMoney"].ToString()) + temp.cost;
+
+                return Session["TotalMoney"].ToString();
             }
             else
             {
-                return Redirect(strURL);
+                return "";
             }
         }
 
@@ -66,28 +85,51 @@ namespace WebMusic.Controllers
             }
 
             List<Cart> lstCart = new List<Cart>();
-            lstCart =  Session["Cart"] as List<Cart>;
+            lstCart = GetCart();
             USER user = Session["User"] as USER;
             double totalDebt = Convert.ToDouble(Session["TotalMoney"].ToString());
-            
+
             totalDebt = Math.Round(totalDebt, 2);
             ViewBag.TotalDebt = totalDebt;
             ViewBag.UserName = user.FIRSTNAME + " " + user.LASTNAME;
             return PartialView();
         }
 
-        public ActionResult Cart()
+        public ActionResult CartDetail()
         {
             if (Session["Cart"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return Json(null);
             }
-            List<Cart> lstGioHang = GetCart();
-            double totalDebt = Convert.ToDouble(Session["TotalMoney"].ToString());
-            totalDebt = Math.Round(totalDebt, 2);
-            ViewBag.TotalDebt = totalDebt;
-            return View(lstGioHang);
+            var lstGioHang = GetCart();
+            //double totalDebt = Convert.ToDouble(Session["TotalMoney"].ToString());
+            //totalDebt = Math.Round(totalDebt, 2);
+            //ViewBag.TotalDebt = totalDebt;
+            return Json(lstGioHang , JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public PartialViewResult CartBuy()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public PartialViewResult CartBuy(Pay pay)
+        {
+
+            USER tempUser = db.USERs.Where(p => p.EMAIL == pay.email && p.PASSWORD == pay.password).FirstOrDefault();
+            if (tempUser != null)
+            {
+                CARD tempCard = db.CARDs.Where(p => p.NUMBER == pay.cardNumber && p.PASSWORD == pay.passwordCard).FirstOrDefault();
+                if (tempCard != null)
+                {
+                    Session["Cart"] = null;
+                    Session["TotalMoney"] = 0;
+                }
+            }
+
+            return PartialView("CartDetail");
+        }
     }
 }

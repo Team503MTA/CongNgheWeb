@@ -5,10 +5,9 @@
 }
 
 @using WebMusic.Models;
-
+@model List<Cart>
 
 <link href="~/Content/MainLayout_CSS/style-cart.css" rel="stylesheet" />
-
 
 
 <div class="content">
@@ -24,24 +23,34 @@
                     <div class="col-sm-1 header">Cost</div>
                     <div class="col-sm-1 header">Delete</div>
                 </div>
+
+                @foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-sm-4 cart-row cart-name">
+                            <a href="@Url.Action("Index","Track",new {@id = item.id})">@item.name</a>
+                        </div>
+                        <div class="col-sm-3 cart-row cart-artist">
+                            @foreach (var i in item.artist)
+                            {
+                                <a href="@Url.Action("Index","Artist", new {@nameArtist = i})">@i</a>
+                            }
+                        </div>
+                        <div class="col-sm-3 cart-row cart-label">
+                            @foreach (var i in item.artist)
+                            {
+                                <a href="@Url.Action("Index","Label", new {@nameLabel = i})">@i</a>
+                            }
+                        </div>
+                        <div class="col-sm-1 cart-row cart-cost">@item.cost</div>
+                        <div class="col-sm-1 cart-row cart-delete">
+                            <a href="#">Delete</a>
+                        </div>
+                    </div>
+                }
+                
                 <div class="row">
-                    <div class="col-sm-4 cart-row cart-name">
-                        <a href="#">Roses</a>
-                    </div>
-                    <div class="col-sm-3 cart-row cart-artist">
-                        <a href="#">Chaimostker</a>
-                        <a href="#">Rozes</a>
-                    </div>
-                    <div class="col-sm-3 cart-row cart-label">
-                        <a href="#">Spinnin' Record</a>
-                    </div>
-                    <div class="col-sm-1 cart-row cart-cost">$12</div>
-                    <div class="col-sm-1 cart-row cart-delete">
-                        <a href="#">Delete</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-1 col-sm-offset-10" id="TotalMoney">$12.21</div>
+                    <div class="col-sm-1 col-sm-offset-10" id="TotalMoney">$@ViewBag.TotalDebt</div>
                     <div class="col-sm-1" id="Buy-now">
                         Buy Now
                     </div>

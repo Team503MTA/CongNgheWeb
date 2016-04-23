@@ -22,6 +22,13 @@
           <Property Name="POINT_MONTH" Type="int" />
           <Property Name="POINT_ALL" Type="int" />
         </EntityType>
+        <EntityType Name="CARD">
+          <Key>
+            <PropertyRef Name="NUMBER" />
+          </Key>
+          <Property Name="NUMBER" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="FORMULA_HOT">
           <Key>
             <PropertyRef Name="CLICK" />
@@ -571,6 +578,7 @@
         </Association>
         <EntityContainer Name="MusicModelStoreContainer">
           <EntitySet Name="ARTIST" EntityType="Self.ARTIST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CARD" EntityType="Self.CARD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMULA_HOT" EntityType="Self.FORMULA_HOT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRE" EntityType="Self.GENRE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRE_ARTIST" EntityType="Self.GENRE_ARTIST" Schema="dbo" store:Type="Tables" />
@@ -707,6 +715,13 @@
           <NavigationProperty Name="SHOWs" Relationship="Self.FK_SHOW_ARTIST" FromRole="ARTIST" ToRole="SHOW" />
           <NavigationProperty Name="STATISTIC_ARTIST" Relationship="Self.FK_STATISTIC_ARTIST_ARTIST" FromRole="ARTIST" ToRole="STATISTIC_ARTIST" />
           <NavigationProperty Name="TRACK_ARTIST" Relationship="Self.FK_TRACK_ARTIST_ARTIST" FromRole="ARTIST" ToRole="TRACK_ARTIST" />
+        </EntityType>
+        <EntityType Name="CARD">
+          <Key>
+            <PropertyRef Name="NUMBER" />
+          </Key>
+          <Property Name="NUMBER" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FORMULA_HOT">
           <Key>
@@ -1225,6 +1240,7 @@
         </Association>
         <EntityContainer Name="MusicEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ARTISTs" EntityType="Self.ARTIST" />
+          <EntitySet Name="CARDs" EntityType="Self.CARD" />
           <EntitySet Name="FORMULA_HOT" EntityType="Self.FORMULA_HOT" />
           <EntitySet Name="GENREs" EntityType="Self.GENRE" />
           <EntitySet Name="GENRE_ARTIST" EntityType="Self.GENRE_ARTIST" />
@@ -1345,6 +1361,14 @@
                 <ScalarProperty Name="NAME_LABEL" ColumnName="NAME_LABEL" />
                 <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
                 <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARDs">
+            <EntityTypeMapping TypeName="MusicModel.CARD">
+              <MappingFragment StoreEntitySet="CARD">
+                <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

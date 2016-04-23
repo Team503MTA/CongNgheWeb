@@ -184,6 +184,9 @@
     <Compile Include="Models\ARTIST.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CARD.cs">
+      <DependentUpon>WebMusic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\FORMULA_HOT.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
@@ -214,6 +217,8 @@
     <Compile Include="Models\NEW_TRACK.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pay.cs" />
+    <Compile Include="Models\PostTrackRemix.cs" />
     <Compile Include="Models\REMIX.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
@@ -250,6 +255,7 @@
     <Compile Include="Models\USER.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\VIDEO.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
@@ -320,6 +326,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -387,6 +394,8 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Cart\userCart.cshtml" />
     <Content Include="Views\Cart\Cart.cshtml" />
+    <Content Include="Views\Cart\CartDetail.cshtml" />
+    <Content Include="Views\Cart\CartBuy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

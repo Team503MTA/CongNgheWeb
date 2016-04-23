@@ -287,8 +287,9 @@ a.labels {
     color: #666;
 }
 
-.detail-song-all-track-content li:hover .detail-song-all-track-play i{
+.detail-song-all-track-content li:hover .detail-song-all-track-play i {
     color: #eee;
+    -ms-text-shadow:0 0 15px #f00;
     text-shadow:0 0 15px #f00;
 }
 
