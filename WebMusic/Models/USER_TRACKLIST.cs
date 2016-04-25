@@ -12,15 +12,11 @@ namespace WebMusic.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HISTORY_USER
+    public partial class USER_TRACKLIST
     {
         public int ID_USER { get; set; }
-        public System.DateTime TIME { get; set; }
-        public int ID_TRACK { get; set; }
-        public Nullable<double> COST { get; set; }
-        public byte TYPE { get; set; }
-        public Nullable<byte> RANK { get; set; }
-        public Nullable<short> DISTANCE_NEAR { get; set; }
+        public int ID_PROD { get; set; }
+        public Nullable<byte> TYPE { get; set; }
     
         public virtual TRACK TRACK { get; set; }
         public virtual USER USER { get; set; }

@@ -41,6 +41,11 @@
 	border-right:none;
 }
 
+.cart-sale {
+    color: #eee;
+    background: #5c5;
+}
+
 .cart-name a{
 	color: #eee;
 }

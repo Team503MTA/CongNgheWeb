@@ -53,6 +53,7 @@ namespace WebMusic.Models
         public virtual DbSet<TRACK> TRACKs { get; set; }
         public virtual DbSet<TRACK_ARTIST> TRACK_ARTIST { get; set; }
         public virtual DbSet<USER> USERs { get; set; }
+        public virtual DbSet<USER_TRACKLIST> USER_TRACKLIST { get; set; }
         public virtual DbSet<VIDEO> VIDEOs { get; set; }
     }
 }

@@ -45,10 +45,13 @@
                     if (data !== '') {
                         $("#login-form").hide();
                         $(".extra").hide();
-                        $("#Login-Register-Control").hide();
+                        $("#login-button").hide();
+                        $("#register-button").hide();
                         $("#userName_Menu").text(data);
                         $("#total_Debt_Menu").text("$0");
                         $("#cartMenu").show();
+                        $(".extra").show();
+                        $("#noti-form").show();
                     } else {
                         alert("unsuccess");
                     }

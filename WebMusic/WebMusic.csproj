@@ -178,6 +178,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabelController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlayMusicController.cs" />
     <Compile Include="Controllers\SoundsController.cs" />
     <Compile Include="Controllers\StemsController.cs" />
     <Compile Include="Controllers\StemsDetailController.cs" />
@@ -223,11 +224,13 @@
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Mathh.cs" />
     <Compile Include="Models\NEW_TRACK.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pay.cs" />
     <Compile Include="Models\PostTrackRemix.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\REMIX.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
@@ -277,6 +280,9 @@
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\USER_TRACKLIST.cs">
+      <DependentUpon>WebMusic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VIDEO.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
@@ -450,6 +456,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PlayMusic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

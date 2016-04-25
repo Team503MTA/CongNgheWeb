@@ -23,6 +23,8 @@ namespace WebMusic.Models
 
         public List<string> label { get; set; }
 
+        public byte sale { get; set; }
+
         public Cart(int _id ,int _type , string _name , double _cost , List<string> _artist , List<string> _label  )
         {
             id = _id;

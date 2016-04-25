@@ -18,7 +18,7 @@ namespace WebMusic.Models
         public USER()
         {
             this.HISTORY_USER = new HashSet<HISTORY_USER>();
-            this.TRACKs = new HashSet<TRACK>();
+            this.USER_TRACKLIST = new HashSet<USER_TRACKLIST>();
             this.VIDEOs = new HashSet<VIDEO>();
         }
     
@@ -32,7 +32,7 @@ namespace WebMusic.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HISTORY_USER> HISTORY_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TRACK> TRACKs { get; set; }
+        public virtual ICollection<USER_TRACKLIST> USER_TRACKLIST { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VIDEO> VIDEOs { get; set; }
     }

@@ -28,14 +28,20 @@ namespace WebMusic.Controllers
         }
 
         [HttpPost]
-        public string Add(PostTrackRemix product)
+        public ActionResult Add(PostTrackRemix product)
         {
             
             List<Cart> lstGioHang = GetCart();
+            List<string> returnString = new List<string>();
 
             Cart temp = lstGioHang.Find(x => (x.id == product.id) && (x.type == product.type));
             if (temp == null)
             {
+                double totalDebtNearDay = Convert.ToDouble(Session["totalDebtNearDay"].ToString()) + Convert.ToDouble(Session["TotalMoney"].ToString());
+                List<SALE> sale = (List<SALE>)Session["ListSale"];
+                Byte saleValue = 0;
+
+
                 temp = new Cart();
                 if (product.type == 1)
                 {
@@ -45,7 +51,19 @@ namespace WebMusic.Controllers
                         temp.id = tempTrack.ID;
                         temp.type = 1;
                         temp.name = tempTrack.NAME;
-                        if (tempTrack.COST != null) temp.cost = (double)tempTrack.COST;
+                        foreach (var item in sale)
+                        {
+                            if (totalDebtNearDay >= item.CONDITION.Value)
+                            {
+                                saleValue = (byte)item.SALE_INDEX;
+                            }
+                        }
+                        temp.sale = saleValue;
+                        if (tempTrack.COST != null){
+                            temp.cost = (double)tempTrack.COST;
+                            temp.cost = temp.cost*(100 - temp.sale)/100;
+                        } 
+
                     }
                     temp.artist = db.TRACK_ARTIST.Where(p => p.ID_TRACK == product.id).Select(p => p.NAME_ARTIST).ToList();
                     temp.label = db.TRACK_ARTIST.Where(p => p.ID_TRACK == product.id).Select(p => p.NAME_LABEL).ToList();
@@ -67,11 +85,13 @@ namespace WebMusic.Controllers
                 Session["Cart"] = lstGioHang;
                 Session["TotalMoney"] = Convert.ToDouble(Session["TotalMoney"].ToString()) + temp.cost;
 
-                return Session["TotalMoney"].ToString();
+                returnString.Add(Session["TotalMoney"].ToString());
+                returnString.Add(saleValue.ToString());
+                return Json(returnString, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return "";
+                return Json(returnString, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -102,9 +122,6 @@ namespace WebMusic.Controllers
                 return Json(null);
             }
             var lstGioHang = GetCart();
-            //double totalDebt = Convert.ToDouble(Session["TotalMoney"].ToString());
-            //totalDebt = Math.Round(totalDebt, 2);
-            //ViewBag.TotalDebt = totalDebt;
             return Json(lstGioHang , JsonRequestBehavior.AllowGet);
         }
 

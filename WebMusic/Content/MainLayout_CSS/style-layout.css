@@ -303,6 +303,12 @@ header {
                 color: #dd55dd;
             }
 
+#saleUser_Menu {
+    background: #5c5;
+    color: #eee;
+    display: inline-block;
+    padding: 2px 5px;
+}
 
 /*_____end menu______*/
 
@@ -1589,3 +1595,60 @@ header {
     }
 
 /*  END String in IMG */
+
+
+
+
+
+/*#region NOTIFICATION */
+
+#noti-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999999;
+    width: 100%;
+    height: 100%;
+    color: #eee;
+    display: none;
+}
+
+    #noti-form .col-sm-4 {
+        background: #fff;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+        border: 0;
+        padding: 20px 0;
+        -ms-border-radius: 10px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    #notiForm {
+        color: #eee;
+        background: #5c4;
+    }
+
+    #closeNotiForm {
+        font-weight: Bold;
+        color: #333;
+        background: #eaeaea;
+        border: none;
+        display: inline-block;
+        width: 80px;
+        height: 40px;
+        line-height: 40px;
+        margin: 10px;
+    }
+
+    #closeNotiForm:hover {
+        border-bottom: 1px solid #f00;
+    }
+
+/*#endregion */

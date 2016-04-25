@@ -85,11 +85,15 @@
           <Key>
             <PropertyRef Name="ID_USER" />
             <PropertyRef Name="ID_TRACK" />
+            <PropertyRef Name="TYPE" />
           </Key>
           <Property Name="ID_USER" Type="int" Nullable="false" />
-          <Property Name="TIME" Type="datetime" Nullable="false" />
+          <Property Name="TIME" Type="date" Nullable="false" />
           <Property Name="ID_TRACK" Type="int" Nullable="false" />
           <Property Name="COST" Type="float" />
+          <Property Name="TYPE" Type="tinyint" Nullable="false" />
+          <Property Name="RANK" Type="tinyint" />
+          <Property Name="DISTANCE_NEAR" Type="smallint" />
         </EntityType>
         <EntityType Name="HOME_HOT_NEW">
           <Key>
@@ -330,10 +334,11 @@
         <EntityType Name="USER_TRACKLIST">
           <Key>
             <PropertyRef Name="ID_USER" />
-            <PropertyRef Name="ID_TRACK" />
+            <PropertyRef Name="ID_PROD" />
           </Key>
           <Property Name="ID_USER" Type="int" Nullable="false" />
-          <Property Name="ID_TRACK" Type="int" Nullable="false" />
+          <Property Name="ID_PROD" Type="int" Nullable="false" />
+          <Property Name="TYPE" Type="tinyint" />
         </EntityType>
         <EntityType Name="USER_VIDEOLIST">
           <Key>
@@ -659,7 +664,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="USER_TRACKLIST">
-              <PropertyRef Name="ID_TRACK" />
+              <PropertyRef Name="ID_PROD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -942,11 +947,15 @@
           <Key>
             <PropertyRef Name="ID_USER" />
             <PropertyRef Name="ID_TRACK" />
+            <PropertyRef Name="TYPE" />
           </Key>
           <Property Name="ID_USER" Type="Int32" Nullable="false" />
-          <Property Name="TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TIME" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ID_TRACK" Type="Int32" Nullable="false" />
           <Property Name="COST" Type="Double" />
+          <Property Name="TYPE" Type="Byte" Nullable="false" />
+          <Property Name="RANK" Type="Byte" />
+          <Property Name="DISTANCE_NEAR" Type="Int16" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_HISTORY_USER_TRACK" FromRole="HISTORY_USER" ToRole="TRACK" />
           <NavigationProperty Name="USER" Relationship="Self.FK_HISTORY_USER_USER" FromRole="HISTORY_USER" ToRole="USER" />
         </EntityType>
@@ -1183,7 +1192,7 @@
           <NavigationProperty Name="REMIXes" Relationship="Self.FK_REMIX_TRACK" FromRole="TRACK" ToRole="REMIX" />
           <NavigationProperty Name="STATISTIC_TRACK" Relationship="Self.FK_STATISTIC_TRACK_TRACK" FromRole="TRACK" ToRole="STATISTIC_TRACK" />
           <NavigationProperty Name="TRACK_ARTIST" Relationship="Self.FK_TRACK_ARTIST_TRACK" FromRole="TRACK" ToRole="TRACK_ARTIST" />
-          <NavigationProperty Name="USERs" Relationship="Self.USER_TRACKLIST" FromRole="TRACK" ToRole="USER" />
+          <NavigationProperty Name="USER_TRACKLIST" Relationship="Self.FK_USER_TRACKLIST_TRACK" FromRole="TRACK" ToRole="USER_TRACKLIST" />
         </EntityType>
         <EntityType Name="TRACK_ARTIST">
           <Key>
@@ -1213,8 +1222,19 @@
           <Property Name="LEVEL_" Type="Byte" />
           <Property Name="LASTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HISTORY_USER" Relationship="Self.FK_HISTORY_USER_USER" FromRole="USER" ToRole="HISTORY_USER" />
-          <NavigationProperty Name="TRACKs" Relationship="Self.USER_TRACKLIST" FromRole="USER" ToRole="TRACK" />
+          <NavigationProperty Name="USER_TRACKLIST" Relationship="Self.FK_USER_TRACKLIST_USER" FromRole="USER" ToRole="USER_TRACKLIST" />
           <NavigationProperty Name="VIDEOs" Relationship="Self.USER_VIDEOLIST" FromRole="USER" ToRole="VIDEO" />
+        </EntityType>
+        <EntityType Name="USER_TRACKLIST">
+          <Key>
+            <PropertyRef Name="ID_USER" />
+            <PropertyRef Name="ID_PROD" />
+          </Key>
+          <Property Name="ID_USER" Type="Int32" Nullable="false" />
+          <Property Name="ID_PROD" Type="Int32" Nullable="false" />
+          <Property Name="TYPE" Type="Byte" />
+          <NavigationProperty Name="TRACK" Relationship="Self.FK_USER_TRACKLIST_TRACK" FromRole="USER_TRACKLIST" ToRole="TRACK" />
+          <NavigationProperty Name="USER" Relationship="Self.FK_USER_TRACKLIST_USER" FromRole="USER_TRACKLIST" ToRole="USER" />
         </EntityType>
         <EntityType Name="VIDEO">
           <Key>
@@ -1523,9 +1543,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="USER_TRACKLIST">
-          <End Role="TRACK" Type="Self.TRACK" Multiplicity="*" />
-          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+        <Association Name="FK_USER_TRACKLIST_TRACK">
+          <End Role="TRACK" Type="Self.TRACK" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="USER_TRACKLIST" Type="Self.USER_TRACKLIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRACK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_TRACKLIST">
+              <PropertyRef Name="ID_PROD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_TRACKLIST_USER">
+          <End Role="USER" Type="Self.USER" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="USER_TRACKLIST" Type="Self.USER_TRACKLIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_TRACKLIST">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="USER_VIDEOLIST">
           <End Role="USER" Type="Self.USER" Multiplicity="*" />
@@ -1560,6 +1604,7 @@
           <EntitySet Name="TRACKs" EntityType="Self.TRACK" />
           <EntitySet Name="TRACK_ARTIST" EntityType="Self.TRACK_ARTIST" />
           <EntitySet Name="USERs" EntityType="Self.USER" />
+          <EntitySet Name="USER_TRACKLIST" EntityType="Self.USER_TRACKLIST" />
           <EntitySet Name="VIDEOs" EntityType="Self.VIDEO" />
           <AssociationSet Name="FK_ARTIST_LABEL" Association="Self.FK_ARTIST_LABEL">
             <End Role="LABEL" EntitySet="LABELs" />
@@ -1649,9 +1694,13 @@
             <End Role="TRACK" EntitySet="TRACKs" />
             <End Role="TRACK_ARTIST" EntitySet="TRACK_ARTIST" />
           </AssociationSet>
-          <AssociationSet Name="USER_TRACKLIST" Association="Self.USER_TRACKLIST">
+          <AssociationSet Name="FK_USER_TRACKLIST_TRACK" Association="Self.FK_USER_TRACKLIST_TRACK">
             <End Role="TRACK" EntitySet="TRACKs" />
+            <End Role="USER_TRACKLIST" EntitySet="USER_TRACKLIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_TRACKLIST_USER" Association="Self.FK_USER_TRACKLIST_USER">
             <End Role="USER" EntitySet="USERs" />
+            <End Role="USER_TRACKLIST" EntitySet="USER_TRACKLIST" />
           </AssociationSet>
           <AssociationSet Name="USER_VIDEOLIST" Association="Self.USER_VIDEOLIST">
             <End Role="USER" EntitySet="USERs" />
@@ -1751,6 +1800,9 @@
                 <ScalarProperty Name="TIME" ColumnName="TIME" />
                 <ScalarProperty Name="ID_TRACK" ColumnName="ID_TRACK" />
                 <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="RANK" ColumnName="RANK" />
+                <ScalarProperty Name="DISTANCE_NEAR" ColumnName="DISTANCE_NEAR" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2007,6 +2059,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="USER_TRACKLIST">
+            <EntityTypeMapping TypeName="MusicModel.USER_TRACKLIST">
+              <MappingFragment StoreEntitySet="USER_TRACKLIST">
+                <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+                <ScalarProperty Name="ID_PROD" ColumnName="ID_PROD" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="VIDEOs">
             <EntityTypeMapping TypeName="MusicModel.VIDEO">
               <MappingFragment StoreEntitySet="VIDEO">
@@ -2018,14 +2079,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="USER_TRACKLIST" TypeName="MusicModel.USER_TRACKLIST" StoreEntitySet="USER_TRACKLIST">
-            <EndProperty Name="TRACK">
-              <ScalarProperty Name="ID" ColumnName="ID_TRACK" />
-            </EndProperty>
-            <EndProperty Name="USER">
-              <ScalarProperty Name="ID" ColumnName="ID_USER" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="USER_VIDEOLIST" TypeName="MusicModel.USER_VIDEOLIST" StoreEntitySet="USER_VIDEOLIST">
             <EndProperty Name="USER">
               <ScalarProperty Name="ID" ColumnName="ID_USER" />
