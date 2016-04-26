@@ -325,6 +325,10 @@
 
             var playmusic = 0;
             var audio = document.getElementById('myTune');
+            var volumeLenPer = $("#volumeProBar").width() / 100;
+            var all_valueProgressVolumn = $("#volumeProBar").width();
+            var all_valueAudioVolumn = 1.0;
+            var loopAudioCurrent = false;
 
             function convertTime(timeSecond) {
                 var hour = 0;
@@ -383,13 +387,12 @@
             //event click loop
             $("#loopButton").click(function loopAudio() {
                 if (audio.loop === false) {
-                    if (playmusic === 0) {
-                        playMusic();
-                    }
+                    loopAudioCurrent = true;
                     audio.loop = true;
                     $("#loopButton").css("color", "#fff");
                 } else {
                     audio.loop = false;
+                    loopAudioCurrent = false;
                     $("#loopButton").css("color", "#888");
                 }
 
@@ -428,12 +431,12 @@
             });
 
             //volume in progress
-            var volumeLenPer;
             $("#volumeProBar").click(function editVolumnAudio(evVolume) {
-                volumeLenPer = $("#volumeProBar").width() / 100;
                 var lenCurrentVolume = evVolume.clientX - $("#volumeProBar").offset().left;
-                document.getElementById("volumeProBar").value = lenCurrentVolume / volumeLenPer;
-                document.getElementById("myTune").volume = document.getElementById("volumeProBar").value / 100;
+                all_valueProgressVolumn = lenCurrentVolume / volumeLenPer;
+                document.getElementById("volumeProBar").value = all_valueProgressVolumn;
+                all_valueAudioVolumn = document.getElementById("volumeProBar").value / 100;
+                document.getElementById("myTune").volume = all_valueAudioVolumn;
                 if (audio.volume < 0.5) {
                     $("#volume .glyphicon-volume-down").show();
                     $("#volume .glyphicon-volume-up").hide();
@@ -481,6 +484,14 @@
                 clearInterval(intervalPlayMusic);
                 var playmusic1 = 0;
                 var audio1 = document.getElementById('myTune');
+                //get loop audio prev
+                audio1.loop = loopAudioCurrent;
+                if (loopAudioCurrent) {
+                    $("#loopButton").css("color", "#fff");
+                }
+                //get volumn audio prev
+                document.getElementById("volumeProBar").value = all_valueProgressVolumn;
+                document.getElementById("myTune").volume = all_valueAudioVolumn;
                 
                 function convertTime1(timeSecond) {
                     var hour = 0;
@@ -539,13 +550,12 @@
                 //event click loop
                 $("#loopButton").click(function loopAudio1() {
                     if (audio1.loop === false) {
-                        if (playmusic1 === 0) {
-                            playMusic1();
-                        }
+                        loopAudioCurrent = true;
                         audio1.loop = true;
                         $("#loopButton").css("color", "#fff");
                     } else {
                         audio1.loop = false;
+                        loopAudioCurrent = false;
                         $("#loopButton").css("color", "#888");
                     }
 
@@ -583,12 +593,13 @@
                 });
 
                 //volume in progress
-                var volumeLenPer1;
                 $("#volumeProBar").click(function editVolumnAudio1(evVolume) {
-                    volumeLenPer1 = $("#volumeProBar").width() / 100;
                     var lenCurrentVolume = evVolume.clientX - $("#volumeProBar").offset().left;
-                    document.getElementById("volumeProBar").value = lenCurrentVolume / volumeLenPer1;
-                    document.getElementById("myTune").volume = document.getElementById("volumeProBar").value / 100;
+                    all_valueProgressVolumn = lenCurrentVolume / volumeLenPer;
+                    document.getElementById("volumeProBar").value = all_valueProgressVolumn;
+                    all_valueAudioVolumn = document.getElementById("volumeProBar").value / 100;
+                    document.getElementById("myTune").volume = all_valueAudioVolumn;
+
                     if (audio1.volume < 0.5) {
                         $("#volume .glyphicon-volume-down").show();
                         $("#volume .glyphicon-volume-up").hide();
