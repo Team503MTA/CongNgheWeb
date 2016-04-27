@@ -30,6 +30,8 @@ body {
     font-size: 16px;
 }
 
+/*#region HEADER */
+
 header {
     font-size: 17px;
     border: 0;
@@ -203,7 +205,9 @@ header {
             color: #0cc;
         }
 
-/*_____menu_____*/
+/*#endregion */
+
+/*#region MENU */
 
 #menu {
     color: #eee;
@@ -318,9 +322,9 @@ header {
     padding: 2px 5px;
 }
 
-/*_____end menu______*/
+/*#endregion */
 
-/* footer */
+/*#region FOOTER */
 
 #footerPage {
     border-top: 1px solid #333;
@@ -470,9 +474,9 @@ header {
             color: #55ffff;
         }
 
-/* end footer */
+/*#endregion */
 
-/* Audio */
+/*#region TAG MUSIC */
 
 #myTune {
     display: none;
@@ -708,9 +712,9 @@ header {
         background: #fff;
     }
 
-/* End Audio */
+/*#endregion */
 
-/* Register Form */
+/*#region REGISTER FORM */
 
 .register-form {
     color: #eee;
@@ -728,7 +732,7 @@ header {
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 999999998;
+    z-index: 999999997;
     background: #000;
     -ms-opacity: 0.5;
     opacity: 0.5;
@@ -918,96 +922,10 @@ header {
 #register-form-button-cancel {
     margin-left: 3%;
 }
-/* end Register form */
 
+/*#endregion */
 
-
-
-/* slider */
-
-.slider {
-    display: inline-block;
-    width: 100%;
-}
-
-    .slider img {
-        display: none;
-        width: 100%;
-    }
-
-        .slider img:first-child {
-            display: inline-block;
-        }
-
-.slider-control {
-    display: inline-block;
-    width: 100%;
-}
-
-.slider-button {
-    height: 5px;
-    display: inline-block;
-    float: left;
-    width: 33%;
-    background: #aaa;
-    margin-right: 0.5%;
-    cursor: pointer;
-}
-
-    .slider-button:last-child {
-        margin-right: 0;
-    }
-
-.slider-button-active {
-    background: #555;
-}
-
-/* END  slider */
-
-
-/* Slider not auto */
-
-.slider-na {
-    display: inline-block;
-    width: 100%;
-}
-
-    .slider-na img {
-        display: none;
-        width: 100%;
-    }
-
-        .slider-na img:first-child {
-            display: inline-block;
-        }
-
-.slider-na-control {
-    display: inline-block;
-    width: 100%;
-}
-
-.slider-na-button {
-    height: 5px;
-    display: inline-block;
-    float: left;
-    width: 33%;
-    background: #aaa;
-    margin-right: 0.5%;
-    cursor: pointer;
-}
-
-    .slider-na-button:last-child {
-        margin-right: 0;
-    }
-
-.slider-na-button-active {
-    background: #555;
-}
-
-/* END slider not auto */
-
-
-/* Song horizontal */
+/*#region SONG HORIZOTAL */
 
 .song-horizontal {
     display: inline-block;
@@ -1210,7 +1128,9 @@ header {
     width: 60px;
 }
 
-/* effect text */
+/*#endregion */
+
+/*#region EFFECT TEXT NAME */
 
 .name-level-1 {
     color: #eee;
@@ -1242,11 +1162,9 @@ header {
         text-shadow: 0 0 15px #f00;
     }
 
+/*#endregion */
 
-/* END Song horizontal */
-
-
-/*  Song Vertical  */
+/*#region SONG VERTICAL */
 
 .song-vertical {
     display: inline-block;
@@ -1402,11 +1320,9 @@ header {
         font-size: 90%;
     }
 
+/*#endregion */
 
-/* End Song Vertical */
-
-
-/* String in IMG */
+/*#region STRING IN IMG */
 
 .string-in-img {
     display: inline-block;
@@ -1602,11 +1518,7 @@ header {
         text-shadow: 0 0 20px #f00;
     }
 
-/*  END String in IMG */
-
-
-
-
+/*#endregion */
 
 /*#region NOTIFICATION */
 
@@ -1658,5 +1570,63 @@ header {
     #closeNotiForm:hover {
         border-bottom: 1px solid #f00;
     }
+
+/*#endregion */
+
+/*#region SEARCH FORM */
+
+#show-search {
+    width: 500px;
+		background: #222;
+		padding-left: 20px;
+    position: absolute;
+    -ms-opacity: 0.95;
+    opacity: 0.95;
+    z-index: 999999997;
+    display: none;
+}
+
+.show-search-child {
+		display: inline-block;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		width: 100%;
+	}
+	
+	.show-search-title {
+		margin-bottom: 5px;
+	}
+	
+	.search-title-icon {
+		margin-left: 5px;
+		color: #4d8;
+		margin-right: 5px;
+	}
+	
+	.show-search-type {
+		color: #fff;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
+	.show-search-content {
+		padding-left: 10%;
+		display: inline-block;
+		width: 85%;
+	}
+	
+	.show-search-value {
+		color: #ddd;
+		margin-bottom: 5px;
+		display: inline-block;
+		width: 100%;
+		cursor: pointer;
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+	
+	.show-search-value:hover {
+		background: #333;
+	}
 
 /*#endregion */
