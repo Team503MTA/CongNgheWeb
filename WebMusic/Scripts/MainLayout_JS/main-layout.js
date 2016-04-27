@@ -435,9 +435,7 @@ $(document).ready(function () {
 // #endregion
 
 
-
-
-
+// #region GIO HANG
 
 $(document).ready(function () {
     $("#button-cart-pay").click(function () {
@@ -587,3 +585,6 @@ $(document).ready(function () {
         });
     });
 });
+
+// #endregion
+
