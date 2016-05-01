@@ -28,7 +28,7 @@
                     <li>
                         <div class="new-track-child">
                             <div class="new-track-child-top">
-                                <img src="@Model.ElementAt(count).LINK_IMG" alt="">
+                                <img src="@Url.Content(Model.ElementAt(count).LINK_IMG)" alt="">
                                 <div class="new-track-child-top-control">
 
                                     <button sttID="@Model.ElementAt(count).ID" sttType="1" class="new-track-child-play all-playmusic"><i class="fa fa-play"></i></button>
@@ -312,12 +312,12 @@
 
 <script type="text/javascript">
     $(function() {
-        $(".new-track-child-buy").click(function () {
+        $(".new-track-child-buy").click(function() {
 
             var id = $(this).attr("idTrack");
             var type = $(this).attr("typePro");
             $.ajax({
-                url: '@Url.Action("Add","Cart")',
+                url: '@Url.Action("Add", "Cart")',
                 dataType: 'json',
                 type: 'POST',
                 data: JSON.stringify({
@@ -325,13 +325,13 @@
                     type: type
                 }),
                 contentType: 'application/json; charset=utf-8',
-                success: function (data) {
+                success: function(data) {
                     if (data !== '') {
-                        $.each(data, function (i, item) {
+                        $.each(data, function(i, item) {
                             if (i === 0) {
                                 $("#total_Debt_Menu").text('$' + item);
                                 $(this).prop("disabled", true);
-                            }else {
+                            } else {
                                 $("#saleUser_Menu").text('Sale ' + item + '%');
                             }
                         });

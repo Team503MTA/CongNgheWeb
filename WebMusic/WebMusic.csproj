@@ -241,6 +241,7 @@
     <Compile Include="Models\SALE.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\SHOW.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
@@ -311,6 +312,7 @@
     <Content Include="Content\MainLayout_CSS\fonts\Player One.svg" />
     <Content Include="Content\MainLayout_CSS\fonts\Snake Jacket12.svg" />
     <Content Include="Content\MainLayout_CSS\Label.css" />
+    <Content Include="Content\MainLayout_CSS\SearchPage.css" />
     <Content Include="Content\MainLayout_CSS\style-cart.css" />
     <Content Include="Content\MainLayout_CSS\style-index.css" />
     <Content Include="Content\MainLayout_CSS\style-layout.css" />
@@ -364,6 +366,7 @@
     <Content Include="Scripts\MainLayout_JS\main-detail-track.js" />
     <Content Include="Scripts\MainLayout_JS\main-index.js" />
     <Content Include="Scripts\MainLayout_JS\main-layout.js" />
+    <Content Include="Scripts\MainLayout_JS\ViewSearch.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />

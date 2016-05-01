@@ -149,6 +149,7 @@
           <Property Name="GENRE" Type="nvarchar" MaxLength="50" />
           <Property Name="POINT_MONTH" Type="int" />
           <Property Name="POINT_ALL" Type="int" />
+          <Property Name="FULL_ARTIST" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="REMIX_ARTIST">
           <Key>
@@ -304,6 +305,7 @@
           <Property Name="GENRE" Type="nvarchar" MaxLength="50" />
           <Property Name="POINT_MONTH" Type="int" />
           <Property Name="POINT_ALL" Type="int" />
+          <Property Name="FULL_ARTIST" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="TRACK_ARTIST">
           <Key>
@@ -1017,6 +1019,7 @@
           <Property Name="GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="POINT_MONTH" Type="Int32" />
           <Property Name="POINT_ALL" Type="Int32" />
+          <Property Name="FULL_ARTIST" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="REMIX_ARTIST" Relationship="Self.FK_REMIX_ARTIST_REMIX1" FromRole="REMIX" ToRole="REMIX_ARTIST" />
           <NavigationProperty Name="TRACK" Relationship="Self.FK_REMIX_TRACK" FromRole="REMIX" ToRole="TRACK" />
           <NavigationProperty Name="STATISTIC_REMIX" Relationship="Self.FK_STATISTIC_REMIX_REMIX" FromRole="REMIX" ToRole="STATISTIC_REMIX" />
@@ -1187,6 +1190,7 @@
           <Property Name="GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="POINT_MONTH" Type="Int32" />
           <Property Name="POINT_ALL" Type="Int32" />
+          <Property Name="FULL_ARTIST" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HISTORY_USER" Relationship="Self.FK_HISTORY_USER_TRACK" FromRole="TRACK" ToRole="HISTORY_USER" />
           <NavigationProperty Name="NEW_TRACK" Relationship="Self.FK_NEW_TRACK_TRACK" FromRole="TRACK" ToRole="NEW_TRACK" />
           <NavigationProperty Name="REMIXes" Relationship="Self.FK_REMIX_TRACK" FromRole="TRACK" ToRole="REMIX" />
@@ -1863,6 +1867,7 @@
                 <ScalarProperty Name="GENRE" ColumnName="GENRE" />
                 <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
                 <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
+                <ScalarProperty Name="FULL_ARTIST" ColumnName="FULL_ARTIST" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2029,6 +2034,7 @@
                 <ScalarProperty Name="GENRE" ColumnName="GENRE" />
                 <ScalarProperty Name="POINT_MONTH" ColumnName="POINT_MONTH" />
                 <ScalarProperty Name="POINT_ALL" ColumnName="POINT_ALL" />
+                <ScalarProperty Name="FULL_ARTIST" ColumnName="FULL_ARTIST" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

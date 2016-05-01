@@ -4,6 +4,7 @@
 // #region CLICK CART
 
 $(document).ready(function () {
+
     $("#Buy-now").click(function () {
         $("#content-wrap").show();
 
@@ -438,6 +439,7 @@ $(document).ready(function () {
 // #region GIO HANG
 
 $(document).ready(function () {
+
     $("#button-cart-pay").click(function () {
         $.ajax({
             url: '@Url.Action("CartBuy","Cart")',
@@ -587,4 +589,6 @@ $(document).ready(function () {
 });
 
 // #endregion
+
+
 

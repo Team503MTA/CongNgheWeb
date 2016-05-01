@@ -36,6 +36,7 @@ namespace WebMusic.Models
         public string GENRE { get; set; }
         public Nullable<int> POINT_MONTH { get; set; }
         public Nullable<int> POINT_ALL { get; set; }
+        public string FULL_ARTIST { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HISTORY_USER> HISTORY_USER { get; set; }
