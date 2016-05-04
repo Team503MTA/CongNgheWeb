@@ -10,7 +10,8 @@
     <link href="~/Content/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/MainLayout_CSS/style-layout.css" rel="stylesheet" />
-    <link href="~/Content/MainLayout_CSS/style-cart.css" rel="stylesheet" />
+    <link href="~/Content/MainLayout_CSS/style-cart.css" rel="stylesheet"/>
+    <link href="~/Content/MainLayout_CSS/SearchPage.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </head>
@@ -87,7 +88,7 @@
                         <li id="input-form-search">
                             <form class="form-search" id="input-form-search-child">
                                 <input type="text" placeholder="Search" id="main-search-input">
-                                <button type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                <button type="button" id="searchButtonSubmit"><i class="glyphicon glyphicon-search"></i></button>
                             </form>
                         </li>
                     </ul>
@@ -388,33 +389,148 @@
         </div>
     </div>
 
-    @* script xử lý nghe nhạc bottom *@
+
+@* script xử lý phần tìm kiếm  *@
 <script type="text/javascript">
-    
-</script>
-    @* script xu ly viec click gio hang *@
-<script type="text/javascript">
-    
-</script>
-    @* script xử lý phần tìm kiếm  *@
-<script type="text/javascript">
+
+    function searchTrackAllView() {
+        $.ajax({
+            url: '@Url.Action("searchTrachAll", "Search")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                keyWord: $("#trackSearchViewAll").attr("keyword")
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                document.getElementById("search-tracks-page").innerHTML = '';
+                document.getElementById("search-tracks-page").innerHTML = data;
+                document.getElementById("search-tracks-page").style.overflowX = 'scroll';
+                document.getElementById("trackSearchViewAll").style.display = 'none';
+            }
+        });
+    }
+
+    function searchRemixAllView() {
+        $.ajax({
+            url: '@Url.Action("searchTotalAll", "Search")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                keyWord: $("#searchRemixAllView").attr("keyword")
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                document.getElementById("detail-song-track-total").innerHTML = '';
+                document.getElementById("detail-song-track-total").innerHTML = data;
+                document.getElementById("searchRemixAllPage").style.overflowY = 'scroll';
+                document.getElementById("searchRemixAllPage").style.overflowX = 'hidden';
+                document.getElementById("searchRemixAllView").style.display = 'none';
+
+                $(".detail-song-track-total li").hover(function () {
+                    $(this).find(".detail-song-track-total-col-play button").css("color", "rgba(255,255,255,1)");
+                    $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0px 0px 22px #fff");
+                    $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,1)");
+                });
+
+                $(".detail-song-track-total li").mouseleave(function () {
+                    $(this).find(".detail-song-track-total-col-play button").css("color", "rgba(255,255,255,0.3)");
+                    $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0 0 0 transparent");
+                    $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,0.5)");
+                });
+            }
+        });
+    }
+
+    function searchArtistAllView_fun() {
+        $.ajax({
+            url: '@Url.Action("searchArtistAll", "Search")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                keyWord: $("#searchArtistButtonView").attr("keyword")
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                document.getElementById("searchArtistViewAll").innerHTML = '';
+                document.getElementById("searchArtistViewAll").innerHTML = data;
+                document.getElementById("searchArtistViewAll").style.overflowX = 'scroll';
+                document.getElementById("searchArtistButtonView").style.display = 'none';
+            }
+        });
+    }
+
     $(document).ready(function () {
+
         var temp = "";
         temp = (document.getElementById("input-form-search").getBoundingClientRect().top + document.getElementById("input-form-search").offsetHeight).toString();
         document.getElementById("show-search").style.top = temp + 'px';
         temp = document.getElementById("input-form-search-child").getBoundingClientRect().left.toString();
         document.getElementById("show-search").style.left = temp + 'px';
 
-        $("#main-search-input").focus(function() {
-            $("#show-search").show();
+        $("#main-search-input").keyup(function () {
+
+            temp = $("#main-search-input").val();
+            $.ajax({
+                url: '@Url.Action("Search", "Search")',
+                dataType: 'json',
+                type: 'POST',
+                data: JSON.stringify({
+                    keyWord: temp
+                }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    document.getElementById("show-search").innerHTML = '';
+                    document.getElementById("show-search").innerHTML = data;
+                    $("#show-search").show();
+                }
+            });
         });
 
         $("#main-search-input").focusout(function () {
             $("#show-search").hide();
         });
 
+        $("#searchButtonSubmit").click(function () {
+            $.ajax({
+                url: '@Url.Action("SearchPage","Search")',
+                dataType: 'json',
+                type: 'POST',
+                data: JSON.stringify({
+                    keyWord: $("#main-search-input").val()
+                }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data !== '') {
+                        document.getElementById("MainContent").innerHTML = '';
+                        document.getElementById("content1").innerHTML = '';
+                        document.getElementById("MainContent").innerHTML = data;
+
+                        $(".detail-song-track-total li").hover(function () {
+                            $(this).find(".detail-song-track-total-col-play button").css("color", "rgba(255,255,255,1)");
+                            $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0px 0px 22px #fff");
+                            $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,1)");
+                        });
+
+                        $(".detail-song-track-total li").mouseleave(function () {
+                            $(this).find(".detail-song-track-total-col-play button").css("color", "rgba(255,255,255,0.3)");
+                            $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0 0 0 transparent");
+                            $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,0.5)");
+                        });
+
+                    } else {
+                        alert("unsuccess");
+                    }
+                }
+            });
+        });
+
+
     });
 </script>
+    <script src="~/Scripts/MainLayout_JS/ViewSearch.js"></script>
+
+
 
 <script src="~/Scripts/MainLayout_JS/main-layout.js"></script>
 
