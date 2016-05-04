@@ -11,9 +11,9 @@
     <link href="~/Content/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/MainLayout_CSS/style-layout.css" rel="stylesheet" />
     <link href="~/Content/MainLayout_CSS/style-cart.css" rel="stylesheet"/>
-    <link href="~/Content/MainLayout_CSS/SearchPage.css" rel="stylesheet" />
+    <link href="~/Content/MainLayout_CSS/SearchPage.css" rel="stylesheet"/>
+    <link href="~/Content/MainLayout_CSS/Track.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                         </div>
                         <div id="navbar" class="collapse navbar-collapse">
                             <ul class="nav navbar-nav pull-left">
-                                <li class="active"><a href="#">Home</a></li>
+                                <li class="active" id="HomePageButton"><span>Home</span></li>
                                 <li><a href="#about">Store</a></li>
                                 <li><a href="#contact">Listen</a></li>
                                 <li><a href="#contact">Shows</a></li>
@@ -87,7 +87,7 @@
                         <li><a href="#">SOUNDS</a></li>
                         <li id="input-form-search">
                             <form class="form-search" id="input-form-search-child">
-                                <input type="text" placeholder="Search" id="main-search-input">
+                                <input type="text" placeholder="Search" id="main-search-input" onkeyup="keyupInputSearch()">
                                 <button type="button" id="searchButtonSubmit"><i class="glyphicon glyphicon-search"></i></button>
                             </form>
                         </li>
@@ -106,73 +106,6 @@
 </div>
 
     <div id="show-search">
-        <div class="show-search-child">
-            <div class="show-search-title">
-                <i class="fa fa-music search-title-icon" aria-hidden="true"></i>
-                <span class="show-search-type">Track</span>
-            </div>
-            <div class="show-search-content">
-                <div class="show-search-value">Hey Brother - Avicii</div>
-                <div class="show-search-value">Hey Brother Brother - Avicii</div>
-                <div class="show-search-value">Hesdf a afdher - AviciBrotheri</div>
-                <div class="show-search-value">asd asdasd ar - adada dfg</div>
-                <div class="show-search-value">Hesfgjh gjghjer - ghjcii</div>
-            </div>
-        </div>
-
-        <div class="show-search-child">
-            <div class="show-search-title">
-                <i class="fa fa-music search-title-icon" aria-hidden="true"></i>
-                <span class="show-search-type">Remix</span>
-            </div>
-            <div class="show-search-content">
-                <div class="show-search-value">Hey Brother - Avicii</div>
-                <div class="show-search-value">Hey Brother Brother - Avicii</div>
-                <div class="show-search-value">Hey Brother - AviciBrotheri</div>
-                <div class="show-search-value">Hey Brother - Avicii</div>
-                <div class="show-search-value">Hey Brother - Avicii</div>
-            </div>
-        </div>
-
-        <div class="show-search-child">
-            <div class="show-search-title">
-                <i class="fa fa-music search-title-icon" aria-hidden="true"></i>
-                <span class="show-search-type">Artist</span>
-            </div>
-            <div class="show-search-content">
-                <div class="show-search-value">Hey Brother</div>
-                <div class="show-search-value">Hey Brother Brother</div>
-                <div class="show-search-value">Hesdf a afdher</div>
-                <div class="show-search-value">asd asdasd ar</div>
-                <div class="show-search-value">Hesfgjh gjghjer</div>
-            </div>
-        </div>
-        <div class="show-search-child">
-            <div class="show-search-title">
-                <i class="fa fa-music search-title-icon" aria-hidden="true"></i>
-                <span class="show-search-type">Label</span>
-            </div>
-            <div class="show-search-content">
-                <div class="show-search-value">Hey Brother</div>
-                <div class="show-search-value">Hey Brother Brother</div>
-                <div class="show-search-value">Hesdf a afdher</div>
-                <div class="show-search-value">asd asdasd ar</div>
-                <div class="show-search-value">Hesfgjh gjghjer</div>
-            </div>
-        </div>
-        <div class="show-search-child">
-            <div class="show-search-title">
-                <i class="fa fa-music search-title-icon" aria-hidden="true"></i>
-                <span class="show-search-type">Genre</span>
-            </div>
-            <div class="show-search-content">
-                <div class="show-search-value">Hey Brother</div>
-                <div class="show-search-value">Hey Brother Brother</div>
-                <div class="show-search-value">Hesdf a afdher</div>
-                <div class="show-search-value">asd asdasd ar</div>
-                <div class="show-search-value">Hesfgjh gjghjer</div>
-            </div>
-        </div>
     </div>
 
 <div id="genres-wrap">
@@ -402,7 +335,7 @@
                 keyWord: $("#trackSearchViewAll").attr("keyword")
             }),
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
+            success: function(data) {
                 document.getElementById("search-tracks-page").innerHTML = '';
                 document.getElementById("search-tracks-page").innerHTML = data;
                 document.getElementById("search-tracks-page").style.overflowX = 'scroll';
@@ -420,20 +353,20 @@
                 keyWord: $("#searchRemixAllView").attr("keyword")
             }),
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
+            success: function(data) {
                 document.getElementById("detail-song-track-total").innerHTML = '';
                 document.getElementById("detail-song-track-total").innerHTML = data;
                 document.getElementById("searchRemixAllPage").style.overflowY = 'scroll';
                 document.getElementById("searchRemixAllPage").style.overflowX = 'hidden';
                 document.getElementById("searchRemixAllView").style.display = 'none';
 
-                $(".detail-song-track-total li").hover(function () {
+                $(".detail-song-track-total li").hover(function() {
                     $(this).find(".detail-song-track-total-col-play button").css("color", "rgba(255,255,255,1)");
                     $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0px 0px 22px #fff");
                     $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,1)");
                 });
 
-                $(".detail-song-track-total li").mouseleave(function () {
+                $(".detail-song-track-total li").mouseleave(function() {
                     $(this).find(".detail-song-track-total-col-play button").css("color", "rgba(255,255,255,0.3)");
                     $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0 0 0 transparent");
                     $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,0.5)");
@@ -451,7 +384,7 @@
                 keyWord: $("#searchArtistButtonView").attr("keyword")
             }),
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
+            success: function(data) {
                 document.getElementById("searchArtistViewAll").innerHTML = '';
                 document.getElementById("searchArtistViewAll").innerHTML = data;
                 document.getElementById("searchArtistViewAll").style.overflowX = 'scroll';
@@ -460,26 +393,24 @@
         });
     }
 
-    $(document).ready(function () {
-
+    $(document).ready(function() {
         var temp = "";
         temp = (document.getElementById("input-form-search").getBoundingClientRect().top + document.getElementById("input-form-search").offsetHeight).toString();
         document.getElementById("show-search").style.top = temp + 'px';
         temp = document.getElementById("input-form-search-child").getBoundingClientRect().left.toString();
         document.getElementById("show-search").style.left = temp + 'px';
 
-        $("#main-search-input").keyup(function () {
 
-            temp = $("#main-search-input").val();
+        $("#main-search-input").keyup(function() {
             $.ajax({
                 url: '@Url.Action("Search", "Search")',
                 dataType: 'json',
                 type: 'POST',
                 data: JSON.stringify({
-                    keyWord: temp
+                    keyWord: $("#main-search-input").val()
                 }),
                 contentType: 'application/json; charset=utf-8',
-                success: function (data) {
+                success: function(data) {
                     document.getElementById("show-search").innerHTML = '';
                     document.getElementById("show-search").innerHTML = data;
                     $("#show-search").show();
@@ -487,32 +418,33 @@
             });
         });
 
-        $("#main-search-input").focusout(function () {
+        $("#main-search-input").focusout(function() {
             $("#show-search").hide();
         });
 
-        $("#searchButtonSubmit").click(function () {
+        $("#searchButtonSubmit").click(function() {
+            $("#show-search").hide();
             $.ajax({
-                url: '@Url.Action("SearchPage","Search")',
+                url: '@Url.Action("SearchPage", "Search")',
                 dataType: 'json',
                 type: 'POST',
                 data: JSON.stringify({
                     keyWord: $("#main-search-input").val()
                 }),
                 contentType: 'application/json; charset=utf-8',
-                success: function (data) {
+                success: function(data) {
                     if (data !== '') {
                         document.getElementById("MainContent").innerHTML = '';
                         document.getElementById("content1").innerHTML = '';
                         document.getElementById("MainContent").innerHTML = data;
 
-                        $(".detail-song-track-total li").hover(function () {
+                        $(".detail-song-track-total li").hover(function() {
                             $(this).find(".detail-song-track-total-col-play button").css("color", "rgba(255,255,255,1)");
                             $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0px 0px 22px #fff");
                             $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,1)");
                         });
 
-                        $(".detail-song-track-total li").mouseleave(function () {
+                        $(".detail-song-track-total li").mouseleave(function() {
                             $(this).find(".detail-song-track-total-col-play button").css("color", "rgba(255,255,255,0.3)");
                             $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0 0 0 transparent");
                             $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,0.5)");
@@ -524,19 +456,72 @@
                 }
             });
         });
-
-
     });
+
 </script>
-    <script src="~/Scripts/MainLayout_JS/ViewSearch.js"></script>
+
+    @* xu ly phan xem chi tiet Track *@
+<script type="text/javascript">
+    
+    //show Page Detail
+    function ViewDetailTrackAll_fun(id) {
+        $.ajax({
+            url: '@Url.Action("AllIndex", "Track")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                id: id
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                document.getElementById("MainContent").innerHTML = '';
+                document.getElementById("MainContent").innerHTML = data;
+            }
+        });
+    }
+
+    //show visualize Music
 
 
+</script>
+
+    @* xu ly phan click mua hang *@
+<script type="text/javascript">
+    $(function() {
+        $(".new-track-child-buy").click(function() {
+
+            var id = $(this).attr("idTrack");
+            var type = $(this).attr("typePro");
+            $.ajax({
+                url: '@Url.Action("Add", "Cart")',
+                dataType: 'json',
+                type: 'POST',
+                data: JSON.stringify({
+                    id: id,
+                    type: type
+                }),
+                contentType: 'application/json; charset=utf-8',
+                success: function(data) {
+                    if (data !== '') {
+                        $.each(data, function(i, item) {
+                            if (i === 0) {
+                                $("#total_Debt_Menu").text('$' + item);
+                                $(this).prop("disabled", true);
+                            } else {
+                                $("#saleUser_Menu").text('Sale ' + item + '%');
+                            }
+                        });
+                    } else {
+                        alert("unsuccess");
+                    }
+                }
+            });
+        });
+    });
+
+</script>
 
 <script src="~/Scripts/MainLayout_JS/main-layout.js"></script>
 
-
 </body>
-
-
-
 </html>

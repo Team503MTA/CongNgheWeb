@@ -4,11 +4,11 @@
 
 // #region HOT-SLIDER
 
-$(document).ready(function () {
+function hotSlider_Fun () {
 
     var stt_Hot_slider = 0;
-    var firstImg_HotSlider = $(".hot-slider-img:first").attr("stt");
-    var endImg_HotSlider = $(".hot-slider-img:last").attr("stt");
+    var firstImg_HotSlider = parseInt($(".hot-slider-img:first").attr("stt"));
+    var endImg_HotSlider = parseInt($(".hot-slider-img:last").attr("stt"));
 
     $(".hot-slider-img").each(function () {
         if ($(this).is(':visible')) {
@@ -62,13 +62,13 @@ $(document).ready(function () {
         stt_Hot_slider = stt_Hot_Slider_Select;
     });
 
-});
+}
 
 // #endregion
 
 // #region TOP-6-DJ
 
-$(document).ready(function () {
+function Top_6_DJ_Fun() {
     $(".top-6-dj-button").on("click", function () {
         var stt_Top_6_DJ = $(this).attr("stt");
         $(".top-6-dj-child").hide();
@@ -76,16 +76,13 @@ $(document).ready(function () {
         $(".top-6-dj-button").removeClass('top-6-dj-button-active');
         $(".top-6-dj-button").eq(stt_Top_6_DJ).addClass('top-6-dj-button-active');
     });
-});
+}
 
 // #endregion
 
+// #region new track
 
-
-
-
-//new track
-$(document).ready(function () {
+function newTrack_Index_Fun() {
     $(".new-tracks-pages-li").on("click", function () {
         var stt = $(this).attr("stt");
         $(".new-track-div").hide();
@@ -93,8 +90,9 @@ $(document).ready(function () {
         $(".new-tracks-pages-li").removeClass('new-tracks-pages-li-active');
         $(".new-tracks-pages-li").eq(stt).addClass('new-tracks-pages-li-active');
     });
-});
+}
 
+// #endregion
 
 //hot remix
 $(document).ready(function () {
@@ -117,8 +115,6 @@ $(document).ready(function () {
         $(".live-set-slider-div").eq(stt).addClass('live-set-slider-div-active');
     });
 });
-
-
 
 //bucket
 $(document).ready(function () {

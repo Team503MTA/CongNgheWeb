@@ -421,11 +421,17 @@ a.labels {
 /* detail-song-artist-song */
 .detail-song-artist-song {
     display: inline-block;
-    width: 100%;
+    width: 19.6%;
     padding: 0;
     margin: 0;
     background: #333;
     overflow: hidden;
+    margin-right: 0.5%;
+    float: left;
+}
+
+.detail-song-artist-song:last-child {
+    margin-right: 0;
 }
 
 .detail-song-artist-song-top{
@@ -623,11 +629,17 @@ a.labels {
 /* detail-song-label-song */
 .detail-song-label-song {
     display: inline-block;
-    width: 100%;
+    width: 19.6%;
+    float: left;
     padding: 0;
     margin: 0;
+    margin-right: 0.5%;
     background: #333;
     overflow: hidden;
+}
+
+.detail-song-label-song:last-child {
+    margin-right: 0;
 }
 
 .detail-song-label-song-top{

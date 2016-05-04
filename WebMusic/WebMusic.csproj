@@ -403,9 +403,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Layout\MainLayout.cshtml" />
-    <Content Include="Views\Home\HotSlider.cshtml" />
-    <Content Include="Views\Home\Top_6_DJ.cshtml" />
-    <Content Include="Views\Home\New_Track.cshtml" />
     <Content Include="Views\Track\Index.cshtml" />
     <Content Include="Views\Track\Detail_Track.cshtml" />
     <Content Include="Views\Track\Track_Total.cshtml" />
