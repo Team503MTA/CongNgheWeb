@@ -265,9 +265,6 @@
     <Compile Include="Models\STEM_ARTIST.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>WebMusic.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TOP_6_DJ.cs">
       <DependentUpon>WebMusic.tt</DependentUpon>
     </Compile>
@@ -485,7 +482,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3924</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

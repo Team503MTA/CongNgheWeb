@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f92fdc73db8c44e5b89a87bb77d9ac22" Name="Diagram1">
+      <Diagram DiagramId="0e00576a64b14333a0c0e70e35ccb398" Name="Diagram1">
         <EntityTypeShape EntityType="MusicModel.ARTIST" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicModel.CARD" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicModel.CHART" Width="1.5" PointX="5.25" PointY="28.5" IsExpanded="true" />
@@ -28,8 +28,7 @@
         <EntityTypeShape EntityType="MusicModel.STEM" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicModel.STEM_ARTIST" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicModel.STEM1" Width="1.5" PointX="12.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicModel.sysdiagram" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicModel.TOP_6_DJ" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicModel.TOP_6_DJ" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicModel.TRACK" Width="1.5" PointX="6" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicModel.TRACK_ARTIST" Width="1.5" PointX="8.25" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicModel.USER" Width="1.5" PointX="10.75" PointY="4.125" IsExpanded="true" />
