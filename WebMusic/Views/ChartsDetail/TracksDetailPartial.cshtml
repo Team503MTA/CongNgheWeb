@@ -1,4 +1,4 @@
-﻿@model List<MusicWeb.Model.TRACK>
+﻿@model List<WebMusic.Models.TRACK>
 <div class="tracks-detail">
     <div class="tracks-title">
         <h3>@ViewBag.quantum TRACKS TOTAL</h3>
@@ -20,7 +20,7 @@
                 i++;
                 <div class="tracks">
                     <div class="div-tracks-img">
-                        <img src="@Url.Content("~/Image/tracks/" + @item.LINK_IMG)" alt="">
+                        <img src="@Url.Content("~" + @item.LINK_IMG)" alt="">
                     </div>
                     <div class="div-tracks-number">
                         <span>@i</span>

@@ -1,4 +1,4 @@
-﻿@model List<MusicWeb.Model.CHART>
+﻿@model List<WebMusic.Models.CHART>
 
 @{
     var num = 0;
@@ -29,10 +29,10 @@
                             {
                                 if (ViewBag.img[j] == null)
                                 {
-                                    ViewBag.img[j] = "blank-artist.png";
+                                    ViewBag.img[j] = "/IMG/blank-artist.png";
                                 }
                                 <li>
-                                    <a class="new-charts-detail-link" href="@Url.Action("Index", "ChartsDetail", new {@id = Model[j].ID})"><img src="@Url.Content("~/Image/tracks/" + ViewBag.img[j])" alt=""></a>
+                                    <a class="new-charts-detail-link" href="@Url.Action("Index", "ChartsDetail", new {@id = Model[j].ID})"><img src="@Url.Content("~" + ViewBag.img[j])" alt=""></a>
 
                                     <a class="new-charts-name link-decorate" href="#">@Model[j].NAME</a>
                                     <a class="new-charts-artist link-decorate" href="#">BEATPORT</a>

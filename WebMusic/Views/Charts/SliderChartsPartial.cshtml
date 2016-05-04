@@ -1,5 +1,5 @@
 ﻿
-@model List<MusicWeb.Model.CHART>
+@model List<WebMusic.Models.CHART>
 <div class="slider">
     <button class="direction prev" type="button"><img src="~/Image/charts/prev.png" alt=""></button>
     @{
@@ -8,7 +8,7 @@
         for (int i = 0; i < Model.Count; i++)
         {
             <a href="#">
-                <img stt="@num" src="@Url.Content("~/Image/tracks/"+ ViewBag.img[i])" alt="" class="slider-img @cl" />
+                <img stt="@num" src="@Url.Content("~"+ ViewBag.img[i])" alt="" class="slider-img @cl" />
             </a>
             cl = "";
             num++;

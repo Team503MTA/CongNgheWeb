@@ -318,6 +318,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="IMG\blank-artist.png" />
     <Content Include="Models\WebMusic.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WebMusic.edmx</DependentUpon>
