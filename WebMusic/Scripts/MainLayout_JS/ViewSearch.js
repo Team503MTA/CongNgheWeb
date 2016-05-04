@@ -1,11 +1,1 @@
 ﻿
-
-
-$(document).ready(function () {
-
-    
-
-
-    
-
-});
