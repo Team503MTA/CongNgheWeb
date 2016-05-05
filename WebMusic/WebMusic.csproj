@@ -443,9 +443,6 @@
     <Content Include="Views\Charts\ChartsGenrePartial.cshtml" />
     <Content Include="Views\Charts\NewChartsPartial.cshtml" />
     <Content Include="Views\Charts\SliderChartsPartial.cshtml" />
-    <Content Include="Views\ChartsDetail\Index.cshtml" />
-    <Content Include="Views\ChartsDetail\ChartsDetailPartial.cshtml" />
-    <Content Include="Views\ChartsDetail\TracksDetailPartial.cshtml" />
     <Content Include="Views\Sounds\Index.cshtml" />
     <Content Include="Views\Sounds\FeaturedPacksPartial.cshtml" />
     <Content Include="Views\Stems\Index.cshtml" />

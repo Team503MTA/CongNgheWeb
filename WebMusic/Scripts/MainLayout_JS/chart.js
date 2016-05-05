@@ -79,12 +79,58 @@ $(document).ready(function () {
         }
     });
 
+    function next_chart(){
+        if(curli < endli)
+        {
+            if (curli === endli - 1) {
+                $(".new-charts .direction .next .glyphicon").css("color", "#949494")
+            } else {
+                $(".new-charts .direction .next .glyphicon").css("color", "#fff")
+            }
+            $(".new-charts .direction .prev .glyphicon").css("color", "#fff")
+            curli++
+            $(".new-charts-div-active").removeClass("new-charts-div-active")
+            $(".new-charts-slider-li-active").removeClass("new-charts-slider-li-active")
+            $(".new-charts-div").eq(curli).addClass("new-charts-div-active")
+            $(".new-charts-slider-li").eq(curli).addClass("new-charts-slider-li-active") 
+        }
+/*        else
+        {
+            $(".new-charts .direction .next .glyphicon").css("color","#949494")
+        }*/
+    }
+            
+    function prev_chart(){
+        if(curli > startli)
+        {
+            if (curli === startli + 1) {
+                $(".new-charts .direction .prev .glyphicon").css("color", "#949494")
+            } else {
+                $(".new-charts .direction .prev .glyphicon").css("color", "#fff")
+            }
+            $(".new-charts .direction .next .glyphicon").css("color", "#fff")
+            curli--
+            $(".new-charts-div-active").removeClass("new-charts-div-active")
+            $(".new-charts-slider-li-active").removeClass("new-charts-slider-li-active")
+            $(".new-charts-div").eq(curli).addClass("new-charts-div-active")
+            $(".new-charts-slider-li").eq(curli).addClass("new-charts-slider-li-active")
+        }
+/*        else
+        {
+            $(".new-charts .direction .prev .glyphicon").css("color","#949494")
+        }*/
+    }
+            
+    $(".new-charts .direction .next").click(next_chart)
+    $(".new-charts .direction .prev").click(prev_chart)
+/*
     //NEXT
     function nextChart() {
         var cur = $(".new-charts-slider-li-active").attr("stt");
         if (cur < endli) {
-            $(".new-charts .direction .prev .glyphicon").css("color", "#fff");
-            curli++;
+            $(".new-charts .direction .next").enable();
+            $(".new-charts .direction .next .glyphicon").css("color", "#fff");
+            cur++;
             $(".new-charts-div-active").removeClass("new-charts-div-active");
             $(".new-charts-slider-li-active").removeClass("new-charts-slider-li-active");
             $(".new-charts-div").eq(cur).addClass("new-charts-div-active");
@@ -93,12 +139,14 @@ $(document).ready(function () {
             $(".new-charts .direction .next").disable();
         }
     }
+    $(".new-charts .direction .next").click(nextChart);
 
     //PREVIEW
     function prevChart() {
         var cur = $(".new-charts-slider-li-active").attr("stt");
         if (cur > startli) {
-            $(".new-charts .direction .next").css("color", "#fff");
+            $(".new-charts .direction .prev").enable();
+            $(".new-charts .direction .prev .glyphicon").css("color", "#fff");
             cur--;
             $(".new-charts-div-active").removeClass("new-charts-div-active");
             $(".new-charts-slider-li-active").removeClass("new-charts-slider-li-active");
@@ -108,11 +156,8 @@ $(document).ready(function () {
             $(".new-charts .direction .prev").disable();
         }
     }
-    $(".new-charts .direction .next").click(nextChart);
     $(".new-charts .direction .prev").click(prevChart);
-
-    $(".new-charts .direction .next").click();
-    $(".new-charts .direction .prev").click();
+*/
 });
 
 ////CHART DETAIL___________________________________________________________________________
