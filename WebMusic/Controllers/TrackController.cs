@@ -55,7 +55,7 @@ namespace WebMusic.Controllers
             }
             sb.Append("<br>");
             sb.Append("<div class='detail-song-play-buy'>");
-            sb.Append("<button class='detail-song-play'>");
+            sb.Append("<button class='detail-song-play' onclick='clickPlayMusicDetail(" + track.ID + ",1)'>");
             sb.Append("<i class='glyphicon glyphicon-play'></i>");
             sb.Append("</button>");
             sb.Append("<button class='detail-song-buy'>");

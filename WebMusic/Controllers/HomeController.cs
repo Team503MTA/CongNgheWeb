@@ -154,7 +154,7 @@ namespace WebMusic.Controllers
                     sb.Append("<div class='new-track-child-top'>");
                     sb.Append("<img src='." + lst[count].LINK_IMG + "'>");
                     sb.Append("<div class='new-track-child-top-control'>");
-                    sb.Append("<button sttID='" + lst[count].ID + "' sttType='1' class='new-track-child-play all-playmusic'><i class='fa fa-play'></i></button>");
+                    sb.Append("<button onclick='clickAllPlayMusic(" + lst[count].ID +",1)' class='new-track-child-play all-playmusic'><i class='fa fa-play'></i></button>");
                     sb.Append("<button idTrack='" + lst[count].ID + "' typePro='1' class='new-track-child-buy'>$" + lst[count].COST + "</button>");
                     sb.Append("<button class='new-track-child-share'><i class='fa fa-facebook'></i>Share</button>");
                     sb.Append("</div>");

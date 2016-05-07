@@ -1,4 +1,11 @@
 ﻿
+// #region Load Function Ajax Request
+
+$(document).ready(function() {
+
+});
+
+// #endregion
 
 
 // #region CLICK CART
@@ -15,6 +22,21 @@ $(document).ready(function () {
 // #endregion
 
 
+// #region NotiForm
+
+function close_NotiForm () {
+    $("#noti-form").hide();
+    $(".extra").hide();
+}
+
+function noti_Fun(text) {
+    $(".extra").show();
+    document.getElementById("notiForm").innerHTML = text;
+    $("#noti-form").show();
+}
+
+// #endregion
+
 // #region LOGIN
 
 $(document).ready(function () {
@@ -27,12 +49,7 @@ $(document).ready(function () {
         $("#login-form").hide();
         $(".extra").hide();
     });
-
-    $("#closeNotiForm").click(function () {
-        $("#noti-form").hide();
-        $(".extra").hide();
-    });
-
+    
 });
 
 // #endregion
@@ -112,13 +129,22 @@ $(document).ready(function () {
 
 // #region TAG PLAY MUSIC
 
-$(document).ready(function () {
     var playmusic = 0;
-    var audio = document.getElementById('myTune');
+    var audio;
     var volumeLenPer = $("#volumeProBar").width() / 100;
-    var all_valueProgressVolumn = $("#volumeProBar").width();
-    var all_valueAudioVolumn = 1.0;
+    var allValueProgressVolumn = $("#volumeProBar").width();
+    var allValueAudioVolumn = 1.0;
     var loopAudioCurrent = false;
+
+    var intervalPlayMusic;
+    var playmusicLenPer;
+    var oldVolume;
+    var oldVolumeLength;
+    var checkDetailPage = false;
+
+    function checkDetailPage_fun() {
+        checkDetailPage = true;
+    }
 
     function convertTime(timeSecond) {
         var hour = 0;
@@ -143,262 +169,95 @@ $(document).ready(function () {
         }
         return stringTime;
     }
+    
+    
 
-    audio.addEventListener('loadedmetadata', function audioLoad() {
+    function audioLoad() {
+        if (!intervalPlayMusic) {
+            intervalPlayMusic = null;
+        }
+        audio = document.getElementById('myTune');
+
         var lengaudio = parseInt(audio.duration);
         var lengaudioText = convertTime(lengaudio);
         document.getElementById("playmusic-end").innerHTML = lengaudioText;
         document.getElementById("playmusic-start").innerHTML = "0:00";
-    });
 
-    //event end audio
-    audio.onended = function endedAudio() {
-        if (audio.loop === false) {
-            pauseMusic();
-        }
-    };
-
-    //function play music
-    function playMusic() {
-        audio.play();
-        playmusic = 1;
-        $("#playButton .glyphicon-play").hide();
-        $("#playButton .glyphicon-pause").show();
-    }
-
-    //function pause music
-    function pauseMusic() {
-        audio.pause();
-        playmusic = 0;
-        $("#playButton .glyphicon-pause").hide();
-        $("#playButton .glyphicon-play").show();
-    }
-
-    //event click loop
-    $("#loopButton").click(function loopAudio() {
-        if (audio.loop === false) {
-            loopAudioCurrent = true;
-            audio.loop = true;
-            $("#loopButton").css("color", "#fff");
-        } else {
-            audio.loop = false;
-            loopAudioCurrent = false;
-            $("#loopButton").css("color", "#888");
-        }
-    });
-
-    var intervalPlayMusic;
-    //event click playmusic
-    $("#playButton").click(function playTagAudio() {
-        if (playmusic === 0) {
-            playMusic();
-            intervalPlayMusic = setInterval(function () {
-                if (document.getElementById("playmusic-start")) {
-                    document.getElementById("playmusic-start").innerHTML = convertTime(parseInt(audio.currentTime));
-                }
-                var currentValuePlayMusic = (audio.currentTime / audio.duration) * 100;
-                if (document.getElementById("playmusic-process")) {
-                    document.getElementById("playmusic-process").value = currentValuePlayMusic;
-                }
-            }, 100);
-        } else {
-            pauseMusic();
-            clearInterval(intervalPlayMusic);
-        }
-    });
-
-    //event click fast forward music
-    var playmusicLenPer;
-    $("#playmusic-process").click(function TuaTagAudio(ev) {
-        playmusicLenPer = $("#playmusic-process").width() / 100;
-        var lenCurrentPlayMusic = ev.clientX - $("#playmusic-process").offset().left;
-        var playmusicCurrentPer = lenCurrentPlayMusic / playmusicLenPer;
-
-        document.getElementById("playmusic-process").value = playmusicCurrentPer;
-        document.getElementById("myTune").currentTime = (playmusicCurrentPer / 100) * audio.duration;
-        document.getElementById("playmusic-start").innerHTML = convertTime(audio.currentTime);
-    });
-
-    //volume in progress
-    $("#volumeProBar").click(function editVolumnAudio(evVolume) {
-        var lenCurrentVolume = evVolume.clientX - $("#volumeProBar").offset().left;
-        all_valueProgressVolumn = lenCurrentVolume / volumeLenPer;
-        document.getElementById("volumeProBar").value = all_valueProgressVolumn;
-        all_valueAudioVolumn = document.getElementById("volumeProBar").value / 100;
-        document.getElementById("myTune").volume = all_valueAudioVolumn;
-        if (audio.volume < 0.5) {
-            $("#volume .glyphicon-volume-down").show();
-            $("#volume .glyphicon-volume-up").hide();
-        } else {
-            $("#volume .glyphicon-volume-down").hide();
-            $("#volume .glyphicon-volume-up").show();
-        }
-        $("#volume .glyphicon-volume-off").hide();
-    });
-
-    //volume in icon
-    var oldVolume;
-    var oldVolumeLength;
-    $("#volumeButton").click(function editByIconVolumn() {
-        if (audio.volume > 0) {
-            oldVolume = audio.volume;
-            oldVolumeLength = document.getElementById("volumeProBar").value;
-            document.getElementById("myTune").volume = 0;
-            document.getElementById("volumeProBar").value = 0;
-            all_valueProgressVolumn = 0;
-            $("#volume .glyphicon-volume-down").hide();
-            $("#volume .glyphicon-volume-up").hide();
-            $("#volume .glyphicon-volume-off").show();
-        } else {
-            document.getElementById("myTune").volume = oldVolume;
-            document.getElementById("volumeProBar").value = oldVolumeLength;
-            all_valueProgressVolumn = oldVolumeLength;
-            $("#volume .glyphicon-volume-off").hide();
-            if (audio.volume < 0.5) {
-                $("#volume .glyphicon-volume-down").show();
-            } else {
-                $("#volume .glyphicon-volume-up").show();
-            }
-        }
-    });
-
-    //select audio
-    $("#clickChangeMusicHide").click(function () {
-        //document.getElementById("myTune").addEventListener("loadedmetadata", audioLoad);
-        //document.getElementById("myTune").addEventListener("ended", endedAudio);
-        //document.getElementById("loopButton").addEventListener("click", loopAudio);
-        //document.getElementById("playButton").addEventListener("click", playTagAudio);
-        //document.getElementById("playmusic-process").addEventListener("click", TuaTagAudio);
-        //document.getElementById("volumeProBar").addEventListener("click", editVolumnAudio);
-        //document.getElementById("volumeButton").addEventListener("click", editByIconVolumn);
-        clearInterval(intervalPlayMusic);
-        var playmusic1 = 0;
-        var audio1 = document.getElementById('myTune');
-        //get loop audio prev
-        audio1.loop = loopAudioCurrent;
-        if (loopAudioCurrent) {
-            $("#loopButton").css("color", "#fff");
-        }
-        //get volumn audio prev
-        if (all_valueProgressVolumn === 0) {
-            document.getElementById("myTune").volume = 0;
-            document.getElementById("volumeProBar").value = 0;
-            $("#volume .glyphicon-volume-down").hide();
-            $("#volume .glyphicon-volume-up").hide();
-            $("#volume .glyphicon-volume-off").show();
-        } else {
-            document.getElementById("volumeProBar").value = all_valueProgressVolumn;
-            document.getElementById("myTune").volume = all_valueAudioVolumn;
-        }
-
-        function convertTime1(timeSecond) {
-            var hour = 0;
-            var minutes = 0;
-            var second = 0;
-            var stringTime = "";
-            hour = Math.floor(timeSecond / 3600);
-            timeSecond = timeSecond - hour * 3600;
-            minutes = Math.floor(timeSecond / 60);
-            timeSecond = timeSecond - minutes * 60;
-            second = Math.floor(timeSecond);
-            var correctSecond = "";
-            if (second < 10) {
-                correctSecond = "0" + second;
-            } else {
-                correctSecond = second;
-            }
-            if (hour === 0) {
-                stringTime = minutes + ":" + correctSecond;
-            } else {
-                stringTime = hour + ":" + minutes + ":" + correctSecond;
-            }
-            return stringTime;
-        }
-
-        audio1.addEventListener('loadedmetadata', function audioLoad1() {
-            var lengaudio = parseInt(audio1.duration);
-            var lengaudioText = convertTime1(lengaudio);
-            document.getElementById("playmusic-end").innerHTML = lengaudioText;
-            document.getElementById("playmusic-start").innerHTML = "0:00";
-        });
 
         //event end audio
-        audio1.onended = function endedAudio1() {
-            if (audio1.loop === false) {
-                pauseMusic1();
+        audio.onended = function endedAudio() {
+            if (audio.loop === false) {
+                pauseMusic();
             }
         };
 
         //function play music
-        function playMusic1() {
-            audio1.play();
-            playmusic1 = 1;
+        function playMusic() {
+            audio.play();
+            playmusic = 1;
             $("#playButton .glyphicon-play").hide();
             $("#playButton .glyphicon-pause").show();
         }
 
         //function pause music
-        function pauseMusic1() {
-            audio1.pause();
-            playmusic1 = 0;
+        function pauseMusic() {
+            audio.pause();
+            playmusic = 0;
             $("#playButton .glyphicon-pause").hide();
             $("#playButton .glyphicon-play").show();
         }
 
         //event click loop
-        $("#loopButton").click(function loopAudio1() {
-            if (audio1.loop === false) {
+        $("#loopButton").click(function loopAudio() {
+            if (audio.loop === false) {
                 loopAudioCurrent = true;
-                audio1.loop = true;
+                audio.loop = true;
                 $("#loopButton").css("color", "#fff");
             } else {
-                audio1.loop = false;
+                audio.loop = false;
                 loopAudioCurrent = false;
                 $("#loopButton").css("color", "#888");
             }
-
         });
 
         //event click playmusic
-        $("#playButton").click(function playTagAudio1() {
-            if (playmusic1 === 0) {
-                playMusic1();
+        $("#playButton").click(function playTagAudio() {
+            if (playmusic === 0) {
+                playMusic();
                 intervalPlayMusic = setInterval(function () {
                     if (document.getElementById("playmusic-start")) {
-                        document.getElementById("playmusic-start").innerHTML = convertTime1(parseInt(audio1.currentTime));
+                        document.getElementById("playmusic-start").innerHTML = convertTime(parseInt(audio.currentTime));
                     }
-                    var currentValuePlayMusic = (audio1.currentTime / audio1.duration) * 100;
+                    var currentValuePlayMusic = (audio.currentTime / audio.duration) * 100;
                     if (document.getElementById("playmusic-process")) {
                         document.getElementById("playmusic-process").value = currentValuePlayMusic;
                     }
                 }, 100);
             } else {
-                pauseMusic1();
+                pauseMusic();
                 clearInterval(intervalPlayMusic);
             }
         });
 
         //event click fast forward music
-        var playmusicLenPer1;
-        $("#playmusic-process").click(function TuaTagAudio1(ev) {
-            playmusicLenPer1 = $("#playmusic-process").width() / 100;
+        $("#playmusic-process").click(function tuaTagAudio(ev) {
+            playmusicLenPer = $("#playmusic-process").width() / 100;
             var lenCurrentPlayMusic = ev.clientX - $("#playmusic-process").offset().left;
-            var playmusicCurrentPer = lenCurrentPlayMusic / playmusicLenPer1;
+            var playmusicCurrentPer = lenCurrentPlayMusic / playmusicLenPer;
 
             document.getElementById("playmusic-process").value = playmusicCurrentPer;
-            document.getElementById("myTune").currentTime = (playmusicCurrentPer / 100) * audio1.duration;
-            document.getElementById("playmusic-start").innerHTML = convertTime1(audio1.currentTime);
+            document.getElementById("myTune").currentTime = (playmusicCurrentPer / 100) * audio.duration;
+            document.getElementById("playmusic-start").innerHTML = convertTime(audio.currentTime);
         });
 
         //volume in progress
-        $("#volumeProBar").click(function editVolumnAudio1(evVolume) {
+        $("#volumeProBar").click(function editVolumnAudio(evVolume) {
             var lenCurrentVolume = evVolume.clientX - $("#volumeProBar").offset().left;
-            all_valueProgressVolumn = lenCurrentVolume / volumeLenPer;
-            document.getElementById("volumeProBar").value = all_valueProgressVolumn;
-            all_valueAudioVolumn = document.getElementById("volumeProBar").value / 100;
-            document.getElementById("myTune").volume = all_valueAudioVolumn;
-
-            if (audio1.volume < 0.5) {
+            allValueProgressVolumn = lenCurrentVolume / volumeLenPer;
+            document.getElementById("volumeProBar").value = allValueProgressVolumn;
+            allValueAudioVolumn = document.getElementById("volumeProBar").value / 100;
+            document.getElementById("myTune").volume = allValueAudioVolumn;
+            if (audio.volume < 0.5) {
                 $("#volume .glyphicon-volume-down").show();
                 $("#volume .glyphicon-volume-up").hide();
             } else {
@@ -409,29 +268,98 @@ $(document).ready(function () {
         });
 
         //volume in icon
-        $("#volumeButton").click(function editByIconVolumn1() {
-            if (audio1.volume > 0) {
-                oldVolume = audio1.volume;
+        $("#volumeButton").click(function editByIconVolumn() {
+            if (audio.volume > 0) {
+                oldVolume = audio.volume;
                 oldVolumeLength = document.getElementById("volumeProBar").value;
                 document.getElementById("myTune").volume = 0;
                 document.getElementById("volumeProBar").value = 0;
+                allValueProgressVolumn = 0;
+                allValueAudioVolumn = 0;
                 $("#volume .glyphicon-volume-down").hide();
                 $("#volume .glyphicon-volume-up").hide();
                 $("#volume .glyphicon-volume-off").show();
             } else {
                 document.getElementById("myTune").volume = oldVolume;
                 document.getElementById("volumeProBar").value = oldVolumeLength;
+                allValueProgressVolumn = oldVolumeLength;
                 $("#volume .glyphicon-volume-off").hide();
-                if (audio1.volume < 0.5) {
+                if (audio.volume < 0.5) {
                     $("#volume .glyphicon-volume-down").show();
                 } else {
                     $("#volume .glyphicon-volume-up").show();
                 }
             }
-
         });
-    });
-});
+
+        var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
+        function initMp3Player() {
+            context = new window.webkitAudioContext(); // AudioContext object instance
+            analyser = context.createAnalyser(); // AnalyserNode method
+            canvas = document.getElementById('analyser_render');
+            ctx = canvas.getContext('2d');
+            // Re-route audio playback into the processing graph of the AudioContext
+            source = context.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(context.destination);
+            frameLooper();
+        }
+        // frameLooper() animates any style of graphics you wish to the audio frequency
+        // Looping at the default frame rate that the browser provides(approx. 60 FPS)
+        function frameLooper() {
+            window.webkitRequestAnimationFrame(frameLooper);
+            fbc_array = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(fbc_array);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            ctx.fillStyle = '#a0a'; // Color of the bars
+            bars = 200;
+            for (var i = 0; i < bars; i++) {
+                bar_x = i * 2;
+                bar_width = 1;
+                bar_height = -(fbc_array[i] /2);
+                //  fillRect( x, y, width, height ) // Explanation of the parameters below
+                ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
+            }
+        }
+
+        if (checkDetailPage) {
+            initMp3Player();
+            checkDetailPage = false;
+        }
+
+        //thuc thi neu da su dung
+        if (playmusic === 1) {
+            playmusic = 0;
+            document.getElementById("playButton").click();
+        } else {
+            playmusic = 1;
+            document.getElementById("playButton").click();
+        }
+        if (loopAudioCurrent) {
+            document.getElementById("loopButton").click();
+        }
+        //reset probar
+        document.getElementById("playmusic-process").value = 0;
+        //lay gia tri am thanh cu
+        document.getElementById("volumeProBar").value = allValueProgressVolumn;
+        document.getElementById("myTune").volume = allValueAudioVolumn;
+        if (audio.volume < 0.5) {
+            $("#volume .glyphicon-volume-down").show();
+            $("#volume .glyphicon-volume-up").hide();
+        } else {
+            $("#volume .glyphicon-volume-down").hide();
+            $("#volume .glyphicon-volume-up").show();
+        }
+        $("#volume .glyphicon-volume-off").hide();
+        //lay gia tri mute cu
+        if (audio.volume === 0) {
+            $("#volume .glyphicon-volume-down").hide();
+            $("#volume .glyphicon-volume-up").hide();
+            $("#volume .glyphicon-volume-off").show();
+        }
+    }
+    
+    
 
 // #endregion
 
@@ -512,80 +440,6 @@ $(document).ready(function () {
         });
     });
 
-    $(".all-playmusic").click(function () {
-        var audioDelete = document.getElementById("myTune");
-        document.getElementById("myTune").innerHTML = '';
-        delete audioDelete;
-        document.getElementById("all-tagMusicBottom").innerHTML = '';
-        var id = $(this).attr("sttID");
-        var type = $(this).attr("sttType");
-
-        $.ajax({
-            url: '@Url.Action("GetMusic", "PlayMusic")',
-            dataType: 'json',
-            type: 'POST',
-            data: JSON.stringify({
-                id: id,
-                type: type
-            }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (data !== '') {
-                    var tempData = '';
-                    tempData = tempData + '<audio id="myTune" controls>';
-                    tempData = tempData + '<source src="' + data.link + '">';
-                    tempData = tempData + '</audio>';
-                    tempData = tempData + '<div class="playmusic-info" id="all-playmusic-change">';
-                    tempData = tempData + '<div class="imgPlayMusic">';
-                    tempData = tempData + '<img src="' + data.link_Img + '" />';
-                    tempData = tempData + '</div>';
-                    tempData = tempData + '<div class="textPlayMusic">';
-                    tempData = tempData + '<a href="#" class="playmusic-name">' + data.name + '</a>';
-                    $.each(data.artist, function (i, item) {
-                        tempData = tempData + '<a href="#" class="playmusic-artist">' + item + '</a>';
-                    });
-                    tempData = tempData + '</div>';
-                    tempData = tempData + '</div>';
-                    tempData = tempData + '<div class="playmusic-time">';
-                    tempData = tempData + '<label id="playmusic-start"></label>';
-                    tempData = tempData + '<progress id="playmusic-process" value="0" max="100"></progress>';
-                    tempData = tempData + '<label id="playmusic-end"></label>';
-                    tempData = tempData + '</div>';
-                    tempData = tempData + '<div class="playmusic-button">';
-                    tempData = tempData + '<button id="playmusic-prev">';
-                    tempData = tempData + '<i class="glyphicon glyphicon-backward"></i>';
-                    tempData = tempData + '</button>';
-                    tempData = tempData + '<button id="playButton">';
-                    tempData = tempData + '<i class="glyphicon glyphicon-play"></i>';
-                    tempData = tempData + '<i class="glyphicon glyphicon-pause"></i>';
-                    tempData = tempData + '</button>';
-                    tempData = tempData + '<button id="playmusic-next">';
-                    tempData = tempData + '<i class="glyphicon glyphicon-forward"></i>';
-                    tempData = tempData + '</button>';
-                    tempData = tempData + '<button id="loopButton">';
-                    tempData = tempData + '<i class="glyphicon glyphicon-repeat"></i>';
-                    tempData = tempData + '</button>';
-                    tempData = tempData + '<div id="volume">';
-                    tempData = tempData + '<button id="volumeButton">';
-                    tempData = tempData + '<i class="glyphicon glyphicon-volume-down"></i>';
-                    tempData = tempData + '<i class="glyphicon glyphicon-volume-up"></i>';
-                    tempData = tempData + '<i class="glyphicon glyphicon-volume-off"></i>';
-                    tempData = tempData + '</button>';
-                    tempData = tempData + '<progress id="volumeProBar" value="100" max="100"></progress>';
-                    tempData = tempData + '</div>';
-                    tempData = tempData + '</div>';
-
-                    document.getElementById("all-tagMusicBottom").innerHTML = tempData;
-
-                    document.getElementById("clickChangeMusicHide").click();
-                    document.getElementById("playButton").click();
-                } else {
-                    alert("unsuccess");
-                }
-
-            }
-        });
-    });
 });
 
 // #endregion

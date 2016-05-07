@@ -11,39 +11,16 @@ namespace WebMusic.Controllers
     {
 
         MusicEntities db = new MusicEntities();
-        Mathh math = new Mathh();
 
-        // GET: User
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public PartialViewResult Register()
-        {
-            return PartialView();
-        }
-
-        [HttpPost]
         public JsonResult Register(USER us)
         {
 
             db.USERs.Add(us);
             db.SaveChanges();
 
-            //Đoạn mã thêm mới USER vào cơ sở dữ liệu
-            return Json("Thêm mới thành công");
+            return Json("true");
         }
 
-
-        [HttpGet]
-        public PartialViewResult Login()
-        {
-            return PartialView();
-        }
-
-        [HttpPost]
         public JsonResult Login(UserLogin userTemp)
         {
             USER user = db.USERs.Where(x => x.EMAIL == userTemp.email && x.PASSWORD == userTemp.password).FirstOrDefault();
@@ -60,7 +37,7 @@ namespace WebMusic.Controllers
                 Session["TotalMoney"] = 0;
 
                 List<HISTORY_USER> hisUser = db.HISTORY_USER.Where(p => p.ID_USER == user.ID).OrderBy(p=>p.RANK).ToList();
-                if (hisUser != null)
+                if (hisUser.Count > 0)
                 {
                     //set value to temp and set distance_near for item laster is max value int16
                     int temp = 29;
@@ -124,6 +101,16 @@ namespace WebMusic.Controllers
                 return Json(user.FIRSTNAME + ' ' + user.LASTNAME);  //dang nhap thanh cong
             }
             return Json("");  //dang nhap khong thanh cong
+        }
+
+        public JsonResult checkEmail(string email)
+        {
+            var temp = db.USERs.Where(p => p.EMAIL == email).FirstOrDefault();
+            if (temp != null)
+            {
+                return Json("0");
+            }
+            return Json("1");
         }
     }
 }

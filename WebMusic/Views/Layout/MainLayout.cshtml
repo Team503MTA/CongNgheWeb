@@ -55,9 +55,65 @@
         </nav>
     </header>
 
-    @Html.Action("Login", "User")
+    <div id="login-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="login-title">
+                        <h1>Login</h1>
+                    </div>
+                    <input type="text" placeholder="Email" name="userEmail" class="form-element" id="email-form" />
+                    <input type="password" placeholder="Password" name="userPassword" class="form-element" id="password-form" />
+                    <div class="remember-user">
+                        <input type="checkbox" id="remember-me" value="Forget password">
+                        <label for="remember-me">Remember me</label>
+                    </div>
 
-    @Html.Action("Register", "User")
+                    <div class="login-form-button-group">
+                        <input type="button" id="button-me-login" class="button-me" value="Login" onclick="login_Fun(null,null)">
+                        <input type="button" id="button-me-cancel" class="button-me" value="Cancel">
+                    </div>
+
+                    <p id="fogotten-password">
+                        <a href="#">Fogotten Password</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="register-form" id="register-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <h1>Register</h1>
+                    <hr />
+
+                    <div id="register-form-name">
+                        <input type="text" placeholder="First Name*" id="register-firstname" onkeyup="checkInput('register-firstname')" />
+                        <input type="text" placeholder="Last Name*" id="register-lastname" onkeyup="checkInput('register-lastname')" />
+                    </div>
+
+                    <div class="register-form-email">
+                        <input type="email" id="register-email" placeholder="Email*" />
+                    </div>
+
+                    <div id="register-form-password">
+                        <input type="password" id="register-password" placeholder="Password*"/>
+                    </div>
+
+                    <div id="register-form-rePassword">
+                        <input type="password" id="register-rePassword" placeholder="Re-Password*" />
+                    </div>
+
+                    <div class="register-form-button">
+                        <button id="register-form-button-register" onclick="register_Fun()" >Register</button>
+                        <button id="register-form-button-cancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="extra"></div>
 
@@ -66,8 +122,7 @@
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
                 <div id="notiForm">vuhoangha</div>
-                <button id="closeNotiForm">OK</button>
-                <div id="clickChangeMusicHide" style="display: none;"></div>
+                <button id="closeNotiForm" onclick="close_NotiForm()">OK</button>
             </div>
         </div>
     </div>
@@ -87,7 +142,7 @@
                         <li><a href="#">SOUNDS</a></li>
                         <li id="input-form-search">
                             <form class="form-search" id="input-form-search-child">
-                                <input type="text" placeholder="Search" id="main-search-input" onkeyup="keyupInputSearch()">
+                                <input type="text" placeholder="Search" id="main-search-input">
                                 <button type="button" id="searchButtonSubmit"><i class="glyphicon glyphicon-search"></i></button>
                             </form>
                         </li>
@@ -105,7 +160,10 @@
     </div>
 </div>
 
-    <div id="show-search">
+<div id="show-search">
+</div>
+
+    <div id="loadProgress" class="endLoad" style="position: fixed; top: 0; left: 0; background: #f00; height: 2px; display: inline-block;">
     </div>
 
 <div id="genres-wrap">
@@ -279,10 +337,6 @@
     </div>
 
     <div class="tag-playmusic" id="all-tagMusicBottom">
-        <audio id="myTune" controls>
-            <source src="~/music/10.mp3">
-        </audio>
-
         <div class="playmusic-info" id="all-playmusic-change">
             <div class="imgPlayMusic">
                 <img src="~/IMG/Track/Alesso/iwantseeyourwith.jpg" />
@@ -317,9 +371,12 @@
                     <i class="glyphicon glyphicon-volume-up"></i>
                     <i class="glyphicon glyphicon-volume-off"></i>
                 </button>
-                <progress id="volumeProBar" value="100" max="100" ></progress>
+                <progress id="volumeProBar" value="100" max="100"></progress>
             </div>
         </div>
+        <audio id="myTune" controls onloadedmetadata ="audioLoad()">
+            <source src="~/music/10.mp3">
+        </audio>
     </div>
 
 
@@ -327,6 +384,9 @@
 <script type="text/javascript">
 
     function searchTrackAllView() {
+        document.getElementById("loadProgress").classList.remove('endLoad');
+        document.getElementById("loadProgress").className += 'loadingProgress';
+        
         $.ajax({
             url: '@Url.Action("searchTrachAll", "Search")',
             dataType: 'json',
@@ -340,11 +400,16 @@
                 document.getElementById("search-tracks-page").innerHTML = data;
                 document.getElementById("search-tracks-page").style.overflowX = 'scroll';
                 document.getElementById("trackSearchViewAll").style.display = 'none';
+
+                document.getElementById("loadProgress").classList.remove('loadingProgress');
+                document.getElementById("loadProgress").className += 'endLoad';
             }
         });
     }
 
     function searchRemixAllView() {
+        document.getElementById("loadProgress").classList.remove('endLoad');
+        document.getElementById("loadProgress").className += 'loadingProgress';
         $.ajax({
             url: '@Url.Action("searchTotalAll", "Search")',
             dataType: 'json',
@@ -371,6 +436,9 @@
                     $(this).find(".detail-song-track-total-col-play button").css("text-shadow", "0 0 0 transparent");
                     $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,0.5)");
                 });
+
+                document.getElementById("loadProgress").classList.remove('loadingProgress');
+                document.getElementById("loadProgress").className += 'endLoad';
             }
         });
     }
@@ -422,7 +490,9 @@
             $("#show-search").hide();
         });
 
-        $("#searchButtonSubmit").click(function() {
+        $("#searchButtonSubmit").click(function () {
+            document.getElementById("loadProgress").classList.remove('endLoad');
+            document.getElementById("loadProgress").className += 'loadingProgress';
             $("#show-search").hide();
             $.ajax({
                 url: '@Url.Action("SearchPage", "Search")',
@@ -450,6 +520,8 @@
                             $(this).find(".detail-song-track-total-col-cost button").css("background-color", "rgba(240,70,110,0.5)");
                         });
 
+                        document.getElementById("loadProgress").classList.remove('loadingProgress');
+                        document.getElementById("loadProgress").className += 'endLoad';
                     } else {
                         alert("unsuccess");
                     }
@@ -462,9 +534,55 @@
 
     @* xu ly phan xem chi tiet Track *@
 <script type="text/javascript">
-    
+
+    function clickAllPlayMusic(id , type) {
+        $.ajax({
+            url: '@Url.Action("GetMusic", "PlayMusic")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                id: id,
+                type : type
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data !== '') {
+                    document.getElementById("all-tagMusicBottom").innerHTML = '';
+                    document.getElementById("all-tagMusicBottom").innerHTML = data;
+
+                } else {
+                    alert("unsuccess");
+                }
+            }
+        });
+    }
+
+    function clickPlayMusicDetail(id, type) {
+        $.ajax({
+            url: '@Url.Action("GetMusic", "PlayMusic")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                id: id,
+                type: type
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data !== '') {
+                    checkDetailPage_fun();
+                    document.getElementById("all-tagMusicBottom").innerHTML = '';
+                    document.getElementById("all-tagMusicBottom").innerHTML = data;
+                } else {
+                    alert("unsuccess");
+                }
+            }
+        });
+    }
+
     //show Page Detail
     function ViewDetailTrackAll_fun(id) {
+        document.getElementById("loadProgress").classList.remove('endLoad');
+        document.getElementById("loadProgress").className += 'loadingProgress';
         $.ajax({
             url: '@Url.Action("AllIndex", "Track")',
             dataType: 'json',
@@ -476,6 +594,9 @@
             success: function(data) {
                 document.getElementById("MainContent").innerHTML = '';
                 document.getElementById("MainContent").innerHTML = data;
+
+                document.getElementById("loadProgress").classList.remove('loadingProgress');
+                document.getElementById("loadProgress").className += 'endLoad';
             }
         });
     }
@@ -519,6 +640,85 @@
         });
     });
 
+</script>
+
+    @* Script xu ly phan User *@
+<script type="text/javascript">
+
+    var isRegister = false;
+    //check validation
+    function checkInput(name) {
+        document.getElementById(name).style.outline = "none";
+        if (document.getElementById(name).value === null || document.getElementById(name).value === "") {
+            isRegister = false;
+            document.getElementById(name).style.borderColor = "red";
+        } else {
+            isRegister = true;
+            document.getElementById(name).style.borderColor = "#5f0";
+        }
+    }
+    
+
+    function register_Fun() {
+        $.ajax({
+            url: '@Url.Action("Register", "User")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                FIRSTNAME: $("#register-firstname").val(),
+                PASSWORD: $("#register-password").val(),
+                EMAIL: $("#register-email").val(),
+                LEVEL_: 1,
+                LASTNAME: $("#register-lastname").val()
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                login_Fun($("#register-email").val(), $("#register-password").val());
+
+                noti_Fun("Register Successful");
+                $(".register-form").hide();
+                $(".extra").hide();
+            },
+            error: function(xhr) {
+                alert("loi roi");
+            }
+        });
+    }
+
+    function login_Fun(email, password) {
+        var _email, _password;
+        if (!email || !password) {
+            _email = $("#email-form").val();
+            _password = $("#password-form").val();
+        } else {
+            _email = email;
+            _password = password;
+        }
+
+        $.ajax({
+            url: '@Url.Action("Login","User")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                email: _email,
+                password: _password
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data !== '') {
+                    $("#login-form").hide();
+                    $(".extra").hide();
+                    $("#login-button").hide();
+                    $("#register-button").hide();
+                    $("#userName_Menu").text(data);
+                    $("#total_Debt_Menu").text("$0");
+                    $("#cartMenu").show();
+                } else {
+                    alert("unsuccess");
+                }
+            }
+        });
+    }
 </script>
 
 <script src="~/Scripts/MainLayout_JS/main-layout.js"></script>
