@@ -4,7 +4,7 @@
     Layout = "~/Views/Layout/ChartStemLayout.cshtml";
 }
 
-<link href="~/Content/Css/charts.css" rel="stylesheet" />
+<link href="~/Content/MainLayout_CSS/charts.css" rel="stylesheet" />
 <div class="content">
     <div class="container">
         <div class="row">
@@ -31,12 +31,12 @@
                     @Html.Action("NewChartsPartial", "Charts");
                 </div>
                 <div class="col-xs-4">
-                    @Html.Action("ChartsGenrePArtial", "Charts");
+                    @Html.Action("ChartsGenrePartial", "Charts");
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="~/Content/Javascript/chart.js"></script>
+<script src="~/Scripts/MainLayout_JS/chart.js"></script>
 
 

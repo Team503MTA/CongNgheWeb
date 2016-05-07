@@ -1,4 +1,4 @@
-﻿@model List<MusicWeb.Model.STEM>
+﻿@model List<WebMusic.Models.STEM>
 <div class="stem-detail">
     <div class="stem-title">
         <h3>@ViewBag.quantum STEMS TOTAL</h3>
@@ -21,7 +21,7 @@
                 i++;
                 <div class="stem">
                     <div class="div-stem-img">
-                        <img src="@Url.Content("~/Image/stems/"+@item.LINK_IMG)" alt="">
+                        <img src="@Url.Content("~/IMG/stems/"+@item.LINK_IMG)" alt="">
                     </div>
                     <div class="div-stem-number">
                         <span>@i</span>

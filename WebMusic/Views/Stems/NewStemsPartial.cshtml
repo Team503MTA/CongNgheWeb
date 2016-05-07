@@ -1,4 +1,4 @@
-﻿@model List<MusicWeb.Model.STEMS>
+﻿@model List<WebMusic.Models.STEM1>
 
 <div class="new-stems-div">
     <ul class="new-stems-div-ul">
@@ -7,7 +7,7 @@
             foreach (var item in Model)
             {
                 <li>
-                    <a href="@Url.Action("Index", "StemsDetail", new {@id = @item.STEMS_ID})"><img src="@Url.Content("~/Image/stems/" + @item.IMG)" alt=""></a>
+                    <a href="@Url.Action("Index", "StemsDetail", new {@id = @item.STEMS_ID})"><img src="@Url.Content("~/IMG/stems/" + @item.IMG)" alt=""></a>
                     <a class="new-stems-name link-decorate" href="#">@item.NAME</a>
                     <div class="art" style="width: 100%;display: inline-block; white-space: nowrap;overflow: hidden">
                         @{

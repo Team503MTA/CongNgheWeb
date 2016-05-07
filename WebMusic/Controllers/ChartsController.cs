@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using WebMusic.Models;
 
-namespace MusicWeb.Controllers
+namespace WebMusic.Controllers
 {
     public class ChartsController : Controller
     {
