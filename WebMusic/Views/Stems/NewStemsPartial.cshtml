@@ -4,10 +4,10 @@
     <ul class="new-stems-div-ul">
         @{
             var count = 0;
-            foreach (var item in Model)
+            for (var i = 0; i < Model.Count; i++)
             {
                 <li>
-                    <a href="@Url.Action("Index", "StemsDetail", new {@id = @item.STEMS_ID})"><img src="@Url.Content("~/IMG/stems/" + @item.IMG)" alt=""></a>
+                    <span id="newstem-detail-link" onclick="ChartDetail(@Model.ElementAt(i).ID"><img src="@Url.Content("~/IMG/stems/" + @item.IMG)" alt=""></span>
                     <a class="new-stems-name link-decorate" href="#">@item.NAME</a>
                     <div class="art" style="width: 100%;display: inline-block; white-space: nowrap;overflow: hidden">
                         @{
@@ -25,3 +25,21 @@
 
     </ul>
 </div>
+
+               <script type="text/javascript">
+    function ChartDetail(id) {
+        $.ajax({
+            url: '@Url.Action("Index", "StemsDetail")',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify({
+                id: id
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                document.getElementById("contentWrap").innerHTML = '';
+                document.getElementById("contentWrap").innerHTML = data;
+            }
+        });
+    }
+               </script>

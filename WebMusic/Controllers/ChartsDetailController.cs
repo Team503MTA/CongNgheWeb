@@ -104,11 +104,11 @@ namespace MusicWeb.Controllers
             {
                 if (t[i].LINK_IMG == null)
                 {
-                    t[i].LINK_IMG = "blank_artist.png";
+                    t[i].LINK_IMG = "/IMG/blank_artist.png";
                 }
-                int sss = t[i].ID;
-                tempArtist = db.TRACK_ARTIST.Where(p => p.ID_TRACK == sss).Select(p => p.NAME_ARTIST).ToList();
-                tempLabel = db.TRACK_ARTIST.Where(p => p.ID_TRACK == sss).Select(p => p.NAME_LABEL).ToList();
+                int temp = t[i].ID;
+                tempArtist = db.TRACK_ARTIST.Where(p => p.ID_TRACK == temp).Select(p => p.NAME_ARTIST).ToList();
+                tempLabel = db.TRACK_ARTIST.Where(p => p.ID_TRACK == temp).Select(p => p.NAME_LABEL).ToList();
 
                 sb.Append("<div class='tracks'>");
                 sb.Append("<div class='div-tracks-img'>");
